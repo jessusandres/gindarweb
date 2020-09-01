@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "gindarperu"
+    }
+  },
+  "defaultProject": "gindarperu",
+  "cli": {
+    "analytics": "0caa1f3e-22af-4546-903e-81edcbc5c2df"
+  }
 }
