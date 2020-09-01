@@ -1,22 +1,22 @@
 /*FONTS*/
 @font-face {
     font-family: 'simplificasimplifica';
-    src: url('font/simplifica_typeface-webfont.woff2') format('woff2'),
-        url('font/simplifica_typeface-webfont.woff') format('woff');
+    src: url('../font/simplifica/simplifica_typeface-webfont.woff2') format('woff2'),
+        url('../font/simplifica/simplifica_typeface-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'enhanced_dot_digital-7regular';
-    src: url('font/enhanced_dot_digital-7-webfont.woff2') format('woff2'),
-        url('font/enhanced_dot_digital-7-webfont.woff') format('woff');
+    src: url('../font/dot-digital/enhanced_dot_digital-7-webfont.woff2') format('woff2'),
+        url('../font/dot-digital/enhanced_dot_digital-7-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'open_sansbold';
-    src: url('font/opensans-bold-webfont.woff2') format('woff2'),
-        url('font/opensans-bold-webfont.woff') format('woff');
+    src: url('../font/open-sans/opensans-bold-webfont.woff2') format('woff2'),
+        url('../font/open-sans/opensans-bold-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -24,46 +24,46 @@
 
 @font-face {
     font-family: 'open_sanslight';
-    src: url('font/opensans-light-webfont.woff2') format('woff2'),
-        url('font/opensans-light-webfont.woff') format('woff');
+    src: url('../font/open-sans/opensans-light-webfont.woff2') format('woff2'),
+        url('../font/open-sans/opensans-light-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'open_sansregular';
-    src: url('font/opensans-regular-webfont.woff2') format('woff2'),
-        url('font/opensans-regular-webfont.woff') format('woff');
+    src: url('../font/open-sans/opensans-regular-webfont.woff2') format('woff2'),
+        url('../font/open-sans/opensans-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'times_new_roman_georgianRg';
-    src: url('font/tmsgeo-webfont.woff2') format('woff2'),
-        url('font/tmsgeo-webfont.woff') format('woff');
+    src: url('../font/Times-new-roman/tmsgeo-webfont.woff2') format('woff2'),
+        url('../font/Times-new-roman/tmsgeo-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
 }
 @font-face {
     font-family: 'cormorant_garamondlight';
-    src: url('font/cormorantgaramond-light-webfont.woff2') format('woff2'),
-        url('font/cormorantgaramond-light-webfont.woff') format('woff');
+    src: url('../font/CormorantGaramond/cormorantgaramond-light-webfont.woff2') format('woff2'),
+        url('../font/CormorantGaramond/cormorantgaramond-light-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'cormorant_garamondmedium';
-    src: url('font/cormorantgaramond-medium-webfont.woff2') format('woff2'),
-        url('font/cormorantgaramond-medium-webfont.woff') format('woff');
+    src: url('../font/CormorantGaramond/cormorantgaramond-medium-webfont.woff2') format('woff2'),
+        url('../font/CormorantGaramond/cormorantgaramond-medium-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'cormorant_garamondregular';
-    src: url('font/cormorantgaramond-regular-webfont.woff2') format('woff2'),
-        url('font/cormorantgaramond-regular-webfont.woff') format('woff');
+    src: url('../font/CormorantGaramond/cormorantgaramond-regular-webfont.woff2') format('woff2'),
+        url('../font/CormorantGaramond/cormorantgaramond-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -789,7 +789,7 @@ body::-webkit-scrollbar-thumb:active {
     content: none;
 }
 .bc-icons-2 .breadcrumb-item.active {
-    color: #455a64; 
+    color: #455a64;
 }
 /*MARQUESILLA*/
 .pd-anuncio-0 {
@@ -1624,7 +1624,7 @@ textArea{
         padding-left: 5px !important;
         padding-right: 5px !important;
     }
-    .pd-xss-pagar .tab-content-pt-ms{ 
+    .pd-xss-pagar .tab-content-pt-ms{
         padding-left: 5px !important;
         padding-right: 5px !important;
     }

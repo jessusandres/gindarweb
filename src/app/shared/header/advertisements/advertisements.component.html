@@ -1,0 +1,24 @@
+<div>
+  <div class="alert gindar-blue-bg fixed-anuncio z-depth-1-half mb-0 fade show " role="alert">
+    <div class="container text-center pd-xs-anuncio">
+      <div id="carousel-anuncio" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+<!--          <app-carousel-item *ngFor="let adv of advertisements; index as ind" [advertisementText]="adv.advertisement" [active]="ind===0"> </app-carousel-item>-->
+          <div *ngFor="let adv of advertisements; index as ind"  class="carousel-item" [ngClass]="{'active': ind === 0}">
+            <div class="view">
+              <div class="pt-marque pb-0 d-block w-100"></div>
+              <!--COLOR-->
+              <div class="mask gindar-blue-bg"></div>
+            </div>
+            <div class="carousel-caption p0-marquesilla">
+              <p class="font-weight-bolder font-simplifica white-text mb-0 line-h0">{{adv.advertisement}}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

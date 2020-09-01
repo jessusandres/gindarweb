@@ -8,23 +8,32 @@ import {environment} from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import {AppReducer} from './store/app.reducer';
 import {AuthEffectts} from './store/effects/auth.effectts';
-import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { NotpagefoundComponent } from './notpagefound/notpagefound/notpagefound.component';
+import {SharedModule} from './shared/shared.module';
+import {PagesModule} from './pages/pages.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotpagefoundComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     StoreModule.forRoot(AppReducer),
     EffectsModule.forRoot([AuthEffectts]),
     environment.storeDevTools,
-    FormsModule
+    FormsModule,
+    SharedModule,
+    PagesModule
   ],
   providers: [],
+  exports: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
