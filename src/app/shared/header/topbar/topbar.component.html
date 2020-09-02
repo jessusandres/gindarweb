@@ -1,40 +1,40 @@
-<div>
-  <nav class="navbar navbar-expand-lg navbar-light white b-shadow bd-nav-center z-index-nav-center scrolling-navbar">
-    <div class="container">
-      <div class="row w-100 d-flex mg-letf-navbar-center">
-        <div class="col-8 col-sm-6 col-md-6 col-lg-4 col-xl-4 align-self-center pd-xs-cero-col">
-          <form action="BusquedaDeProducto" method="POST" class="form-inline pd-input-nabvar1" autocomplete="off">
-            <div class=" my-0 w-100">
-              <input id="busqueda" type="text" name="descripcion" class="auto form-control mr-sm-2 my-0 form-control-search-width form-control-sm" placeholder="Buscar producto..." aria-label="Search">
-            </div>
-          </form>
-        </div>
-        <div class="col-lg-4 col-xl-4 logo-img-main text-center visible-ms">
-          <a routerLink="/home">
-            <img class="scrolling-navbar" src="./assets/img/logo.png" alt="Gindar">
-          </a>
-        </div>
-        <div class="col-4 col-sm-6 col-md-6 col-lg-4 col-xl-4 align-self-center d-flex justify-content-end car-login pd-xs-cero-col">
-          <!--<ul class="list-unstyled list-inline mb-0 gd-color-text font-simplif-logincart mr-auto">-->
-          <!--<li class="list-inline-item">-->
-          <a href="javascript:void(0)">
+<nav class="navbar navbar-expand-lg navbar-light white b-shadow bd-nav-center z-index-nav-center scrolling-navbar">
+  <div class="container">
+    <div class="row w-100 d-flex mg-letf-navbar-center">
+      <div class="col-8 col-sm-6 col-md-6 col-lg-4 col-xl-4 align-self-center pd-xs-cero-col">
+        <form action="BusquedaDeProducto" method="POST" class="form-inline pd-input-nabvar1" autocomplete="off">
+          <div class=" my-0 w-100">
+            <input id="busqueda" type="text" name="descripcion"
+                   class="auto form-control mr-sm-2 my-0 form-control-search-width form-control-sm"
+                   placeholder="Buscar producto..." aria-label="Search">
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-4 col-xl-4 logo-img-main text-center visible-ms">
+        <a routerLink="/">
+          <img class="scrolling-navbar" src="./assets/img/logo.png" alt="Gindar">
+        </a>
+      </div>
+      <div
+        class="col-4 col-sm-6 col-md-6 col-lg-4 col-xl-4 align-self-center d-flex justify-content-end car-login pd-xs-cero-col">
+        <a href="javascript:void(0)">
           <div class="text-pimp pd-car-ms">
             <i class="fas fa-shopping-cart"></i>
           </div>
           <span id="ordenes" class="counter-car caract-count-car">0</span>
-<!--          <input id="carrito_cantidad" value="0" hidden>-->
-          </a>
+        </a>
 
-          <a *ngIf="!isAuthenticated" href="#" data-toggle="modal" data-target="#modalLR">
-            <i class="far fa-user"></i> <span class="visible-ms font-OpenSans-regular">Login</span>
-          </a>
+        <a *ngIf="!isAuthenticated" href="#" data-toggle="modal" data-target="#modalLR">
+          <i class="far fa-user"></i> <span class="visible-ms font-OpenSans-regular"> Login</span>
+        </a>
 
-          <a *ngIf="isAuthenticated" href="#">
-            <i class="fas fa-power-off"></i> <span class="visible-ms font-OpenSans-regular">Cerrar Sesi&oacute;n</span>
-          </a>
+        <a *ngIf="isAuthenticated" href="#">
+          <i class="fas fa-power-off"></i> <span class="visible-ms font-OpenSans-regular">Cerrar Sesi&oacute;n</span>
+        </a>
 
-        </div>
       </div>
     </div>
-  </nav>
-</div>
+  </div>
+</nav>
+
+

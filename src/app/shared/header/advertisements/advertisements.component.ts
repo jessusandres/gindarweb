@@ -14,10 +14,22 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.genericDataService.getAdvertisements()
-      .subscribe((advertisements) => {
-        this.advertisements = advertisements;
-      });
+    // this.genericDataService.getAdvertisements()
+    //   .subscribe((advertisements) => {
+    //     this.advertisements = advertisements;
+    //   });
+    const advertisements = {
+      ok: true,
+      advertisements: [
+        {
+          advertisement: 'Tenemos un regalo para ti! Usa este código para obtener un 10% de descuento.'
+        },
+        {
+          advertisement: 'Marquesina de pruebas actualizado.'
+        }
+      ]
+    };
+    this.advertisements = advertisements.advertisements;
   }
 
 }

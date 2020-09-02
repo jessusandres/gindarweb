@@ -7,7 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import {environment} from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import {AppReducer} from './store/app.reducer';
-import {AuthEffectts} from './store/effects/auth.effectts';
+import {AuthEffects} from './store/effects/auth.effects';
 import {FormsModule} from '@angular/forms';
 import { NotpagefoundComponent } from './notpagefound/notpagefound/notpagefound.component';
 import {SharedModule} from './shared/shared.module';
@@ -23,7 +23,7 @@ import {PagesModule} from './pages/pages.module';
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(AppReducer),
-    EffectsModule.forRoot([AuthEffectts]),
+    EffectsModule.forRoot([AuthEffects]),
     environment.storeDevTools,
     FormsModule,
     SharedModule,

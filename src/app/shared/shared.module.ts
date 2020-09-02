@@ -4,10 +4,12 @@ import {AdvertisementsComponent} from './header/advertisements/advertisements.co
 import {NavbarComponent} from './header/navbar/navbar.component';
 import {HeaderComponent} from './header/header.component';
 import { TopbarComponent } from './header/topbar/topbar.component';
-import { CarouselItemComponent } from './header/advertisements/carousel-item/carousel-item.component';
 import { FooterComponent } from './footer/footer.component';
 import {RouterModule} from '@angular/router';
 import {CategoriesFilterPipe} from '../pipes/categories-filter.pipe';
+import { LoginModalComponent } from './modals/login-modal/login-modal.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 @NgModule({
   declarations: [
@@ -15,13 +17,16 @@ import {CategoriesFilterPipe} from '../pipes/categories-filter.pipe';
     NavbarComponent,
     HeaderComponent,
     TopbarComponent,
-    CarouselItemComponent,
     FooterComponent,
-    CategoriesFilterPipe
+    CategoriesFilterPipe,
+    LoginModalComponent,
+    BreadcrumbsComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     HeaderComponent,
@@ -29,7 +34,8 @@ import {CategoriesFilterPipe} from '../pipes/categories-filter.pipe';
     TopbarComponent,
     NavbarComponent,
     FooterComponent,
-    CategoriesFilterPipe
+    CategoriesFilterPipe,
+    BreadcrumbsComponent
   ]
 })
 export class SharedModule {

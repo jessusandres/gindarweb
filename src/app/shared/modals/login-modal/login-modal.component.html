@@ -1,0 +1,40 @@
+
+<!--MODAL: LOGIN / INVITADO -->
+<div class="modal fade" id="modalLR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-c-tabs">
+        <ul class="nav nav-tabs md-tabs tabs-2 tab-gindar" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active font-OpenSans-regular" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user mr-1"></i>
+              LOGIN</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+            <form [formGroup]="loginForm" (ngSubmit)="login()" method="POST" autocomplete="off">
+              <div class="modal-body mb-1">
+                <div class="md-form form-sm mb-5">
+                  <i class="fa fa-user prefix"></i>
+                  <input formControlName="name" type="text" name="nick" id="user_nick" class="form-control form-control-sm validate" required>
+                  <label data-error="error" data-success="correcto" for="user_nick">Nombre</label>
+                </div>
+                <div class="md-form form-sm mb-2">
+                  <i class="fa fa-lock prefix"></i>
+                  <input formControlName="password" type="password" name="pass" id="user_pass" class="form-control form-control-sm validate mb-4" required>
+                  <label data-error="error" data-success="correcto" for="user_pass">Contraseña</label>
+                </div>
+                <div class="mb-4">
+                  <p class="font-small dark-grey-text d-flex justify-content-end font-weight-light">¿No es un miembro?<a href="registro" class="blue-text ml-1 font-weight-bold">Reg&iacute;strate aqu&iacute;</a></p>
+                </div>
+                <div class="text-center mt-2">
+                  <button type="submit" class="btn btn-outline-primary waves-effect">INGRESAR <i class="fa fa-sign-in ml-1"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

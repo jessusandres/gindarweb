@@ -7,7 +7,7 @@
 <!-- FIN WHATSAPP -->
 
 <!--FOOTER-->
-<footer class="page-footer font-small gindar-blue-bg">
+<footer class="page-footer font-small gindar-blue-bg animated fadeIn">
   <div class="bg-footer-suscrip wow fadeIn">
     <div class="container">
       <div class="row py-4 d-flex align-items-center">
@@ -18,7 +18,7 @@
           <form class="input-group">
             <input id="suscripcion" type="text" class="form-control  input-suscrip z-index-suscrip font-OpenSans-regular" placeholder="Correo Electrónico" aria-label="Tu imail" aria-describedby="basic-addon2">
             <div class="input-group-append">
-              <button class="btn btn-sm btn-outline-white my-0 z-index-suscrip font-OpenSans-regular" type="button" onclick="Suscripcion();">SUSCR&Iacute;BETE</button>
+              <button class="btn btn-sm btn-outline-white my-0 z-index-suscrip font-OpenSans-regular" type="button" (click)="gindarSubscription()">SUSCR&Iacute;BETE</button>
             </div>
           </form>
         </div>
@@ -48,16 +48,16 @@
         <h6 class="text-uppercase font-OpenSans-bold wow fadeIn">INFORMACI&Oacute;N</h6>
         <hr class="deep-purple accent-ms mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
         <p class="wow fadeIn font-OpenSans-light">
-          <a href="Nosotros">Sobre nosotros</a>
+          <a routerLink="nosotros">Sobre nosotros</a>
         </p>
         <!--                <p class="wow fadeIn font-OpenSans-light">
                             <a href="LibroDeReclamaciones">Libro de Reclamaciones</a>
                         </p>-->
         <p class="wow fadeIn font-OpenSans-light">
-          <a href="Politicas">Pol&iacute;tica de privacidad</a>
+          <a routerLink="privacidad">Pol&iacute;tica de privacidad</a>
         </p>
         <p class="wow fadeIn font-OpenSans-light">
-          <a href="Devoluciones">Pol&iacute;tica de devoluci&oacute;n</a>
+          <a routerLink="devoluciones">Pol&iacute;tica de devoluci&oacute;n</a>
         </p>
       </div>
       <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
@@ -66,7 +66,7 @@
         <p class="wow fadeIn font-OpenSans-light">
           <i class="fas fa-home mr-3"></i> San Jos&eacute; 714 y Alfredo Lapoint 808 - Chiclayo
         </p>
-        <a href="#" class="d-block mb-4 wow fadeIn font-OpenSans-light">
+        <a href="javascript:void(0)" class="d-block mb-4 wow fadeIn font-OpenSans-light">
           <i class="fas fa-envelope mr-3"></i> informes@gindarperu.com
         </a>
         <a href="tel:966518615" class="d-block mb-3 wow fadeIn font-OpenSans-light">
@@ -80,6 +80,8 @@
   </div>
   <div class="footer-copyright text-center py-3 font-OpenSans-light">
     © 2019 Copyright - Todos los derechos reservados
-    <a href="https://www.gindarperu.com"> www.gindarperu.com</a>.
+    <a href="/"> www.gindarperu.com</a>.
   </div>
 </footer>
+
+<app-login-modal></app-login-modal>

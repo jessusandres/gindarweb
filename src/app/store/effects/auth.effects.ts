@@ -4,11 +4,11 @@ import {AuthService} from '../../services/auth.service';
 import {AuthTypes, LoginFailureAction, LoginSuccessAction} from '../actions/auth.actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {UserModel} from '../../models/model-actions/user.model';
-import {Observable, of} from 'rxjs';
+import {of} from 'rxjs';
 
 
 @Injectable()
-export class AuthEffectts {
+export class AuthEffects {
   constructor(private actions$: Actions,
               public authService: AuthService) {
   }

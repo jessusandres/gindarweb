@@ -1,22 +1,19 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 
-declare function mdbMinPlugin(): any;
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    mdbMinPlugin();
   }
 
 }

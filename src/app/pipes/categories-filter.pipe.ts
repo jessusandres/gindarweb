@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {CategorieInterface} from '../interfaces/categories.response';
+import {CategorieInterface} from '../interfaces/categories.response.interface';
 
 @Pipe({
   name: 'categoriesFilter'
