@@ -1,8 +1,12 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from './store/app.reducer';
 import {LoginAction} from './store/actions/auth.actions';
 import {LogUserModel} from './models/model-actions/user.model';
+import {ActivatedRouteSnapshot, ActivationEnd, Router} from '@angular/router';
+import {filter, map} from 'rxjs/operators';
+import {HomeComponent} from './pages/home/home.component';
+import {SetPageAction} from './store/actions/ui.actions';
 
 declare function restPlugins(): any;
 
@@ -13,12 +17,12 @@ declare function mdbMinPlugin(): any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'gindarperu';
   email = 'jaccspanki@gmail.com';
   pass = 'promi$e1920';
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private router: Router) {
   }
 
 
@@ -34,7 +38,25 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     restPlugins();
-    mdbMinPlugin();
+    setTimeout(() => {
+      mdbMinPlugin();
+    }, 0);
+  }
+
+  ngOnInit(): void {
+
+    this.router.events
+      .pipe(
+        filter(event => event instanceof ActivationEnd),
+        filter((event: ActivationEnd) => event.snapshot.firstChild == null),
+        map((event: ActivationEnd) => event.snapshot)
+      )
+      .subscribe((data: ActivatedRouteSnapshot) => {
+        this.store.dispatch(new SetPageAction({
+          page: data.url.join('/'),
+          isExpanded: (data.component === HomeComponent)
+        }));
+      });
   }
 
 }

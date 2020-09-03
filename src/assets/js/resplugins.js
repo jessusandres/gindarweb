@@ -49,6 +49,7 @@ const restPlugins = () => {
     crolling: false
   });
 
+
   objectFitImages();
   /* init Jarallax */
   jarallax(document.querySelectorAll('.jarallax'));
@@ -221,4 +222,13 @@ const restPlugins = () => {
   // });
 
 
+}
+
+
+const detailPluging = () => {
+  $('.zoom-img_ms').zoom();
+  $('.carousel-pause').carousel(
+    {
+      interval: 900000
+    });
 }

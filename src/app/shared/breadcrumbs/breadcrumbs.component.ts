@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -8,13 +8,14 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class BreadcrumbsComponent implements OnInit {
   prevPages: string[] = [];
-  @Input() currentPage: string;
+  currentPage: string;
 
   constructor(private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.prevPages = this.activatedRoute.snapshot.data.prev;
+    this.prevPages = this.activatedRoute.snapshot.data.prev || [];
+    this.currentPage = this.activatedRoute.snapshot.data.page || 'Inicio';
   }
 
 }

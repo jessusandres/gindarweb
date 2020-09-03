@@ -1,0 +1,43 @@
+<app-breadcrumbs></app-breadcrumbs>
+
+<div class="container container-ms mt-4 animated fadeIn">
+  <div class="row">
+    <div class="col-12 col-md-3">
+      <h6 class="h6-responsive font-weight-bold">Filtros</h6>
+      <div class="">
+        <form autocomplete="off">
+          <select id="categoria" name="categoria" class="browser-default custom-select mb-2"
+                  onchange="">
+            <option value="" selected>Categor&iacute;a</option>
+          </select>
+          <select id="subcategoria" name="subcategoria" class="browser-default custom-select mb-2"
+                  onchange="">
+            <option value="" selected>Sub-Categor&iacute;a</option>
+          </select>
+          <select id="medida" name="medida" class="browser-default custom-select mb-2">
+            <option value="" selected>Talla</option>
+          </select>
+          <select id="marca" name="marca" class="browser-default custom-select mb-2">
+            <option value="" selected>Marca</option>
+          </select>
+          <select id="orden" name="orden" class="browser-default custom-select mb-2">
+            <option value="" selected>Ordenar por</option>
+          </select>
+          <button type="submit" class="btn btn-gindar btn-sm waves-effect waves-light float-right">FITRAR</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-9">
+      <h6 class="h6-responsive font-weight-bold">Productos</h6>
+      <div class="row">
+        <app-showcase-item class="col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss" *ngFor="let item of items">
+
+        </app-showcase-item>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+

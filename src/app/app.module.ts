@@ -12,11 +12,13 @@ import {FormsModule} from '@angular/forms';
 import { NotpagefoundComponent } from './notpagefound/notpagefound/notpagefound.component';
 import {SharedModule} from './shared/shared.module';
 import {PagesModule} from './pages/pages.module';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotpagefoundComponent,
+    RegisterComponent,
 
   ],
   imports: [

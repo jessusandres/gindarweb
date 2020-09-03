@@ -15,6 +15,11 @@ import {VideoItemComponent} from './home/video-item/video-item.component';
 import {GServicesComponent} from './home/g-services/g-services.component';
 import {AgmCoreModule} from '@agm/core';
 import {MAPS_API_KEY} from '../config/config';
+import { ShowcaseComponent } from './showcase/showcase.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
+import { ShowcaseItemComponent } from './showcase/showcase-item/showcase-item.component';
+import { ReleaseItemComponent } from './releases/release-item/release-item.component';
+import { PromotionItemComponent } from './promotions/promotion-item/promotion-item.component';
 
 
 @NgModule({
@@ -28,7 +33,12 @@ import {MAPS_API_KEY} from '../config/config';
     ReturnPolicyComponent,
     FeaturedProductComponent,
     VideoItemComponent,
-    GServicesComponent
+    GServicesComponent,
+    ShowcaseComponent,
+    ItemDetailComponent,
+    ShowcaseItemComponent,
+    ReleaseItemComponent,
+    PromotionItemComponent
   ],
   imports: [
     CommonModule,

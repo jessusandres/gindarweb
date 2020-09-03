@@ -7,21 +7,11 @@ import {PromotionsComponent} from './pages/promotions/promotions.component';
 import {ReleasesComponent} from './pages/releases/releases.component';
 import {ReturnPolicyComponent} from './pages/return-policy/return-policy.component';
 import {PrivacyPolicyComponent} from './pages/privacy-policy/privacy-policy.component';
+import {AppRoutes} from './app.routes';
 
-const routes: Routes = [
-  {path: '', component: HomeComponent, data: {prev: []}},
-  {path: 'home', component: HomeComponent, data: {prev: []}},
-  {path: 'inicio', component: HomeComponent, data: {prev: []}},
-  {path: 'nosotros', component: WePageComponent, data: {prev: ['Inicio']}},
-  {path: 'promociones', component: PromotionsComponent, data: {prev: ['Inicio']}},
-  {path: 'novedades', component: ReleasesComponent, data: {prev: ['Inicio']}},
-  {path: 'privacidad', component: PrivacyPolicyComponent, data: {prev: ['Inicio']}},
-  {path: 'devoluciones', component: ReturnPolicyComponent, data: {prev: ['Inicio']}},
-  {path: '**', pathMatch: 'full', component: NotpagefoundComponent},
-];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
+  imports: [RouterModule.forRoot(AppRoutes, {scrollPositionRestoration: 'enabled'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

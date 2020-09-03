@@ -1,8 +1,9 @@
-<div class="container container-ms">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb gindar-blue-bg lighten-4 font-OpenSans-light fs-li-a">
+<div class="mt-ms mt-xs-ms animated fadeIn">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb gindar-blue-bg lighten-4 font-OpenSans-light fs-li-a">
 
-      <li class="breadcrumb-item gindar-yellow-text li-fs" *ngFor="let prev of prevPages; index as ind">
+        <li class="breadcrumb-item gindar-yellow-text li-fs" *ngFor="let prev of prevPages; index as ind">
 
         <span>
           <span *ngIf="ind==0" class="gindar-yellow-text fa fa-home"> </span>
@@ -12,8 +13,10 @@
             class="fas fa-angle-double-right mx-2" aria-hidden="true"></i>
         </span>
 
-      </li>
-      <li class="breadcrumb-item gindar-yellow-text li-fs active"><span>{{currentPage}}</span></li>
-    </ol>
-  </nav>
+        </li>
+        <li class="breadcrumb-item gindar-yellow-text li-fs active"><span>{{currentPage}}</span></li>
+      </ol>
+    </nav>
+  </div>
 </div>
+

@@ -1,5 +1,12 @@
-<div class="container animated fadeIn fast">
+<app-breadcrumbs></app-breadcrumbs>
+
+
+<div class="container container-ms mt-4 animated fadeIn">
   <div class="row">
-    <h4>PROMOTIONS</h4>
+
+    <app-promotion-item
+      class="col-6 col-md-4 col-sm-6 col-lg-3 mb-3 d-flex pd-xss"
+      *ngFor="let promotion of promotions"></app-promotion-item>
+
   </div>
 </div>
