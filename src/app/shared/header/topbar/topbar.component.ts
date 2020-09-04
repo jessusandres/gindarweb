@@ -2,9 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/app.reducer';
 import {AuthState} from '../../../store/reducers/auth.reducer';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {UiState} from '../../../store/reducers/ui.reducer';
+import {ShowCaseState} from '../../../store/reducers/showcase.reducer';
 
 @Component({
   selector: 'app-topbar',
@@ -16,11 +17,14 @@ export class TopbarComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean;
   isExpanded: boolean;
 
+  query: string;
+
   // StoreSubscriptions
   uiSubscription: Subscription;
   authSubscription: Subscription;
+  showcaseSubscription: Subscription;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -38,6 +42,10 @@ export class TopbarComponent implements OnInit, OnDestroy {
       }
     );
 
+    this.showcaseSubscription = this.store.select('showcaseState').subscribe((showcaseState: ShowCaseState) => {
+      this.query = showcaseState.query;
+    });
+
   }
 
   ngOnDestroy(): void {
@@ -45,4 +53,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.uiSubscription.unsubscribe();
   }
 
+  search(query: string): void {
+    console.log(query);
+    this.router.navigate([`vitrina/buscar/${query}`]);
+  }
 }

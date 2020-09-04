@@ -29,7 +29,7 @@ export const CategoriesReducer = (state: CategoriesState = initialState, action:
       };
     }
     default: {
-      return state;
+      return {...state};
     }
   }
 };

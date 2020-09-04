@@ -8,7 +8,8 @@ export const environment = {
   production: false,
   storeDevTools: [
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: false})
-  ]
+  ],
+  baseUrl: `http://localhost:3000`
 };
 
 /*

@@ -10,6 +10,7 @@ import {CategoriesFilterPipe} from '../pipes/categories-filter.pipe';
 import { LoginModalComponent } from './modals/login-modal/login-modal.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { FilterBoxComponent } from './filter-box/filter-box.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     FooterComponent,
     CategoriesFilterPipe,
     LoginModalComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    FilterBoxComponent
   ],
   imports: [
     CommonModule,
@@ -28,15 +30,16 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  exports: [
-    HeaderComponent,
-    AdvertisementsComponent,
-    TopbarComponent,
-    NavbarComponent,
-    FooterComponent,
-    CategoriesFilterPipe,
-    BreadcrumbsComponent
-  ]
+    exports: [
+        HeaderComponent,
+        AdvertisementsComponent,
+        TopbarComponent,
+        NavbarComponent,
+        FooterComponent,
+        CategoriesFilterPipe,
+        BreadcrumbsComponent,
+        FilterBoxComponent
+    ]
 })
 export class SharedModule {
 }

@@ -21,7 +21,7 @@ export const UiReducer = (state: UiState = initialState, action: UiActions): UiS
       };
     }
     default: {
-      return state;
+      return {...state};
     }
   }
 };

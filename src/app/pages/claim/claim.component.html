@@ -1,0 +1,116 @@
+<app-breadcrumbs></app-breadcrumbs>
+
+<div class="container mt-4 animated fadeInUp">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <div class="animated fadeIn fast">
+        <h2 class="h2 mb-5">LIBRO DE RECLAMACIONES</h2>
+      </div>
+      <div class="card mb-5">
+        <div class="card-body">
+          <form>
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="md-form form-group">
+                  <input type="text" class="form-control" id="name">
+                  <label for="name">Nombre completo / Razón social</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <select class="browser-default custom-select md-form">
+                  <option selected>Tipo de Documento</option>
+                  <option value="1">DNI</option>
+                  <option value="2">RUC</option>
+                  <option value="3">N° Factura</option>
+                  <option value="4">N° Boleta</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6">
+                <!-- Material input -->
+                <div class="md-form form-group">
+                  <input type="text" class="form-control" id="document">
+                  <label for="document">N&uacute;mero de Documento</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form form-group">
+                  <input type="text" class="form-control" id="address">
+                  <label for="address">Direcci&oacute;n</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6">
+                <select class="browser-default custom-select md-form">
+                  <option selected>Elige País</option>
+                  <option value="1">Perú</option>
+                  <option value="2">Ecuador</option>
+                  <option value="3">Chile</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form form-group">
+                  <input type="text" class="form-control" id="departament">
+                  <label for="departament">Departamento</label>
+                </div>
+              </div>
+
+            </div>
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="md-form form-group">
+                  <input type="text" class="form-control" id="province">
+                  <label for="province">Provincia</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form form-group">
+                  <input type="text" class="form-control" id="district">
+                  <label for="district">Distrito</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="md-form form-group">
+                  <input type="text" class="form-control" id="phone">
+                  <label for="phone">Tel&eacute;fono</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form form-group">
+                  <input type="email" class="form-control" id="email">
+                  <label for="email">Correo El&eacute;ctronico</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <select class="browser-default custom-select md-form">
+                  <option selected>Motivo de Reclamo</option>
+                  <option value="1">Facturación/Boleta</option>
+                  <option value="2">Producto en mal estado</option>
+                  <option value="3">Producto entregado a destiempo</option>
+                  <option value="4">Mala Ateción</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="md-form">
+                  <textarea type="text" id="detail" class="md-textarea form-control" rows="4"></textarea>
+                  <label for="detail">Detalla el caso...</label>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-outline-primary-pimp-light btn-md float-lg-right waves-effect waves-light">ENVIAR</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

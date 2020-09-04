@@ -144,13 +144,13 @@ const restPlugins = () => {
   $('#anuncio').modal('show');
 
   <!--BUSQUEDA-->
-  $(function () {
-    //autocomplete
-    $(".auto").autocomplete({
-      source: "search.php",
-      minLength: 1
-    });
-  });
+  // $(function () {
+  //   //autocomplete
+  //   $(".auto").autocomplete({
+  //     source: "search.php",
+  //     minLength: 1
+  //   });
+  // });
 
   function Suscripcion() {
     var email = document.getElementById('suscripcion').value;

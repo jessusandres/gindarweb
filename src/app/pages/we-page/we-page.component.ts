@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {MAP_LAT, MAP_LNG} from '../../config/config';
 
-declare function WOW(): any;
 
 @Component({
   selector: 'app-we-page',
@@ -9,14 +9,13 @@ declare function WOW(): any;
 })
 export class WePageComponent implements OnInit {
 
-  lat = -6.7705459;
-  lng = -79.8395662;
+  lat = MAP_LAT;
+  lng = MAP_LNG;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    WOW().init();
   }
 
 }

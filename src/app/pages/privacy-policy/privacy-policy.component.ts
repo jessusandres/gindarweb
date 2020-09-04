@@ -15,7 +15,7 @@ export class PrivacyPolicyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    WOW().init();
+    // WOW().init();
   }
 
 }

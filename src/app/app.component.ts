@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from './store/app.reducer';
 import {LoginAction} from './store/actions/auth.actions';
-import {LogUserModel} from './models/model-actions/user.model';
+import {LogUserModel} from './models/user.model';
 import {ActivatedRouteSnapshot, ActivationEnd, Router} from '@angular/router';
 import {filter, map} from 'rxjs/operators';
 import {HomeComponent} from './pages/home/home.component';
@@ -11,6 +11,8 @@ import {SetPageAction} from './store/actions/ui.actions';
 declare function restPlugins(): any;
 
 declare function mdbMinPlugin(): any;
+
+declare function WOW(): any;
 
 @Component({
   selector: 'app-root',
@@ -38,9 +40,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     restPlugins();
-    setTimeout(() => {
-      mdbMinPlugin();
-    }, 0);
+    // setTimeout(() => {
+    //   mdbMinPlugin();
+    // }, 0);
   }
 
   ngOnInit(): void {
@@ -51,10 +53,15 @@ export class AppComponent implements OnInit, AfterViewInit {
         filter((event: ActivationEnd) => event.snapshot.firstChild == null),
         map((event: ActivationEnd) => event.snapshot)
       )
-      .subscribe((data: ActivatedRouteSnapshot) => {
+      .subscribe((activatedRouteSnapshot: ActivatedRouteSnapshot) => {
+        mdbMinPlugin();
+        if (activatedRouteSnapshot.data.reload) {
+          console.log('reload');
+          WOW().init();
+        }
         this.store.dispatch(new SetPageAction({
-          page: data.url.join('/'),
-          isExpanded: (data.component === HomeComponent)
+          page: activatedRouteSnapshot.url.join('/'),
+          isExpanded: (activatedRouteSnapshot.component === HomeComponent)
         }));
       });
   }

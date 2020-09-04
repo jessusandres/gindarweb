@@ -45,7 +45,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    WOW().init();
+    setTimeout(() => {
+      // WOW().init();
+    }, 0);
   }
 
   goToFeatured(): void {

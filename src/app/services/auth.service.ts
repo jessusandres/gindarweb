@@ -2,7 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {UserModel} from '../models/model-actions/user.model';
+import {UserModel} from '../models/user.model';
+import {BASE_URL} from '../config/config';
+
+declare function jQuery(s: string): any;
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +22,19 @@ export class AuthService {
       password,
     };
 
-    return this.httpClient.post('localhost:3000/auth/login?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYW5kcmV3IiwicGFzcyI6ImJsbW9udDEwIiwiaWQiOjIwMjAwM30.WwgI6w5rWu5yXdxuKFsPWhA-4pAl1XoyHVHcKVvjZZ8',
-      body).pipe(
+    return this.httpClient.get(`${BASE_URL}/api/example`).pipe(
       map((res: any) => {
-        return new UserModel('Andres', 'algo@algo.com', '123', res.token, '123');
+        // console.log(res);
+        jQuery('#loginModal').modal('hide');
+        this.saveToken(res.token);
+        return new UserModel('Andres', 'andrew@redmovil.com', '***', res.token, '00001');
       })
     );
 
   }
+
+  saveToken(token: JSON): void {
+    localStorage.setItem('gindar_jwt', JSON.stringify(token));
+  }
+
 }

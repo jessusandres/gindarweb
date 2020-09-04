@@ -1,4 +1,4 @@
-import {UserModel} from '../../models/model-actions/user.model';
+import {UserModel} from '../../models/user.model';
 import {AuthActions, AuthTypes} from '../actions/auth.actions';
 
 
@@ -39,7 +39,7 @@ export const AuthReducer = (state: AuthState = initialState, actions: AuthAction
       return initialState;
     }
     default: {
-      return state;
+      return {...state};
     }
   }
 };

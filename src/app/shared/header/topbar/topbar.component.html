@@ -3,10 +3,12 @@
   <div class="container">
     <div class="row w-100 d-flex mg-letf-navbar-center">
       <div class="col-8 col-sm-6 col-md-6 col-lg-4 col-xl-4 align-self-center pd-xs-cero-col">
-        <form action="BusquedaDeProducto" method="POST" class="form-inline pd-input-nabvar1" autocomplete="off">
+        <form class="form-inline pd-input-nabvar1" autocomplete="off">
           <div class=" my-0 w-100">
-            <input id="busqueda" type="text" name="descripcion"
+            <input #uquery type="text"
+                   [value]="query"
                    class="auto form-control mr-sm-2 my-0 form-control-search-width form-control-sm"
+                   (keyup.enter)="search(uquery.value)"
                    placeholder="Buscar producto..." aria-label="Search">
           </div>
         </form>
@@ -19,19 +21,19 @@
       </div>
       <div
         class="col-4 col-sm-6 col-md-6 col-lg-4 col-xl-4 align-self-center d-flex justify-content-end car-login pd-xs-cero-col">
-        <a href="javascript:void(0)">
+        <a routerLink="carrito">
           <div class="text-pimp pd-car-ms">
             <i class="fas fa-shopping-cart"></i>
           </div>
           <span id="ordenes" class="counter-car caract-count-car">0</span>
         </a>
 
-        <a *ngIf="!isAuthenticated" href="#" data-toggle="modal" data-target="#modalLR">
+        <a *ngIf="!isAuthenticated" href="javascript:void(0)" data-toggle="modal" data-target="#loginModal">
           <i class="far fa-user"></i> <span class="visible-ms font-OpenSans-regular ml-1"> Login</span>
         </a>
 
-        <a *ngIf="isAuthenticated" href="#">
-          <i class="fas fa-power-off"></i> <span class="visible-ms font-OpenSans-regular">Cerrar Sesi&oacute;n</span>
+        <a *ngIf="isAuthenticated" href="javascript:void(0)">
+          <i class="fas fa-power-off"></i> <span class="visible-ms font-OpenSans-regular">Salir</span>
         </a>
 
       </div>

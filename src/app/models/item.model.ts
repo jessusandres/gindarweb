@@ -5,7 +5,8 @@ export class ItemModel implements ItemInterface {
 
 
   constructor(public code: string,
-              public name: string) {
+              public name: string,
+              public price: number) {
   }
 }
 
