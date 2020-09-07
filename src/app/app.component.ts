@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from './store/app.reducer';
-import {LoginAction} from './store/actions/auth.actions';
+import {LoginAction, StatusLoginAction} from './store/actions/auth.actions';
 import {LogUserModel} from './models/user.model';
 import {ActivatedRouteSnapshot, ActivationEnd, Router} from '@angular/router';
 import {filter, map} from 'rxjs/operators';
@@ -27,22 +27,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(private store: Store<AppState>, private router: Router) {
   }
 
-
-  login(): void {
-
-    console.log(this.email);
-    console.log(this.pass);
-    const payload = {
-      user: new LogUserModel(this.email, this.pass)
-    };
-    this.store.dispatch(new LoginAction(payload));
-  }
-
   ngAfterViewInit(): void {
     restPlugins();
-    // setTimeout(() => {
-    //   mdbMinPlugin();
-    // }, 0);
   }
 
   ngOnInit(): void {
@@ -56,13 +42,16 @@ export class AppComponent implements OnInit, AfterViewInit {
       .subscribe((activatedRouteSnapshot: ActivatedRouteSnapshot) => {
         mdbMinPlugin();
         if (activatedRouteSnapshot.data.reload) {
-          console.log('reload');
           WOW().init();
         }
+
+        // this.store.dispatch(new StatusLoginAction());
+
         this.store.dispatch(new SetPageAction({
           page: activatedRouteSnapshot.url.join('/'),
           isExpanded: (activatedRouteSnapshot.component === HomeComponent)
         }));
+
       });
   }
 

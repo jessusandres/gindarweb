@@ -13,6 +13,7 @@ import {SearchComponent} from './pages/search/search.component';
 import {CartComponent} from './pages/cart/cart.component';
 import {ContactComponent} from './pages/contact/contact.component';
 import {ClaimComponent} from './pages/claim/claim.component';
+import {AuthGuard} from './guards/auth.guard';
 
 export const AppRoutes: Routes = [
   {path: '', component: HomeComponent, data: {reload: true}},
@@ -21,7 +22,7 @@ export const AppRoutes: Routes = [
   {path: 'registro', component: RegisterComponent, data: {prev: [''], page: 'Registro', reload: true}},
   {path: 'contacto', component: ContactComponent, data: {prev: [''], page: 'Contáctenos', reload: true}},
   {path: 'reclamo', component: ClaimComponent, data: {prev: [''], page: 'Libro de Reclamaciones', reload: true}},
-  {path: 'carrito', component: CartComponent, data: {prev: [''], page: 'Carrito de compras'}},
+  {path: 'carrito', component: CartComponent, data: {prev: [''], page: 'Carrito de compras'}, canActivate: [AuthGuard]},
   {path: 'invicta/:brandCode', component: ShowcaseComponent},
   {path: 'vitrina', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
   {path: 'vitrina/buscar/:query', component: SearchComponent, data: {prev: [''], page: 'Búsqueda'}},

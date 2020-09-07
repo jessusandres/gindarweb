@@ -1,4 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {NUMBER_REGEX} from '../../config/config';
+import {Subscription} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/app.reducer';
+import {RegisterAction} from '../../store/actions/auth.actions';
+import {UserRegisterModel} from '../../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -6,97 +13,78 @@ import {Component, OnInit} from '@angular/core';
   styles: []
 })
 export class RegisterComponent implements OnInit {
-  zones = [
-    'URB. SANTA ELENA',
-    'URB. CE 10825',
-    'URB. LOS PRECURSORES',
-    'URB. FELIPE SALAVERRY',
-    'P.J. MARTIR JOSE OLAYA',
-    'URB. BANCARIOS',
-    'P.J. RICARDO PALMA',
-    'URB. DEPOSITO PRONAA',
-    'URB. PLANTA DE ALICOR',
-    'URB. EL INGENIERO ETAPA 2',
-    'URB. CRUZ DE CHALPON',
-    'URB. SAN ISIDRO',
-    'URB. LA PRIMAVERA',
-    'P.J. TUPAC AMARU',
-    'URB. PATAZCA',
-    'URB. LOS PARQUES',
-    'C.H. KARL WEISS',
-    'URB. CHICLAYO',
-    'URB. EL PORVENIR',
-    'P.J. LA PRIMAVERA',
-    'P.J. SANTA ROSA',
-    'A.H. AMPLIACION SANTA ROSA DE LIMA',
-    'URB. NUEVO SAN LORENZO',
-    'URB. NUEVO SAN LORENZO 2',
-    'URB. BARSALLO',
-    'URB. ARTESANOS INDEPENDIENTES',
-    'URB. SAN LORENZO',
-    'URB. LOS ROSALES',
-    'URB. JOSE LEONARDO ORTIZ',
-    'URB. COIS SECTOR 1',
-    'P.J. GARCES',
-    'URB. LUJAN',
-    'A.H. PARRAGUEZ',
-    'URB. URRUNAGA SECTOR 1',
-    'URB. LATINA',
-    'URB. EPSEL',
-    'URB. EL CAMALITO',
-    'URB. SAN JUAN',
-    'URB. LOTIZACION CASSINELLI',
-    'P.J. SUAZO',
-    'URB. SAN ANTONIO SECTOR ESTE',
-    'URB. SAN ANTONIO SECTOR OESTE',
-    'URB. SAN MARTIN DE PORRES',
-    'P.J. LAS MERCEDES',
-    'URB. LAS MERCEDES',
-    'P.J. MICAELA BASTIDAS',
-    'P.J. JOSE FRANCISCO CABRERA',
-    'P.J. JOSE SANTOS CHOCANO',
-    'P.J. VICTOR RAUL HAYA DE LA TORRE',
-    'URB. PINOS DE LA PLATA',
-    'URB. EL AMAUTA',
-    'URB. GRANJA',
-    'URB. LAS DELICIAS',
-    'URB. CARMEN ANGELICA',
-    'URB. SAN JULIO',
-    'P.J. VIRGEN DE LA PAZ',
-    'URB. LOS OLIVOS',
-    'P.J. JOSE CARLOS MARIATEGUI',
-    'URB. CRUZ DE PERDON',
-    'URB. SAN MIGUEL',
-    'URB. BENEFICENCIA',
-    'URB. REMIGIO SILVA',
-    'URB. 3 DE OCTUBRE',
-    'URB. JOSE QUIÑONES',
-    'URB. CORAZON DE JESUS',
-    'A.H. COLEGIO SAN JOSE',
-    'P.J. PASTOR BOGGIANO',
-    'P.J. JESUS NAZARENO',
-    'URB. MOLINO DE LA PIEDRA',
-    'URB. SAN NICOLAS',
-    'URB. SANTA ANGELA',
-    'RES. PASCUAL SACO OLIVEROS',
-    'URB. CHINO',
-    'P.J. BARRIO SUB OFICIAL SECTOR A',
-    'URB. PLANTA NESTLE',
-    'URB. BUENOS AIRES',
-    'URB. SANTA VICTORIA',
-    'URB. ARTURO CABREJOS FALLA',
-    'P.J. CAPITAN EP LUIS ALBERTO GARCIA ROJAS',
-    'UPIS CIRO ALEGRIA',
-    'PROG. LAS QUINTAS SECTOR 1',
-    'A.H. LA VICTORIA SECTOR 1',
-    'A.H. LA VICTORIA SECTOR 2 PARCELA A',
-    'A.H. LA VICTORIA SECTOR 4'
-  ];
 
-  constructor() {
+  registerForm: FormGroup;
+  errorMessage: string = null;
+  loading: boolean;
+
+  authSubscription: Subscription;
+
+  constructor(private readonly store: Store<AppState>) {
   }
 
   ngOnInit(): void {
+
+    this.authSubscription = this.store.select('authState').subscribe((authState) => {
+      this.loading = authState.isLoading;
+      this.errorMessage = authState.errorMessage;
+    });
+
+
+    this.registerForm = new FormGroup({
+      documentOI: new FormControl(null, [Validators.minLength(8), Validators.required, Validators.pattern(NUMBER_REGEX)]),
+      name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      lastname: new FormControl(null, [Validators.required, Validators.minLength(4)]),
+      phone: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(9),
+        Validators.pattern(NUMBER_REGEX)]),
+      address: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      email: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required]),
+      passwordr: new FormControl(null, [Validators.required])
+    }, {
+      validators: this.verifyPassword('password', 'passwordr')
+    });
+
+
   }
 
+  verifyPassword(pass1: string, pass2: string): any {
+    return (group: FormGroup) => {
+
+      const vpass1 = group.controls[pass1].value;
+      const vpass2 = group.controls[pass2].value;
+
+      if (vpass1 === vpass2) {
+        return null;
+      }
+
+      return {
+        passequals: false
+      };
+
+    };
+  }
+
+  register(): void {
+    this.registerForm.markAllAsTouched();
+    if (this.registerForm.invalid) {
+      this.errorMessage = 'Datos de registro incorrectos';
+      return;
+    }
+    this.errorMessage = null;
+    console.log(this.registerForm);
+    const user: UserRegisterModel = new UserRegisterModel(
+      this.registerForm.controls.name.value.toString(),
+      this.registerForm.controls.lastname.value.toString(),
+      this.registerForm.controls.email.value.toString(),
+      this.registerForm.controls.password.value.toString(),
+      this.registerForm.controls.phone.value.toString(),
+      this.registerForm.controls.address.value.toString(),
+      this.registerForm.controls.documentOI.value.toString(),
+    );
+    this.store.dispatch(new RegisterAction({user}));
+  }
 }

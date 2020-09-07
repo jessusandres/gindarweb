@@ -12,10 +12,10 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
-            <form [formGroup]="loginForm" (ngSubmit)="login()" method="POST" autocomplete="off">
+            <form [formGroup]="loginForm" (ngSubmit)="login()" method="POST" >
               <div class="modal-body mb-1">
 
-                <div *ngIf="errorMessage !== null " class="alert alert-danger animated shake" role="alert">
+                <div *ngIf="errorMessage !== null && !loading" class="alert alert-danger animated shake" role="alert">
                   {{ errorMessage }}
                 </div>
 
@@ -25,21 +25,32 @@
 
                 <div class="md-form form-sm mb-5">
                   <i class="fa fa-user prefix"></i>
-                  <input formControlName="name" type="text" name="nick" id="user_nick"
-                         class="form-control form-control-sm validate" required>
-                  <label data-error="error" data-success="correcto" for="user_nick">Nombre</label>
+                  <input formControlName="email" type="text" name="email" id="user_email"
+                         class="form-control form-control-sm"
+                         [ngClass]="{
+                         'invalid':!loginForm.controls.email.pristine && loginForm.controls.email.errors,
+                         'valid':loginForm.controls.email.valid && !loginForm.controls.email.pristine
+                         }"
+                         required>
+                  <label class="w-100" data-error="Formato de email incorrecto" data-success=""
+                         for="user_email">Email</label>
                 </div>
                 <div class="md-form form-sm mb-2">
                   <i class="fa fa-lock prefix"></i>
                   <input formControlName="password" type="password" name="pass" id="user_pass"
-                         class="form-control form-control-sm validate mb-4" required>
-                  <label data-error="error" data-success="correcto" for="user_pass">Contraseña</label>
+                         class="form-control form-control-sm mb-4"
+                         [ngClass]="{
+                         'invalid':loginForm.controls.password.errors && !loginForm.controls.password.pristine ,
+                         'valid':loginForm.controls.password.valid && !loginForm.controls.password.pristine
+                         }" required>
+                  <label class="w-100" data-error="Formato de contraseña incorrecta" data-success=""
+                         for="user_pass">Contraseña</label>
                 </div>
                 <div class="mb-4">
                   <p class="font-small dark-grey-text d-flex justify-content-end font-weight-light">
                     ¿No es un miembro?
                     <a
-                      routerLink="registro" data-toggle="modal" data-target="#modalLR"
+                      routerLink="registro" (click)="goToRegisterPage()" data-toggle="modal" data-target="#modalLR"
                       class="blue-text ml-1 font-weight-bold">Reg&iacute;strate aqu&iacute;</a>
                   </p>
                 </div>

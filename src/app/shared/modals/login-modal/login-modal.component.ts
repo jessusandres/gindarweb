@@ -5,8 +5,9 @@ import {AppState} from '../../../store/app.reducer';
 import {Subscription} from 'rxjs';
 import {LoginAction} from '../../../store/actions/auth.actions';
 import {LogUserModel} from '../../../models/user.model';
+import {EMAIL_REGEX} from '../../../config/config';
 
-
+declare function jQuery(s: string): any;
 
 @Component({
   selector: 'app-login-modal',
@@ -27,13 +28,19 @@ export class LoginModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      email: new FormControl('', [
+        Validators.minLength(4),
+        Validators.pattern(EMAIL_REGEX),
+      ]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
 
     this.authSubscription = this.store.select('authState').subscribe(authState => {
       this.errorMessage = authState.errorMessage;
       this.loading = authState.isLoading;
+      if (authState.isAuthenticated) {
+        this.loginForm.reset();
+      }
     });
 
 
@@ -49,15 +56,18 @@ export class LoginModalComponent implements OnInit {
     }
     this.errorMessage = null;
 
-    // console.log(this.loginForm.value);
-    // console.log(this.loginForm.valid);
-
     const payload = {
-      user: new LogUserModel(this.loginForm.value.name, this.loginForm.value.password)
+      user: new LogUserModel(this.loginForm.value.email, this.loginForm.value.password)
     };
-    // console.log(payload);
+
     this.store.dispatch(new LoginAction(payload));
 
+  }
+
+  goToRegisterPage(): void {
+
+    // this.router.navigate(['register']);
+    jQuery('#loginModal').modal('hide');
 
   }
 }

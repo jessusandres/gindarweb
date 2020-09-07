@@ -8,7 +8,7 @@ import {environment} from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import {AppReducer} from './store/app.reducer';
 import {AuthEffects} from './store/effects/auth.effects';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NotpagefoundComponent } from './notpagefound/notpagefound/notpagefound.component';
 import {SharedModule} from './shared/shared.module';
 import {PagesModule} from './pages/pages.module';
@@ -21,16 +21,17 @@ import { RegisterComponent } from './auth/register/register.component';
     RegisterComponent,
 
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    StoreModule.forRoot(AppReducer),
-    EffectsModule.forRoot([AuthEffects]),
-    environment.storeDevTools,
-    FormsModule,
-    SharedModule,
-    PagesModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        StoreModule.forRoot(AppReducer),
+        EffectsModule.forRoot([AuthEffects]),
+        environment.storeDevTools,
+        FormsModule,
+        SharedModule,
+        PagesModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   exports: [
 

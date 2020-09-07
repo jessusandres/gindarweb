@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {UiState} from '../../../store/reducers/ui.reducer';
 import {ShowCaseState} from '../../../store/reducers/showcase.reducer';
+import {LogoutAction} from '../../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-topbar',
@@ -56,5 +57,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
   search(query: string): void {
     console.log(query);
     this.router.navigate([`vitrina/buscar/${query}`]);
+  }
+
+  logout(): void {
+    this.store.dispatch(new LogoutAction());
   }
 }
