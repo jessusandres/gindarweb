@@ -1,8 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from './store/app.reducer';
-import {LoginAction, StatusLoginAction} from './store/actions/auth.actions';
-import {LogUserModel} from './models/user.model';
+import {StatusLoginAction} from './store/actions/auth.actions';
 import {ActivatedRouteSnapshot, ActivationEnd, Router} from '@angular/router';
 import {filter, map} from 'rxjs/operators';
 import {HomeComponent} from './pages/home/home.component';
@@ -21,8 +20,6 @@ declare function WOW(): any;
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'gindarperu';
-  email = 'jaccspanki@gmail.com';
-  pass = 'promi$e1920';
 
   constructor(private store: Store<AppState>, private router: Router) {
   }
@@ -44,8 +41,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (activatedRouteSnapshot.data.reload) {
           WOW().init();
         }
-
-        // this.store.dispatch(new StatusLoginAction());
+        if (activatedRouteSnapshot.routeConfig.canActivate === undefined) {
+          this.store.dispatch(new StatusLoginAction({redirect: false}));
+        }
 
         this.store.dispatch(new SetPageAction({
           page: activatedRouteSnapshot.url.join('/'),

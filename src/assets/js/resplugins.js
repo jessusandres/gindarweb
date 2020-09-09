@@ -1,7 +1,7 @@
 const restPlugins = () => {
   (function ($) {
     $(function () {
-      console.log('rest plugins')
+      // console.log('rest plugins')
       $(".enlarge.inline-demo").data("options", {
         button: true,
         hoverZoomWithoutClick: true,

@@ -10,6 +10,11 @@ export enum AuthTypes {
   REGISTER_USER_FAILURE = '[AUTH] REGISTER FAILURE',
   LOGOUT_USER = '[AUTH] LOGOUT USER',
   STATUS_LOGIN = '[AUTH] STATUS LOGIN',
+  RESET_STATUS = '[AUTH] RESET STATUS'
+}
+
+export class ResetStatusAction implements Action {
+  readonly type = AuthTypes.RESET_STATUS;
 }
 
 export class LoginAction implements Action {
@@ -60,9 +65,12 @@ export class LogoutAction implements Action {
 
 export class StatusLoginAction implements Action {
   readonly type = AuthTypes.STATUS_LOGIN;
+  constructor(public payload: { redirect: boolean}) {
+  }
 }
 
-export type AuthActions = LoginAction |
+export type AuthActions = ResetStatusAction |
+  LoginAction |
   LoginSuccessAction |
   LoginFailureAction |
   RegisterAction |

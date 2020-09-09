@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/app.reducer';
 import {Subscription} from 'rxjs';
-import {LoginAction} from '../../../store/actions/auth.actions';
+import {LoginAction, LoginFailureAction, ResetStatusAction} from '../../../store/actions/auth.actions';
 import {LogUserModel} from '../../../models/user.model';
 import {EMAIL_REGEX} from '../../../config/config';
 
@@ -14,7 +14,7 @@ declare function jQuery(s: string): any;
   templateUrl: './login-modal.component.html',
   styles: []
 })
-export class LoginModalComponent implements OnInit {
+export class LoginModalComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   authSubscription: Subscription;
@@ -24,6 +24,10 @@ export class LoginModalComponent implements OnInit {
   errorMessage: string = null;
 
   constructor(private store: Store<AppState>) {
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(new ResetStatusAction());
   }
 
   ngOnInit(): void {
@@ -36,7 +40,7 @@ export class LoginModalComponent implements OnInit {
     });
 
     this.authSubscription = this.store.select('authState').subscribe(authState => {
-      this.errorMessage = authState.errorMessage;
+      this.errorMessage = authState.authErrorMessage;
       this.loading = authState.isLoading;
       if (authState.isAuthenticated) {
         this.loginForm.reset();

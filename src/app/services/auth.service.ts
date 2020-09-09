@@ -52,10 +52,10 @@ export class AuthService {
   }
 
 
-  verifyLogin(): Observable<UserModel | string> {
+  verifyLogin(redirect: boolean): Observable<UserModel | string> {
 
     const token = localStorage.getItem('gindar_jwt');
-    console.log('called');
+    console.warn('Verification');
     if (token) {
 
       try {
@@ -63,7 +63,7 @@ export class AuthService {
 
         const isExp = this.expirated(payload.exp);
         if (isExp) {
-          console.log('refresh token');
+          // console.log('refresh token');
           return this.httpClient.post(`${BASE_URL}/api/auth/refreshToken`, {token}).pipe(
             map(({user}: any) => {
               this.saveToken(user.token);
@@ -75,12 +75,9 @@ export class AuthService {
           );
 
         } else {
+          console.log('call api')
           return this.httpClient.post(`${BASE_URL}/api/auth/validateToken`, {token}).pipe(
-            map(({data}: any) => {
-              console.log(data);
-              // this.saveToken(user.token);
-              return data;
-            }),
+            map(({data}: any) => data),
             catchError((err) => {
               this.router.navigate(['/']);
               return of(err);
@@ -90,18 +87,20 @@ export class AuthService {
 
       } catch (err) {
         return new Observable<string>(subscriber => {
-          this.router.navigate(['/']).then(() => {
-            subscriber.error('bad token');
-          });
+          if (redirect) {
+            this.router.navigate(['/']);
+          }
+          subscriber.error('Invalid token');
         });
       }
 
 
     } else {
       return new Observable<string>(subscriber => {
-        this.router.navigate(['/']).then(() => {
-          subscriber.error('No token');
-        });
+        if (redirect) {
+          this.router.navigate(['/']);
+        }
+        subscriber.error('No token');
       });
     }
   }

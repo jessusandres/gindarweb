@@ -4,7 +4,7 @@ import {NUMBER_REGEX} from '../../config/config';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
-import {RegisterAction} from '../../store/actions/auth.actions';
+import {RegisterAction, ResetStatusAction} from '../../store/actions/auth.actions';
 import {UserRegisterModel} from '../../models/user.model';
 
 @Component({
@@ -25,9 +25,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.store.dispatch(new ResetStatusAction());
+
     this.authSubscription = this.store.select('authState').subscribe((authState) => {
       this.loading = authState.isLoading;
-      this.errorMessage = authState.errorMessage;
+      this.errorMessage = authState.registerErrorMessage;
     });
 
 
@@ -75,7 +77,6 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.errorMessage = null;
-    console.log(this.registerForm);
     const user: UserRegisterModel = new UserRegisterModel(
       this.registerForm.controls.name.value.toString(),
       this.registerForm.controls.lastname.value.toString(),

@@ -21,7 +21,7 @@ export class ShowcaseComponent implements OnInit {
   ngOnInit(): void {
     // console.log(this.activatedRoute.snapshot.params);
     this.store.select('categoriesState').subscribe((catState: CategoriesState) => {
-      console.log(catState);
+      // console.log(catState);
       this.items = catState.categories[0].items;
     });
     detailPluging();

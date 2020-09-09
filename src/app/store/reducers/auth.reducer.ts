@@ -5,15 +5,19 @@ export interface AuthState {
   isLoading: boolean;
   isAuthenticated: boolean;
   user: UserModel;
-  errorMessage: string | null;
+  authErrorMessage: string | null;
+  registerErrorMessage: string | null;
 }
 
 const initialState: AuthState = {
-  errorMessage: null, isAuthenticated: false, user: null, isLoading: false
+  authErrorMessage: null, registerErrorMessage: null, isAuthenticated: false, user: null, isLoading: false
 };
 
 export const AuthReducer = (state: AuthState = initialState, action: AuthActions): AuthState => {
   switch (action.type) {
+    case AuthTypes.RESET_STATUS: {
+      return initialState;
+    }
     case AuthTypes.LOGIN_USER: {
       return {
         ...state,
@@ -24,21 +28,23 @@ export const AuthReducer = (state: AuthState = initialState, action: AuthActions
       return {
         ...state,
         isLoading: false,
-        errorMessage: null,
+        authErrorMessage: null,
         isAuthenticated: true,
         user: action.payload.user
       };
     case AuthTypes.LOGIN_USER_FAILURE:
       return {
         ...state,
+        isAuthenticated: false,
+        user: null,
         isLoading: false,
-        errorMessage: action.payload.errorMessage
+        authErrorMessage: action.payload.errorMessage
       };
     case AuthTypes.REGISTER_USER: {
       return {
         ...state,
         isLoading: true,
-        errorMessage: null,
+        registerErrorMessage: null,
         user: null,
         isAuthenticated: false,
       };
@@ -47,14 +53,14 @@ export const AuthReducer = (state: AuthState = initialState, action: AuthActions
       return {
         ...state,
         isLoading: false,
-        errorMessage: action.payload.message
+        registerErrorMessage: action.payload.message
       };
     }
     case AuthTypes.REGISTER_USER_SUCCESS: {
       return {
         ...state,
         isLoading: false,
-        errorMessage: null,
+        registerErrorMessage: null,
         user: action.payload.user
       };
     }

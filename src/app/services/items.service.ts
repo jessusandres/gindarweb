@@ -12,7 +12,7 @@ export class ItemsService {
   getSliders(): void {
     this.httpClient.get('http://localhost:3000/items')
       .subscribe( res => {
-        console.log(res);
+        // console.log(res);
       });
   }
 }

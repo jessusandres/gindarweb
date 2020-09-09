@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {UiState} from '../../../store/reducers/ui.reducer';
 import {ShowCaseState} from '../../../store/reducers/showcase.reducer';
-import {LogoutAction} from '../../../store/actions/auth.actions';
+import {LogoutAction, ResetStatusAction} from '../../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-topbar',
@@ -61,5 +61,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.store.dispatch(new LogoutAction());
+  }
+
+  resetAuthForm(): void {
+    this.store.dispatch(new ResetStatusAction());
   }
 }
