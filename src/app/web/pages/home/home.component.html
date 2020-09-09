@@ -1,0 +1,97 @@
+<header class="pos-carousel-princ animated fadeIn fast">
+
+  <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+
+    <div class="carousel-inner" role="listbox">
+
+      <!--      <app-carousel-item *ngFor="let item of items; index as ind" [item]="item" [active]="ind===0"></app-carousel-item>-->
+      <div class="carousel-item" *ngFor="let item of items; index as ind" [ngClass]="{'active': ind===0}">
+        <div class="view">
+          <img class="d-block w-100 height-img-xs" src="./assets/img/slider/slider_{{item.code}}.jpg"
+               alt="First slide">
+          <div class="mask rgba-black-gdlight"></div>
+        </div>
+      </div>
+
+      <div class="carousel-caption carousel-caption-ms wow fadeIn">
+
+        <a
+          *ngIf="items[1] !== null"
+          href="javascript:void(0)"
+          class="btn btn-outline-light waves-light btn-ms font-OpenSans-bold">M&aacute;s
+          Detalles</a>
+
+        <a
+          *ngIf="items[1] === null"
+          href="javascript:void(0)"
+          class="btn btn-outline-light waves-light btn-ms font-OpenSans-bold">M&aacute;s
+          Detalles</a>
+
+
+        <a href="javascript:void(0)"
+           (click)="goToFeatured()"
+           class="white-text mt-4 d-block page-scroll hidden-arrow-ms ani-pers">
+          <i
+            class="fas fa-angle-double-down fa-3x animated bounce infinite"></i></a>
+      </div>
+    </div>
+
+    <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon border-arrow-ms" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+      <span class="carousel-control-next-icon border-arrow-ms" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</header>
+
+<!--CUADRADOS DE PRODUCTOS ESPECIFICOS-->
+<section id="page-up" class="bg-categorias" #featuredItems>
+  <div class="container-fluid">
+    <div class="row">
+      <app-featured-product class="col-6 col-sm-6 col-md-3 mb-4 wow fadeIn"
+                            *ngFor="let outstanding of featured"
+                            [outstanding]="outstanding">
+
+      </app-featured-product>
+    </div>
+  </div>
+</section>
+
+<!--NUEVOS VIDEOS-->
+
+<header class="mt-5">
+  <div class="container-fluid">
+    <section class="text-center my-5">
+      <!--<h1 class="my-5 pt-bloque h3 text-center font-OpenSans-bold font-tnr-size estilizado-time-roman wow fadeIn gindar-blue-text">NUEVOS VIDEOS</h1>-->
+      <div class="row d-flex justify-content-center">
+        <app-video-item *ngFor="let videoItem of videoItems" class="col-md-6 mb-2"
+                        [videoItem]="videoItem"></app-video-item>
+      </div>
+    </section>
+  </div>
+</header>
+
+
+<section class="servicio-ft">
+  <div class="container">
+    <div class="row d-flex">
+      <div class="flex-fill">
+        <a href="">
+          <img src="../../../../assets/img/delivery.svg" alt="Envio a todo el Perú"> Env&iacute;o a todo Per&uacute;
+        </a>
+      </div>
+      <div class="flex-fill br-lr">
+        <a href="">
+          <img src="../../../../assets/img/credit-card.svg" alt="Compra Segura"> Compra segura
+        </a>
+      </div>
+      <div class="flex-fill">
+        <a href="">
+          <img src="../../../../assets/img/devolution.svg" alt="Devoluciones"> Garant&iacute;a y Serv. Técnico </a>
+      </div>
+    </div>
+  </div>
+</section>

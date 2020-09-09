@@ -1,0 +1,21 @@
+/*.notfoundst {*/
+/*  background-image: url('../../../assets/img/error-404-not-found.jpg');*/
+
+/*}*/
+
+/*.mainnft {*/
+/*  width: 100vw;*/
+/*  height: 100vh;*/
+/*}*/
+
+.mainnft {
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  text-align: center;
+}
+img {
+  /*width: 100%;*/
+  max-width: 100%;
+  max-height: 100%;
+}
