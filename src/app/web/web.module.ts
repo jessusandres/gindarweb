@@ -14,8 +14,6 @@ import {PagesModule} from './pages/pages.module';
 import {NotpagefoundComponent} from './notpagefound/notpagefound.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {WebRoutingModule} from './web-routing.module';
-import {RouterModule} from '@angular/router';
-
 
 @NgModule({
   declarations: [WebComponent,

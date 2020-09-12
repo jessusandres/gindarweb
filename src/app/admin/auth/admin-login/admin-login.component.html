@@ -1,45 +1,25 @@
-<div class="wrapper-login wrapper-full-page">
-  <div class="page-header login-page login-fondo header-filter">
-    <div class="container login-z">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <h1 class="login-name">
-            <a class="text-white" href="login.php"><b>GINDAR</b></a>
-          </h1>
-        </div>
+<div class="gray-bg">
+  <div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+      <div>
+        <h1 class="logo-name">GP</h1>
       </div>
-      <div class="col-lg-offset-2 col-lg-4 col-md-offset-2 col-md-4 col-sm-offset-2 col-sm-4">
-        <div class="login-header-card">
-          <div class="text-center">
-            <h3 class="mt-0">INICIAR SESIÓN</h3>
-          </div>
+      <form [formGroup]="adminLoginForm"
+            class="m-t" role="form"
+            (ngSubmit)="login()">
+        <div class="form-group">
+          <input type="text" name="nickname" formControlName="nickname" class="form-control" placeholder="Username"
+                 required="">
         </div>
-        <div class="login-box-body">
-          <form id="formLogin" name="formLogin" action="login" method="post" autocomplete="off">
-            <div class="form-group has-feedback">
-              <input id="nick" type="text" name="nick" class="form-control" placeholder="Usuario">
-              <span class="form-control-feedback"><i class="fas fa-user"></i></span>
-            </div>
-            <div class="form-group login-form has-feedback">
-              <input id="pass" type="password" name="pass" class="form-control" placeholder="Contrase&ntilde;a">
-              <span class="form-control-feedback"><i class="fas fa-unlock"></i></span>
-            </div>
-            <div class="form-group login-form has-feedback">
-              <select id="sucursal" name="sucursal" class="form-control"></select>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <button type="button" id="btnLogin" class="btn btn-primary btn-block btn-flat" onclick="Enviar();">
-                  INGRESAR
-                </button>
-              </div>
-            </div>
-          </form>
+        <div class="form-group">
+          <input type="password" name="password" formControlName="password" class="form-control" placeholder="Password"
+                 required="">
         </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs border-login">
-        <img class="img-responsive img-logo-empresa" src="./assets/admin/img/logo.png">
-      </div>
+        <app-error-container *ngIf="errorMessage && !loading" [errorMessage]="errorMessage"></app-error-container>
+        <app-loading-container *ngIf="loading" [message]="'Validando datos...'"></app-loading-container>
+        <button [disabled]="loading" type="submit" class="btn btn-primary block full-width m-b">Login</button>
+      </form>
     </div>
   </div>
 </div>
+

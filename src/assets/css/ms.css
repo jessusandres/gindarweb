@@ -655,10 +655,11 @@ a:hover {
     color: #d9dfe4;
 }
 /*FIN NAVEGADOR*/
+
 /* SCROLLBAR */
 body::-webkit-scrollbar{
     width: 8px;
-    background: #000;
+    background: #626161;
 }
 body::-webkit-scrollbar-thumb{
     background: #009fda;

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MAP_LAT, MAP_LNG} from '../../config/config';
+import {MAP_LAT, MAP_LNG} from '../../../config/config';
 
 
 @Component({

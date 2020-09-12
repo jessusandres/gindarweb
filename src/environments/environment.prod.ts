@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   storeDevTools: [],
-  baseUrl: `https://gindarperu.com`
+  baseUrl: `http://restgindar.redmovildenegocios.com`
 };

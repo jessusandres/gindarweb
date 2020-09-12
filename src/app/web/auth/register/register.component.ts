@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {NUMBER_REGEX} from '../../config/config';
+import {NUMBER_REGEX} from '../../../config/config';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';

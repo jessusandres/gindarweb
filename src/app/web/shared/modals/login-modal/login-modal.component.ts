@@ -5,7 +5,7 @@ import {AppState} from '../../../store/app.reducer';
 import {Subscription} from 'rxjs';
 import {LoginAction, LoginFailureAction, ResetStatusAction} from '../../../store/actions/auth.actions';
 import {LogUserModel} from '../../../models/user.model';
-import {EMAIL_REGEX} from '../../../config/config';
+import {EMAIL_REGEX} from '../../../../config/config';
 
 declare function jQuery(s: string): any;
 

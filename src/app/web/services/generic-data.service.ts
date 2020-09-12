@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BASE_URL} from '../config/config';
+import {BASE_URL} from '../../config/config';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';

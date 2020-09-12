@@ -1,1 +1,38 @@
-<p>admin-register works!</p>
+<div class="wrapper wrapper-content">
+  <div class="gray-bg" style="height: 100%">
+    <div class="middle-box text-center loginscreen  animated fadeInDown" style="margin-top: 0; padding-top: 0">
+      <div>
+        <div>
+          <h1 class="logo-name" style="font-size: 100px">GP</h1>
+        </div>
+        <h3>Registrar Usuario</h3>
+        <form class="m-t" [formGroup]="registerForm" (ngSubmit)="register()">
+          <div class="form-group"
+               [ngClass]="{'has-error': registerForm.controls.name.invalid && registerForm.controls.name.touched}">
+            <input formControlName="name" type="text" class="form-control" placeholder="Nombre" required="">
+          </div>
+          <div class="form-group"
+               [ngClass]="{'has-error': registerForm.controls.nickname.invalid && registerForm.controls.nickname.touched}">
+            <input formControlName="nickname" type="text" class="form-control" placeholder="Login" required="">
+          </div>
+          <div class="form-group"
+               [ngClass]="{'has-error': registerForm.controls.password.invalid && registerForm.controls.password.touched}">
+            <input formControlName="password" type="password" class="form-control" placeholder="Contraseña" required="">
+          </div>
+          <div class="form-group"
+               [ngClass]="{'has-error': (registerForm.errors?.passequals === false || registerForm.controls.passwordr.invalid) && registerForm.controls.passwordr.touched}">
+            <input formControlName="passwordr" type="password" class="form-control" placeholder="Confirmar contraseña"
+                   required="">
+          </div>
+
+          <app-error-container *ngIf="errorMessage && !isLoading" [errorMessage]="errorMessage"></app-error-container>
+          <app-loading-container *ngIf="isLoading" [message]="'Registrando usuario...'"></app-loading-container>
+
+          <button [disabled]="isLoading" type="submit" class="btn btn-primary block full-width m-b">Registrar</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -19,14 +19,12 @@ declare function WOW(): any;
   styleUrls: ['./web.component.css']
 })
 export class WebComponent implements OnInit, AfterViewInit {
-
+  private linkTheme = document.querySelector('#adminHref');
   constructor(private store: Store<AppState>, private router: Router) {
-    // console.log(router);
-    // console.log('web component');
   }
 
   ngOnInit(): void {
-    console.log('mweb init');
+    this.linkTheme.removeAttribute('href');
     this.store.dispatch(new StatusLoginAction({redirect: false}));
     mdbMinPlugin();
     WOW().init();
@@ -38,7 +36,6 @@ export class WebComponent implements OnInit, AfterViewInit {
         map((event: ActivationEnd) => event.snapshot)
       )
       .subscribe((activatedRouteSnapshot: ActivatedRouteSnapshot) => {
-        console.log('mnsb');
         mdbMinPlugin();
         if (activatedRouteSnapshot.data.reload) {
           WOW().init();

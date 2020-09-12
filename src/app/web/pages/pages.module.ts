@@ -14,7 +14,7 @@ import {FeaturedProductComponent} from './home/featured-product/featured-product
 import {VideoItemComponent} from './home/video-item/video-item.component';
 import {GServicesComponent} from './home/g-services/g-services.component';
 import {AgmCoreModule} from '@agm/core';
-import {MAPS_API_KEY} from '../config/config';
+import {MAPS_API_KEY} from '../../config/config';
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ShowcaseItemComponent } from './showcase/showcase-item/showcase-item.component';

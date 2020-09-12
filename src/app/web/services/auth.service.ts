@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
-import {BASE_URL} from '../config/config';
+import {BASE_URL} from '../../config/config';
 import {UserModel, UserRegisterModel} from '../models/user.model';
 
 declare function jQuery(s: string): any;
@@ -23,7 +23,7 @@ export class AuthService {
       password,
     };
 
-    return this.httpClient.post(`${BASE_URL}/api/auth/login`, body).pipe(
+    return this.httpClient.post(`${BASE_URL}/auth/login`, body).pipe(
       map(({user}: any) => {
         // console.log(user);
         jQuery('#loginModal').modal('hide');
@@ -61,7 +61,7 @@ export class AuthService {
         // console.log(payload);
         const isExp = this.expirated(payload.exp);
         if (isExp) {
-          return this.httpClient.post(`${BASE_URL}/api/auth/refreshToken`, {token}).pipe(
+          return this.httpClient.post(`${BASE_URL}/auth/refreshToken`, {token}).pipe(
             map(({user}: any) => {
               this.saveToken(user.token);
               return user;
@@ -75,7 +75,7 @@ export class AuthService {
           );
 
         } else {
-          return this.httpClient.post(`${BASE_URL}/api/auth/validateToken`, {token}).pipe(
+          return this.httpClient.post(`${BASE_URL}/auth/validateToken`, {token}).pipe(
             map(({data}: any) => data),
             catchError((err) => {
               if (redirect) {
@@ -106,7 +106,7 @@ export class AuthService {
   }
 
   register(userRegisterModel: UserRegisterModel): Observable<any> {
-    return this.httpClient.post(`${BASE_URL}/api/auth/register`, {...userRegisterModel}).pipe(
+    return this.httpClient.post(`${BASE_URL}/auth/register`, {...userRegisterModel}).pipe(
       map(({user}: any) => {
         this.saveToken(user.token);
         this.router.navigate(['/']);

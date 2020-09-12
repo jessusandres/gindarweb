@@ -1,0 +1,131 @@
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {BASE_URL} from '../../config/config';
+import {map} from 'rxjs/operators';
+import {AdminUserInterface} from '../interfaces/admin-user.interface';
+import {Observable, of} from 'rxjs';
+import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminAuthService {
+
+  errorMessage: string;
+
+  constructor(private readonly httpClient: HttpClient, private router: Router) {
+  }
+
+  login(nick: string, password: string): Observable<AdminUserInterface> {
+
+    return this.httpClient.post(`${BASE_URL}/admin/auth/login`, {nick, password})
+      .pipe(
+        map((data: any) => {
+          this.saveToken(data.user.token);
+          return data.user;
+        })
+      );
+
+  }
+
+  private saveToken(token: string): void {
+    localStorage.setItem('admin_jwt', token);
+  }
+
+  private getToken(): string {
+    return localStorage.getItem('admin_jwt');
+  }
+
+  checkToken(redirect: boolean): boolean {
+    if (redirect && this.getToken()) {
+      this.router.navigate(['/admin/dashboard']);
+    }
+    return !this.getToken();
+  }
+
+  register(user: AdminUserInterface): Observable<AdminUserInterface> {
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: `Bearer ${this.getToken()}`
+    });
+
+    return this.httpClient.post(`${BASE_URL}/admin/auth/register`, {...user}, {headers})
+      .pipe(
+        map((data: any) => {
+          console.log(data);
+          return data.user;
+        })
+      );
+  }
+
+  removeToken(): void {
+    localStorage.removeItem('admin_jwt');
+  }
+
+  private expirated(dateExp: number): boolean {
+    const currentDate = new Date().getTime() / 1000;
+    return ((dateExp - currentDate) < 1200);
+  }
+
+  verifyLogin(redirect: boolean = false): Observable<AdminUserInterface> {
+
+    const adminToken = this.getToken();
+
+    if (adminToken) {
+
+      try {
+        const payload = JSON.parse(atob(adminToken.split('.')[1]));
+        const isExp = this.expirated(payload.exp);
+
+        if (isExp) {
+          return this.httpClient.post(`${BASE_URL}/admin/auth/refreshToken`, {token: adminToken})
+            .pipe(
+              map((res: { user: AdminUserInterface }) => {
+                this.saveToken(res.user.token);
+                return res.user;
+              })
+            );
+
+        } else {
+          return this.httpClient.post(`${BASE_URL}/admin/auth/validateToken`, {token: adminToken})
+            .pipe(
+              map((res: { user: AdminUserInterface }) => {
+                // if (redirect) {
+                //   this.router.navigate(['/admin/login']);
+                // }
+                return res.user;
+              })
+            );
+        }
+
+
+      } catch (error) {
+        return new Observable((subscriber => {
+          // if (redirect) {
+          //   this.router.navigate(['admin/login']);
+          // }
+          subscriber.error({status: 404, error: {message: 'Bad admin token'}});
+        }));
+      }
+
+    } else {
+      return new Observable((subscriber => {
+        // if (redirect) {
+        //   this.router.navigate(['admin/login']);
+        // }
+
+        subscriber.error({status: 404, error: {message: 'No admin token'}});
+      }));
+    }
+  }
+
+  logout(): void {
+    this.removeToken();
+    this.router.navigate(['admin/login']);
+  }
+
+  successRegister(user: AdminUserInterface): void {
+    Swal.fire(`Usuaio:  ${user.nick} registrado`);
+  }
+}
