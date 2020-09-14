@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {WebComponent} from './web.component';
-import {BrowserModule} from '@angular/platform-browser';
-import {AppRoutingModule} from '../app-routing.module';
 import {StoreModule} from '@ngrx/store';
 import {AppReducer} from './store/app.reducer';
 import {EffectsModule} from '@ngrx/effects';
@@ -14,6 +12,7 @@ import {PagesModule} from './pages/pages.module';
 import {NotpagefoundComponent} from './notpagefound/notpagefound.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {WebRoutingModule} from './web-routing.module';
+import {ItemsEffects} from './store/effects/items.effects';
 
 @NgModule({
   declarations: [WebComponent,
@@ -23,7 +22,7 @@ import {WebRoutingModule} from './web-routing.module';
     CommonModule,
     WebRoutingModule,
     StoreModule.forRoot(AppReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, ItemsEffects]),
     environment.storeDevTools,
     FormsModule,
     SharedModule,

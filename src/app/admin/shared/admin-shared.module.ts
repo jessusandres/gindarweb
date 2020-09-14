@@ -6,6 +6,7 @@ import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 import {RouterModule} from '@angular/router';
 import { LoadingContainerComponent } from './loading-container/loading-container.component';
 import { ErrorContainerComponent } from './error-container/error-container.component';
+import { SuccessContainerComponent } from './success-container/success-container.component';
 
 @NgModule({
   declarations: [
@@ -13,19 +14,21 @@ import { ErrorContainerComponent } from './error-container/error-container.compo
     AdminNavbarComponent,
     AdminFooterComponent,
     LoadingContainerComponent,
-    ErrorContainerComponent
+    ErrorContainerComponent,
+    SuccessContainerComponent
   ],
   imports: [
     CommonModule,
     RouterModule
   ],
-  exports: [
-    AdminTopbarComponent,
-    AdminNavbarComponent,
-    AdminFooterComponent,
-    LoadingContainerComponent,
-    ErrorContainerComponent
-  ]
+    exports: [
+        AdminTopbarComponent,
+        AdminNavbarComponent,
+        AdminFooterComponent,
+        LoadingContainerComponent,
+        ErrorContainerComponent,
+        SuccessContainerComponent
+    ]
 })
 export class AdminSharedModule {
 }

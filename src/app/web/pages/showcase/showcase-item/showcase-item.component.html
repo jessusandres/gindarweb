@@ -13,19 +13,15 @@
   </div>
   <div class="card-body card-body-cascade text-center">
     <h5 class="card-title mb-2">
-                <span class="text-primary mb-2 font-OpenSans-regular">Invicta
+                <span class="text-primary mb-2 font-OpenSans-regular">{{item.brandName}}
                 </span>
     </h5>
-    <h5 class="text-muted">Specialty Men Mod. 12847</h5>
+    <h5 class="text-muted">{{item.shortDescription || item.description}}</h5>
 
-    <!--              -->
-    <!--              <p class="font-weight-bold text-dark">-->
-    <!--                <strong>S/. <?php echo number_format($reg[3], 2); ?></strong>-->
-    <!--              </p>-->
 
     <p class="font-weight-bold text-dark text-tachado">
-      <strong>S/ 975.00</strong> <span
-      class="badge badge-primary text-oferta ml-1">S/ 487.00</span>
+      <strong>S/ {{item.appPrice.toFixed(2)}}</strong> <span
+      class="badge badge-primary text-oferta ml-1">S/ {{item.webPrice.toFixed(2)}}</span>
     </p>
   </div>
 </div>

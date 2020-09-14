@@ -25,6 +25,7 @@ import { SearchComponent } from './search/search.component';
 import { CartItemComponent } from './cart/cart-item/cart-item.component';
 import { ContactComponent } from './contact/contact.component';
 import { ClaimComponent } from './claim/claim.component';
+import {AdminSharedModule} from '../../admin/shared/admin-shared.module';
 
 
 @NgModule({
@@ -50,15 +51,16 @@ import { ClaimComponent } from './claim/claim.component';
     ContactComponent,
     ClaimComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    HttpClientModule,
-    RouterModule,
-    AgmCoreModule.forRoot({
-      apiKey: MAPS_API_KEY
-    })
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        HttpClientModule,
+        RouterModule,
+        AgmCoreModule.forRoot({
+            apiKey: MAPS_API_KEY
+        }),
+        AdminSharedModule
+    ],
   exports: [
     HomeComponent,
     WePageComponent

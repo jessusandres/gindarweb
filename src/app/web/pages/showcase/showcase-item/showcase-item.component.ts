@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ItemInterface} from '../../../interfaces/item.interface';
 
 @Component({
   selector: 'app-showcase-item',
   templateUrl: './showcase-item.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class ShowcaseItemComponent implements OnInit {
 
-  constructor() { }
+  @Input() item: ItemInterface;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

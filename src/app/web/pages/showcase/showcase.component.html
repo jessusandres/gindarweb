@@ -6,11 +6,41 @@
 
     <div class="col-12 col-md-9">
       <h6 class="h6-responsive font-weight-bold">Productos</h6>
-      <div class="row">
-        <app-showcase-item class="col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss" *ngFor="let item of items">
 
-        </app-showcase-item>
+      <div class="row" *ngIf="loading">
+        <app-loading-container
+          class="col-12 mt-2 text-center"
+          [message]="'Cargando items..'"></app-loading-container>
       </div>
+      <div class="row" *ngIf="errorMessage">
+        <app-error-container
+          class="col-12 mt-2 text-center"
+          [errorMessage]="errorMessage"></app-error-container>
+      </div>
+
+      <div class="row" *ngIf="!loading && items.length === 0">
+
+        <div class="col-12 mt-2 text-center">
+
+          <app-success-container
+            [message]="'Opps... No encontramos productos en esta categoría'">
+
+          </app-success-container>
+
+        </div>
+
+      </div>
+
+      <div class="row" *ngIf="items.length !== 0 && !loading">
+
+        <app-showcase-item *ngFor="let item of items"
+                           [item]="item"
+                           class="col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss">
+        </app-showcase-item>
+
+      </div>
+
+
     </div>
 
   </div>

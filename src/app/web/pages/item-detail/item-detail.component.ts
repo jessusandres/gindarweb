@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
+declare function detailPluging(): any;
 
 @Component({
   selector: 'app-item-detail',
@@ -13,6 +14,7 @@ export class ItemDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    detailPluging();
     this.currentYear = new Date().getFullYear();
   }
 

@@ -19,7 +19,6 @@ export class AdminNavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.storeSubs = this.store.select('adminAuthState').subscribe((adminAuthState) => {
-      console.log(adminAuthState);
       this.user = adminAuthState.user;
     });
   }

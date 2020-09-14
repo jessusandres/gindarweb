@@ -67,7 +67,7 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
       return {
         ...state,
         items: state.items.filter(item => item.code !== action.payload.item.code),
-        total: state.total - action.payload.item.price
+        total: state.total - action.payload.item.webPrice
       };
     }
     case CartTypes.EMPTY_CART: {

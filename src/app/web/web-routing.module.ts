@@ -40,9 +40,28 @@ const WebRoutes: Routes = [
           reload: true
         }
       },
-      {path: 'carrito', component: CartComponent, data: {prev: [''], page: 'Carrito de compras'}, canActivate: [AuthGuard]},
-      {path: 'invicta/:brandCode', component: ShowcaseComponent},
-      {path: 'vitrina', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
+      {
+        path: 'carrito', component: CartComponent,
+        data: {
+          prev: [''], page: 'Carrito de compras'
+        },
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'invicta/:query',
+        data: {
+          prev: [''],
+          page: 'Vitrina'
+        },
+        component: ShowcaseComponent
+      },
+      {
+        path: 'vitrina/:line', component: ShowcaseComponent,
+        data: {
+          prev: [''],
+          page: 'Vitrina'
+        }
+      },
       {path: 'vitrina/buscar/:query', component: SearchComponent, data: {prev: [''], page: 'Búsqueda'}},
       {
         path: 'vitrina/detalle/:itemcode',

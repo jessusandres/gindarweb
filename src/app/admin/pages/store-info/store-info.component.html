@@ -7,12 +7,242 @@
             <h5>Datos de empresa <small> WEB GINDARPERU.</small></h5>
           </div>
           <div class="ibox-content">
-            <form [formGroup]="storeInfoForm" (ngSubmit)="updateInfo()">
+            <app-loading-container *ngIf="loading" [message]="'Obteniendo información...'"></app-loading-container>
+            <app-error-container *ngIf="errorMessage" [errorMessage]="errorMessage"></app-error-container>
+            <form
+              *ngIf="!loading"
+              [formGroup]="storeInfoForm"
+              (ngSubmit)="updateInfo()"
+              autocomplete="off">
 
-              <div class="form-group  row"><label class="col-sm-2 col-form-label">Normal</label>
-                <div class="col-sm-10"><input type="text" class="form-control"></div>
+              <div class="form-group  row">
+                <label for="ruc" class="col-sm-2 col-form-label">RUC</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="ruc"
+                    placeholder="ej: 01234567890"
+                    maxlength="11"
+                    minlength="11"
+                    id="ruc"
+                    type="text"
+                    class="form-control"/>
+                </div>
               </div>
               <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="bsReason" class="col-sm-2 col-form-label">Razón Comercial</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="businessReason"
+                    placeholder="ej: Gindar Perú"
+                    minlength="5"
+                    id="bsReason"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="phone" class="col-sm-2 col-form-label">Teléfono</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="phone1"
+                    placeholder="ej: 987654321"
+                    minlength="9"
+                    maxlength="9"
+                    id="phone"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="phone2" class="col-sm-2 col-form-label">Teléfono 2</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="phone2"
+                    placeholder="ej: 987654321"
+                    minlength="9"
+                    maxlength="9"
+                    id="phone2"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="phone3" class="col-sm-2 col-form-label">Teléfono 3</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="phone3"
+                    placeholder="ej: 987654321"
+                    minlength="9"
+                    maxlength="9"
+                    id="phone3"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="email" class="col-sm-2 col-form-label">Correo</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="email"
+                    placeholder="ej: gindar@gindar.com"
+                    id="email"
+                    type="email"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="address" class="col-sm-2 col-form-label">Dirección</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="address1"
+                    placeholder="ej: Chiclayo 200"
+                    minlength="5"
+                    id="address"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="address2" class="col-sm-2 col-form-label">Dirección 2</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="address2"
+                    placeholder="ej: Chiclayo 200"
+                    minlength="5"
+                    id="address2"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="metadesc" class="col-sm-2 col-form-label">Descripción Meta</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="metaDescription"
+                    placeholder="ej: Gindar Perú en ventas"
+                    minlength="5"
+                    id="metadesc"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="fblink" class="col-sm-2 col-form-label">Enlace a Facebook</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="facebookLink1"
+                    placeholder="ej: www.facebook.com/gindarperu"
+                    minlength="5"
+                    id="fblink"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="fblink2" class="col-sm-2 col-form-label">Enlace a Facebook 2</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="facebookLink2"
+                    placeholder="ej: www.facebook.com/gindarperu"
+                    minlength="5"
+                    id="fblink2"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="instaLink" class="col-sm-2 col-form-label">Enlace a Instagram</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="instagramLink"
+                    placeholder="ej: www.instagram.com/gindarperu"
+                    minlength="5"
+                    id="instaLink"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="ytLink" class="col-sm-2 col-form-label">Enlace a Youtube</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="youtubeLink"
+                    placeholder="ej: www.youtube.com/gindarperu"
+                    minlength="5"
+                    id="ytLink"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="twLink" class="col-sm-2 col-form-label">Enlace a Twitter</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="twitterLink"
+                    placeholder="ej: www.twitter.com/gindarperu"
+                    minlength="5"
+                    id="twLink"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group  row">
+                <label for="msgLink" class="col-sm-2 col-form-label">Enlace a Messenger</label>
+                <div class="col-sm-10">
+                  <input
+                    autocomplete="off"
+                    formControlName="messengerLink"
+                    placeholder="ej: www.messenger.com/gindarperu"
+                    minlength="5"
+                    id="msgLink"
+                    type="text"
+                    class="form-control"/>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
 
               <div class="form-group row">
                 <div class="col-sm-12 col-sm-offset-2">

@@ -10,6 +10,7 @@ import {StoreModule} from '@ngrx/store';
 import {AdminAuthReducer} from './store/reducers/admin-auth.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {AdminAuthEffects} from './store/effects/admin-auth.effects';
+import {AdminDashboardEffects} from './store/effects/admin-dashboard.effects';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import {AdminAuthEffects} from './store/effects/admin-auth.effects';
     ReactiveFormsModule,
     FormsModule,
     StoreModule.forFeature('adminAuthState', AdminAuthReducer),
-    EffectsModule.forFeature([AdminAuthEffects]),
+    EffectsModule.forFeature([AdminAuthEffects, AdminDashboardEffects]),
   ],
   exports: [
     AdminRoutingModule,

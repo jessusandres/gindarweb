@@ -1,23 +1,23 @@
 import {AuthReducer, AuthState} from './reducers/auth.reducer';
 import {ActionReducerMap} from '@ngrx/store';
 import {UiReducer, UiState} from './reducers/ui.reducer';
-import {CategoriesReducer, CategoriesState} from './reducers/categories.reducer';
 import {CartReducer, CartState} from './reducers/cart.reducer';
 import {ShowcaseReducer, ShowCaseState} from './reducers/showcase.reducer';
+import {ItemsReducer, ItemsState} from './reducers/items.reducer';
 
 
 export interface AppState {
   authState: AuthState;
   uiState: UiState;
-  categoriesState: CategoriesState;
   cartState: CartState;
   showcaseState: ShowCaseState;
+  itemsState: ItemsState;
 }
 
 export const AppReducer: ActionReducerMap<AppState> = {
   authState: AuthReducer,
   uiState: UiReducer,
-  categoriesState: CategoriesReducer,
   cartState: CartReducer,
-  showcaseState: ShowcaseReducer
+  showcaseState: ShowcaseReducer,
+  itemsState: ItemsReducer,
 };

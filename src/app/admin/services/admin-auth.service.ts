@@ -6,6 +6,7 @@ import {AdminUserInterface} from '../interfaces/admin-user.interface';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import {AuthDataService} from './auth-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,9 @@ export class AdminAuthService {
 
   errorMessage: string;
 
-  constructor(private readonly httpClient: HttpClient, private router: Router) {
+  constructor(private readonly httpClient: HttpClient,
+              private router: Router,
+              private dataService: AuthDataService) {
   }
 
   login(nick: string, password: string): Observable<AdminUserInterface> {
@@ -22,45 +25,31 @@ export class AdminAuthService {
     return this.httpClient.post(`${BASE_URL}/admin/auth/login`, {nick, password})
       .pipe(
         map((data: any) => {
-          this.saveToken(data.user.token);
+          this.dataService.saveToken(data.user.token);
           return data.user;
         })
       );
 
   }
 
-  private saveToken(token: string): void {
-    localStorage.setItem('admin_jwt', token);
-  }
-
-  private getToken(): string {
-    return localStorage.getItem('admin_jwt');
-  }
 
   checkToken(redirect: boolean): boolean {
-    if (redirect && this.getToken()) {
+    if (redirect && this.dataService.getToken()) {
       this.router.navigate(['/admin/dashboard']);
     }
-    return !this.getToken();
+    return !this.dataService.getToken();
   }
 
   register(user: AdminUserInterface): Observable<AdminUserInterface> {
 
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getToken()}`
-    });
-
-    return this.httpClient.post(`${BASE_URL}/admin/auth/register`, {...user}, {headers})
+    return this.httpClient.post(`${BASE_URL}/admin/auth/register`, {...user},
+      {headers: this.dataService.headers()})
       .pipe(
         map((data: any) => {
           console.log(data);
           return data.user;
         })
       );
-  }
-
-  removeToken(): void {
-    localStorage.removeItem('admin_jwt');
   }
 
   private expirated(dateExp: number): boolean {
@@ -70,7 +59,7 @@ export class AdminAuthService {
 
   verifyLogin(redirect: boolean = false): Observable<AdminUserInterface> {
 
-    const adminToken = this.getToken();
+    const adminToken = this.dataService.getToken();
 
     if (adminToken) {
 
@@ -82,7 +71,7 @@ export class AdminAuthService {
           return this.httpClient.post(`${BASE_URL}/admin/auth/refreshToken`, {token: adminToken})
             .pipe(
               map((res: { user: AdminUserInterface }) => {
-                this.saveToken(res.user.token);
+                this.dataService.saveToken(res.user.token);
                 return res.user;
               })
             );
@@ -121,11 +110,15 @@ export class AdminAuthService {
   }
 
   logout(): void {
-    this.removeToken();
+    this.dataService.removeToken();
     this.router.navigate(['admin/login']);
   }
 
   successRegister(user: AdminUserInterface): void {
     Swal.fire(`Usuaio:  ${user.nick} registrado`);
+  }
+
+  removeToken(): void {
+    this.dataService.removeToken();
   }
 }
