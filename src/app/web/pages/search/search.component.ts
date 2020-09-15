@@ -5,6 +5,9 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {ShowCaseState} from '../../store/reducers/showcase.reducer';
 import {SetQueryAction} from '../../store/actions/showcase.actions';
+import {LoadItemsByQueryAction} from '../../store/actions/items.actions';
+import {ItemsState} from '../../store/reducers/items.reducer';
+import {ItemInterface} from '../../interfaces/item.interface';
 
 @Component({
   selector: 'app-search',
@@ -12,10 +15,13 @@ import {SetQueryAction} from '../../store/actions/showcase.actions';
   styles: []
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  items = [1, 2];
+
+  items: ItemInterface[];
+  loading: boolean;
 
   querySubscription: Subscription;
-  storeSubscription: Subscription;
+  showCaseSubscription: Subscription;
+  itemsSubscription: Subscription;
   query: string;
 
   constructor(private activatedRoute: ActivatedRoute, private store: Store<AppState>) {
@@ -24,18 +30,24 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.querySubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      // console.log(params.query);
       this.store.dispatch(new SetQueryAction({query: params.query}));
     });
 
-    this.storeSubscription = this.store.select('showcaseState').subscribe((showcaseState: ShowCaseState) => {
+    this.showCaseSubscription = this.store.select('showcaseState').subscribe((showcaseState: ShowCaseState) => {
       this.query = showcaseState.query;
     });
+    this.itemsSubscription = this.store.select('itemsState').subscribe((itemsState: ItemsState) => {
+      this.items = itemsState.items;
+      this.loading = itemsState.isLoading;
+    });
+
+    this.store.dispatch(new LoadItemsByQueryAction({text: this.query}));
   }
 
   ngOnDestroy(): void {
     this.querySubscription.unsubscribe();
-    this.storeSubscription.unsubscribe();
+    this.showCaseSubscription.unsubscribe();
+    this.itemsSubscription.unsubscribe();
   }
 
 }

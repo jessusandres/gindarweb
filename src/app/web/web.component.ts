@@ -6,6 +6,8 @@ import {SetPageAction} from './store/actions/ui.actions';
 import {HomeComponent} from './pages/home/home.component';
 import {Store} from '@ngrx/store';
 import {AppState} from './store/app.reducer';
+import {LoadPromotionalItemsAction, LoadReleaseItemsAction} from './store/actions/items.actions';
+import {LoadBrandsAction} from './store/actions/brands.actions';
 
 declare function restPlugins(): any;
 
@@ -26,6 +28,7 @@ export class WebComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.linkTheme.removeAttribute('href');
     this.store.dispatch(new StatusLoginAction({redirect: false}));
+
     mdbMinPlugin();
     WOW().init();
 
@@ -51,6 +54,10 @@ export class WebComponent implements OnInit, AfterViewInit {
         }));
 
       });
+
+    this.store.dispatch(new LoadPromotionalItemsAction());
+    this.store.dispatch(new LoadReleaseItemsAction());
+    this.store.dispatch(new LoadBrandsAction());
   }
 
   ngAfterViewInit(): void {

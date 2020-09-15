@@ -1,9 +1,9 @@
-
 export interface ItemInterface {
   ruc: string;
   code: string;
   codf: string;
   description: string;
+  image: string;
   brandCode: string;
   brandName: string;
   unity: string;

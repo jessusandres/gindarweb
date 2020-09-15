@@ -3,14 +3,14 @@ import {CommonModule} from '@angular/common';
 import {AdvertisementsComponent} from './header/advertisements/advertisements.component';
 import {NavbarComponent} from './header/navbar/navbar.component';
 import {HeaderComponent} from './header/header.component';
-import { TopbarComponent } from './header/topbar/topbar.component';
-import { FooterComponent } from './footer/footer.component';
+import {TopbarComponent} from './header/topbar/topbar.component';
+import {FooterComponent} from './footer/footer.component';
 import {RouterModule} from '@angular/router';
-import {CategoriesFilterPipe} from '../pipes/categories-filter.pipe';
-import { LoginModalComponent } from './modals/login-modal/login-modal.component';
+import {LoginModalComponent} from './modals/login-modal/login-modal.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { FilterBoxComponent } from './filter-box/filter-box.component';
+import {BreadcrumbsComponent} from './breadcrumbs/breadcrumbs.component';
+import {FilterBoxComponent} from './filter-box/filter-box.component';
+import {WebPipesModule} from '../pipes/web-pipes.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,6 @@ import { FilterBoxComponent } from './filter-box/filter-box.component';
     HeaderComponent,
     TopbarComponent,
     FooterComponent,
-    CategoriesFilterPipe,
     LoginModalComponent,
     BreadcrumbsComponent,
     FilterBoxComponent
@@ -28,18 +27,18 @@ import { FilterBoxComponent } from './filter-box/filter-box.component';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    WebPipesModule
   ],
-    exports: [
-        HeaderComponent,
-        AdvertisementsComponent,
-        TopbarComponent,
-        NavbarComponent,
-        FooterComponent,
-        CategoriesFilterPipe,
-        BreadcrumbsComponent,
-        FilterBoxComponent
-    ]
+  exports: [
+    HeaderComponent,
+    AdvertisementsComponent,
+    TopbarComponent,
+    NavbarComponent,
+    FooterComponent,
+    BreadcrumbsComponent,
+    FilterBoxComponent
+  ]
 })
 export class SharedModule {
 }

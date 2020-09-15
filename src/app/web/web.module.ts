@@ -13,6 +13,7 @@ import {NotpagefoundComponent} from './notpagefound/notpagefound.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {WebRoutingModule} from './web-routing.module';
 import {ItemsEffects} from './store/effects/items.effects';
+import {BrandsEffects} from './store/effects/brands.effects';
 
 @NgModule({
   declarations: [WebComponent,
@@ -22,7 +23,7 @@ import {ItemsEffects} from './store/effects/items.effects';
     CommonModule,
     WebRoutingModule,
     StoreModule.forRoot(AppReducer),
-    EffectsModule.forRoot([AuthEffects, ItemsEffects]),
+    EffectsModule.forRoot([AuthEffects, ItemsEffects, BrandsEffects]),
     environment.storeDevTools,
     FormsModule,
     SharedModule,

@@ -7,8 +7,10 @@
     <div class="col-12 col-md-9">
       <h6 class="h6-responsive font-weight-bold">Resultados de búsqueda</h6>
       <div class="row">
-        <app-showcase-item class="animated fadeIn col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss" *ngFor="let item of items">
-
+        <app-showcase-item
+          class="animated fadeIn col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss"
+          *ngFor="let item of items"
+          [item]="item">
         </app-showcase-item>
       </div>
     </div>

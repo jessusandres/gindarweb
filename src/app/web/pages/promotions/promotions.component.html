@@ -2,11 +2,26 @@
 
 
 <div class="container container-ms mt-4 animated fadeInUpBig">
-  <div class="row">
-
+  <div class="row animated fadeIn" *ngIf="!loading && promotionalItems.length > 0">
     <app-promotion-item
       class="col-6 col-md-4 col-sm-6 col-lg-3 mb-3 d-flex pd-xss wow fadeIn"
-      *ngFor="let promotion of promotions"></app-promotion-item>
-
+      *ngFor="let item of promotionalItems"
+      [item]="item"></app-promotion-item>
+  </div>
+  <div class="row" *ngIf="loading">
+    <app-loading-container
+      class="col-12 text-center"
+      [message]="'Obteniendo promociones...'"></app-loading-container>
+  </div>
+  <div class="row" *ngIf="errorMessage && !loading">
+    <app-error-container
+      class="col-12 text-center"
+      [errorMessage]="errorMessage">
+    </app-error-container>
+  </div>
+  <div class="row" *ngIf="promotionalItems.length === 0 && !loading">
+    <app-success-container
+      class="col-12 text-center"
+      [message]="'Lo sentimos... Actualmente no tenemos promociones para ti,'"></app-success-container>
   </div>
 </div>

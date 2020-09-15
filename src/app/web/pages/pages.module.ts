@@ -15,17 +15,18 @@ import {VideoItemComponent} from './home/video-item/video-item.component';
 import {GServicesComponent} from './home/g-services/g-services.component';
 import {AgmCoreModule} from '@agm/core';
 import {MAPS_API_KEY} from '../../config/config';
-import { ShowcaseComponent } from './showcase/showcase.component';
-import { ItemDetailComponent } from './item-detail/item-detail.component';
-import { ShowcaseItemComponent } from './showcase/showcase-item/showcase-item.component';
-import { ReleaseItemComponent } from './releases/release-item/release-item.component';
-import { PromotionItemComponent } from './promotions/promotion-item/promotion-item.component';
-import { CartComponent } from './cart/cart.component';
-import { SearchComponent } from './search/search.component';
-import { CartItemComponent } from './cart/cart-item/cart-item.component';
-import { ContactComponent } from './contact/contact.component';
-import { ClaimComponent } from './claim/claim.component';
+import {ShowcaseComponent} from './showcase/showcase.component';
+import {ItemDetailComponent} from './item-detail/item-detail.component';
+import {ShowcaseItemComponent} from './showcase/showcase-item/showcase-item.component';
+import {ReleaseItemComponent} from './releases/release-item/release-item.component';
+import {PromotionItemComponent} from './promotions/promotion-item/promotion-item.component';
+import {CartComponent} from './cart/cart.component';
+import {SearchComponent} from './search/search.component';
+import {CartItemComponent} from './cart/cart-item/cart-item.component';
+import {ContactComponent} from './contact/contact.component';
+import {ClaimComponent} from './claim/claim.component';
 import {AdminSharedModule} from '../../admin/shared/admin-shared.module';
+import {WebPipesModule} from '../pipes/web-pipes.module';
 
 
 @NgModule({
@@ -51,16 +52,17 @@ import {AdminSharedModule} from '../../admin/shared/admin-shared.module';
     ContactComponent,
     ClaimComponent
   ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        HttpClientModule,
-        RouterModule,
-        AgmCoreModule.forRoot({
-            apiKey: MAPS_API_KEY
-        }),
-        AdminSharedModule
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    HttpClientModule,
+    RouterModule,
+    AgmCoreModule.forRoot({
+      apiKey: MAPS_API_KEY
+    }),
+    AdminSharedModule,
+    WebPipesModule
+  ],
   exports: [
     HomeComponent,
     WePageComponent

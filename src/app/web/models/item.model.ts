@@ -14,6 +14,7 @@ export class ItemModel implements ItemInterface {
   public sysPrice: number;
   public unity: string;
   public webPrice: number;
+  public image: string;
 
   constructor(obj: ItemInterface) {
     this.code = obj.code;
@@ -28,6 +29,7 @@ export class ItemModel implements ItemInterface {
     this.sysPrice = obj.sysPrice;
     this.unity = obj.unity;
     this.webPrice = obj.webPrice;
+    this.image = obj.image;
   }
 
 

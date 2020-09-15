@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ItemInterface} from '../../../interfaces/item.interface';
 
 @Component({
   selector: 'app-promotion-item',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PromotionItemComponent implements OnInit {
 
+  @Input() item: ItemInterface;
   constructor() { }
 
   ngOnInit(): void {

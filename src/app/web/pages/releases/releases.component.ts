@@ -1,17 +1,36 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/app.reducer';
+import {Subscription} from 'rxjs';
+import {ItemInterface} from '../../interfaces/item.interface';
+import {ItemsState} from '../../store/reducers/items.reducer';
 
 @Component({
   selector: 'app-releases',
   templateUrl: './releases.component.html',
   styles: []
 })
-export class ReleasesComponent implements OnInit {
-  releases = [1, 2, 3, 4, 5];
+export class ReleasesComponent implements OnInit, OnDestroy {
+  releaseItems: ItemInterface[];
+  loading: boolean;
+  errorMessage: string;
 
-  constructor() {
+  storeSubs: Subscription;
+
+  constructor(private store: Store<AppState>) {
+
   }
 
   ngOnInit(): void {
+    this.storeSubs = this.store.select('itemsState').subscribe((itemsState: ItemsState) => {
+      this.releaseItems = itemsState.releaseItems;
+      this.loading = itemsState.releaseLoading;
+      this.errorMessage = itemsState.releaseErrorMessage;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.storeSubs.unsubscribe();
   }
 
 }

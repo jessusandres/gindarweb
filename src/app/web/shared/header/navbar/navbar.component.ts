@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GenericDataService} from '../../../services/generic-data.service';
-import {CategorieInterface} from '../../../interfaces/categories.response.interface';
+import {SublineInterface} from '../../../interfaces/subline.interface';
+import {WebRuc} from '../../../types/types';
 
 
 @Component({
@@ -10,69 +11,78 @@ import {CategorieInterface} from '../../../interfaces/categories.response.interf
 })
 export class NavbarComponent implements OnInit {
 
-  categories: CategorieInterface[] = [];
+  subLines: SublineInterface[] = [];
 
   constructor(public genericDataService: GenericDataService) {
   }
 
   ngOnInit(): void {
-    const data =
+    this.subLines = [
       {
-        ok: true,
-        categories: [
-          {
-            subCategorieName: 'RELOJES',
-            categorieCode: 1,
-            subCategorieCode: 12,
-            imageCode: 1
-          },
-          {
-            subCategorieName: 'CAJAS PARA RELOJ INVICTA',
-            categorieCode: 1,
-            subCategorieCode: 10,
-            imageCode: 2
-          },
-          {
-            subCategorieName: 'CORREAS DE RELOJ',
-            categorieCode: 1,
-            subCategorieCode: 9,
-            imageCode: 3
-          },
-          {
-            subCategorieName: 'LENTES',
-            categorieCode: 1,
-            subCategorieCode: 15,
-            imageCode: 4
-          },
-          {
-            subCategorieName: 'CARTERAS',
-            categorieCode: 2,
-            subCategorieCode: 5,
-            imageCode: 5
-          },
-          {
-            subCategorieName: 'CROSSBODYS',
-            categorieCode: 2,
-            subCategorieCode: 17,
-            imageCode: 6
-          },
-          {
-            subCategorieName: 'RELOJES',
-            categorieCode: 2,
-            subCategorieCode: 4,
-            imageCode: 7
-          },
-          {
-            subCategorieName: 'LENTES',
-            categorieCode: 2,
-            subCategorieCode: 16,
-            imageCode: 8
-          }
-        ]
-      };
-
-    this.categories = data.categories;
-    // this.genericDataService.getCategories().subscribe((categories: CategorieInterface[]) => this.categories = categories);
+        rucPrefix: 20,
+        ruc: WebRuc.GINDAR,
+        name: 'RELOJES',
+        code: '010107',
+        imageCode: 1,
+        filter: 1,
+      },
+      {
+        ruc: WebRuc.GINDAR,
+        rucPrefix: 20,
+        name: 'CAJAS PARA RELOJ INVICTA',
+        filter: 1,
+        code: '010112',
+        imageCode: 2
+      },
+      {
+        ruc: WebRuc.GINDAR,
+        rucPrefix: 20,
+        name: 'CORREAS DE RELOJ',
+        code: '010111',
+        filter: 1,
+        imageCode: 3
+      },
+      {
+        ruc: WebRuc.ROGER,
+        rucPrefix: 10,
+        name: 'LENTES',
+        filter: 1,
+        code: '000000',
+        imageCode: 4
+      },
+      {
+        ruc: WebRuc.ROGER,
+        rucPrefix: 10,
+        name: 'CARTERAS',
+        filter: 2,
+        code: '000000',
+        imageCode: 5
+      },
+      {
+        ruc: WebRuc.ROGER,
+        rucPrefix: 10,
+        name: 'CROSSBODYS',
+        filter: 2,
+        code: '000000',
+        imageCode: 6
+      },
+      {
+        ruc: WebRuc.ROGER,
+        rucPrefix: 10,
+        name: 'RELOJES',
+        filter: 2,
+        code: '010109',
+        imageCode: 7
+      },
+      {
+        ruc: WebRuc.ROGER,
+        rucPrefix: 10,
+        name: 'LENTES',
+        filter: 2,
+        code: '000000',
+        imageCode: 8
+      }
+    ];
   }
 
 }

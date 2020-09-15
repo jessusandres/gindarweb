@@ -1,11 +1,30 @@
 <app-breadcrumbs></app-breadcrumbs>
 
 <div class="container container-ms mt-4 animated fadeInUp">
-  <div class="row">
+  <div class="row animated fadeIn" *ngIf="!loading && releaseItems.length > 0">
 
     <app-release-item
       class="col-6 col-md-4 col-sm-6 col-lg-3 mb-3 d-flex pd-xss wow fadeIn"
-      *ngFor="let release of releases"></app-release-item>
+      *ngFor="let item of releaseItems"
+      [item]="item"></app-release-item>
 
   </div>
+
+  <div class="row" *ngIf="loading">
+    <app-loading-container
+      class="col-12 text-center"
+      [message]="'Obteniendo nuevos lanzamientos...'"></app-loading-container>
+  </div>
+  <div class="row" *ngIf="errorMessage && !loading">
+    <app-error-container
+      class="col-12 text-center"
+      [errorMessage]="errorMessage">
+    </app-error-container>
+  </div>
+  <div class="row" *ngIf="releaseItems.length === 0 && !loading">
+    <app-success-container
+      class="col-12 text-center"
+      [message]="'Lo sentimos... Actualmente no tenemos nuevos lanzamientos.'"></app-success-container>
+  </div>
+
 </div>

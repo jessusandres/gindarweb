@@ -4,6 +4,7 @@ import {UiReducer, UiState} from './reducers/ui.reducer';
 import {CartReducer, CartState} from './reducers/cart.reducer';
 import {ShowcaseReducer, ShowCaseState} from './reducers/showcase.reducer';
 import {ItemsReducer, ItemsState} from './reducers/items.reducer';
+import {BrandReducer, BrandsState} from './reducers/brands.reducer';
 
 
 export interface AppState {
@@ -12,6 +13,7 @@ export interface AppState {
   cartState: CartState;
   showcaseState: ShowCaseState;
   itemsState: ItemsState;
+  brandsState: BrandsState;
 }
 
 export const AppReducer: ActionReducerMap<AppState> = {
@@ -20,4 +22,5 @@ export const AppReducer: ActionReducerMap<AppState> = {
   cartState: CartReducer,
   showcaseState: ShowcaseReducer,
   itemsState: ItemsReducer,
+  brandsState: BrandReducer
 };

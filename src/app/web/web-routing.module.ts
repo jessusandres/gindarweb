@@ -55,13 +55,13 @@ const WebRoutes: Routes = [
         },
         component: ShowcaseComponent
       },
-      {
-        path: 'vitrina/:line', component: ShowcaseComponent,
-        data: {
-          prev: [''],
-          page: 'Vitrina'
-        }
-      },
+      // {
+      //   path: 'vitrina/:line', component: ShowcaseComponent,
+      //   data: {
+      //     prev: [''],
+      //     page: 'Vitrina'
+      //   }
+      // },
       {path: 'vitrina/buscar/:query', component: SearchComponent, data: {prev: [''], page: 'Búsqueda'}},
       {
         path: 'vitrina/detalle/:itemcode',
@@ -71,8 +71,9 @@ const WebRoutes: Routes = [
           page: 'Specialty Men Mod. 12847'
         }
       },
-      {path: 'vitrina/:category', component: ShowcaseComponent},
-      {path: 'vitrina/:category/:subcategory', component: ShowcaseComponent},
+      // {path: 'vitrina/:category', component: ShowcaseComponent},
+      {path: 'vitrina/20/:line', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
+      {path: 'vitrina/10/:line', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
       {path: 'nosotros', component: WePageComponent, data: {prev: [''], page: 'Nosotros', reload: true}},
       {path: 'promociones', component: PromotionsComponent, data: {prev: [''], page: 'Promociones', reload: true}},
       {path: 'novedades', component: ReleasesComponent, data: {prev: [''], page: 'Nuevos Ingresos', reload: true}},
