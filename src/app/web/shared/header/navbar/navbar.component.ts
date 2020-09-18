@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.subLines = [
       {
-        rucPrefix: 20,
+        rucPrefix: '20',
         ruc: WebRuc.GINDAR,
         name: 'RELOJES',
         code: '010107',
@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         ruc: WebRuc.GINDAR,
-        rucPrefix: 20,
+        rucPrefix: '20',
         name: 'CAJAS PARA RELOJ INVICTA',
         filter: 1,
         code: '010112',
@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         ruc: WebRuc.GINDAR,
-        rucPrefix: 20,
+        rucPrefix: '20',
         name: 'CORREAS DE RELOJ',
         code: '010111',
         filter: 1,
@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         ruc: WebRuc.ROGER,
-        rucPrefix: 10,
+        rucPrefix: '10',
         name: 'LENTES',
         filter: 1,
         code: '000000',
@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         ruc: WebRuc.ROGER,
-        rucPrefix: 10,
+        rucPrefix: '10',
         name: 'CARTERAS',
         filter: 2,
         code: '000000',
@@ -60,7 +60,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         ruc: WebRuc.ROGER,
-        rucPrefix: 10,
+        rucPrefix: '10',
         name: 'CROSSBODYS',
         filter: 2,
         code: '000000',
@@ -68,7 +68,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         ruc: WebRuc.ROGER,
-        rucPrefix: 10,
+        rucPrefix: '10',
         name: 'RELOJES',
         filter: 2,
         code: '010109',
@@ -76,7 +76,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         ruc: WebRuc.ROGER,
-        rucPrefix: 10,
+        rucPrefix: '10',
         name: 'LENTES',
         filter: 2,
         code: '000000',

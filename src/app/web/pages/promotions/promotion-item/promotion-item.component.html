@@ -2,9 +2,11 @@
   <div class="view overlay">
     <img src="{{item.image | itemImage}}" class="card-img-top"
          alt="">
-    <a routerLink="/vitrina/detalle/123">
+    <a routerLink="/vitrina/{{item.ruc.substr(0,2)}}/detalle/{{item.code}}">
 
-      <p class="leyenda-prod-descuento"> 25%</p>
+      <app-circle-discount
+        *ngIf="item.sysPrice > item.webPrice" [discount]="item.sysPrice | discount : item.webPrice">
+      </app-circle-discount>
 
       <div class="mask flex-center rgba-stylish-strong">
         <p class="white-text"><i class="fas fa-search-plus fa-2x"></i></p>

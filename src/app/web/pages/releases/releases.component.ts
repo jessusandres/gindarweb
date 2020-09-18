@@ -4,6 +4,7 @@ import {AppState} from '../../store/app.reducer';
 import {Subscription} from 'rxjs';
 import {ItemInterface} from '../../interfaces/item.interface';
 import {ItemsState} from '../../store/reducers/items.reducer';
+import {LoadReleaseItemsAction} from '../../store/actions/items.actions';
 
 @Component({
   selector: 'app-releases',
@@ -27,6 +28,9 @@ export class ReleasesComponent implements OnInit, OnDestroy {
       this.loading = itemsState.releaseLoading;
       this.errorMessage = itemsState.releaseErrorMessage;
     });
+    if (!this.loading && this.releaseItems.length === 0) {
+      this.store.dispatch(new LoadReleaseItemsAction());
+    }
   }
 
   ngOnDestroy(): void {

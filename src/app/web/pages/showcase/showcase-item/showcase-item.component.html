@@ -3,9 +3,11 @@
   <div class="view overlay zoom">
     <img src="{{item.image | itemImage }}" class="card-img-top"
          alt="">
-    <a href="javascript:void(0)" routerLink="/vitrina/detalle/123">
+    <a routerLink="/vitrina/{{item.ruc.substr(0,2)}}/detalle/{{item.code}}">
       <!--LEYENDA DE DESCUENTO-->
-      <p class="leyenda-prod-descuento">50%</p>
+      <app-circle-discount
+        *ngIf="item.sysPrice > item.webPrice"
+        [discount]="item.sysPrice | discount : item.webPrice"></app-circle-discount>
       <!--FIN LEYENDA DE DESCUENTO-->
       <div class="mask flex-center rgba-stylish-strong">
         <p class="white-text"><i class="fas fa-search-plus fa-2x"></i></p>

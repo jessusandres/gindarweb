@@ -31,12 +31,26 @@
 
       </div>
 
-      <div class="row" *ngIf="items.length !== 0 && !loading">
+      <div class="row animated fadeIn" *ngIf="items.length !== 0 && !loading && !showFilter">
 
         <app-showcase-item *ngFor="let item of items"
                            [item]="item"
                            class="col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss">
         </app-showcase-item>
+
+      </div>
+
+      <div class="row animated fadeIn" *ngIf="!loading && showFilter">
+        <app-showcase-item *ngFor="let item of filteredItems"
+                           [item]="item"
+                           class="col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss animated fadeIn">
+        </app-showcase-item>
+
+        <app-info-container
+          *ngIf="filteredItems.length === 0"
+          class="col-12 text-center animated fadeIn"
+          [message]="'No se encontraron productos con los filtros especificados'">
+        </app-info-container>
 
       </div>
 

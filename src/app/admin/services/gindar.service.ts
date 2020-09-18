@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {GindarInfoInterface} from '../interfaces/gindar-info.interface';
 import {AuthDataService} from './auth-data.service';
 import {BrandInterface} from '../../web/interfaces/brand.interface';
+import {SublineInterface} from '../../web/interfaces/subline.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -37,4 +38,20 @@ export class GindarService {
       );
   }
 
+  getSubLines(): Observable<SublineInterface[]> {
+    return this.httpClient.get(`${BASE_URL}/sublines`)
+      .pipe(
+        map((res: any) => {
+
+          const sublines: SublineInterface[] = [...res.sublines];
+
+          sublines.forEach((subline) => {
+            subline.rucPrefix = subline.ruc.slice(0, 2);
+            subline.filter = (subline.rucPrefix === '10') ? 2 : 1;
+          });
+
+          return sublines;
+        })
+      );
+  }
 }

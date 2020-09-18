@@ -2,7 +2,7 @@ export interface SublineInterface {
   code: string;
   name: string;
   imageCode: number;
-  rucPrefix: number;
-  ruc: number;
+  rucPrefix: string;
+  ruc: string;
   filter: number;
 }

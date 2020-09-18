@@ -20,12 +20,4 @@ export class GenericDataService {
         })
       );
   }
-  getCategories(): Observable<any> {
-    return this.httpClient.get(`${BASE_URL}/categories`)
-      .pipe(
-        map((response: any) => {
-          return response.categories;
-        })
-      );
-  }
 }

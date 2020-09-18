@@ -1,25 +1,40 @@
-<h6 class="h6-responsive font-weight-bold">Filtros</h6>
-<div class="">
-  <form autocomplete="off">
-    <select id="categoria" name="categoria" class="browser-default custom-select mb-2"
-            onchange="">
-      <option value="" selected>Categor&iacute;a</option>
-    </select>
-    <select id="subcategoria" name="subcategoria" class="browser-default custom-select mb-2"
-            onchange="">
-      <option value="" selected>Sub-Categor&iacute;a</option>
-    </select>
-    <select id="medida" name="medida" class="browser-default custom-select mb-2">
-      <option value="" selected>Talla</option>
-    </select>
-    <select id="marca" name="marca" class="browser-default custom-select mb-2">
-      <option value="" selected>Marca</option>
-    </select>
-    <select id="orden" name="orden" class="browser-default custom-select mb-2">
-      <option value="0" selected>Ordenar por</option>
-      <option value="1">Precio más alto</option>
-      <option value="2">Precio más bajo</option>
-    </select>
-    <button type="submit" class="btn btn-gindar btn-sm waves-effect waves-light float-right">FITRAR</button>
-  </form>
+<h6 class="h6-responsive font-weight-bold text-center">Filtros</h6>
+<div class="container">
+  <select
+    (change)="changeSubLine($event)"
+    [value]="lineSelected"
+    id="line"
+    name="line"
+    class="browser-default custom-select mb-2">
+    <option value="0">Línea Comercial</option>
+    <option
+      *ngFor="let subline of sublines"
+      value="{{subline.rucPrefix}}-{{subline.code}}">{{subline.name}}</option>
+  </select>
+  <select
+    [value]="brandSelected"
+    (change)="changeBrand($event)"
+    id="marca"
+    name="marca"
+    class="browser-default custom-select mb-2">
+    <option value="0">Marca</option>
+    <option
+      *ngFor="let brand of brands"
+      value="{{brand.code}}">{{brand.name}}</option>
+  </select>
+  <select
+    [value]="orderSelected"
+    id="orden"
+    (change)="changeOrder($event)"
+    name="orden" class="browser-default custom-select mb-2">
+    <option value="NAME">Nombre</option>
+    <option value="HIGHEST PRICE">Precio más alto</option>
+    <option value="LOWEST PRICE">Precio más bajo</option>
+  </select>
+  <button
+    (click)="resetFilter()"
+    type="button"
+    class="btn btn-gindar btn-sm waves-effect waves-light float-left">Restablecer
+  </button>
+
 </div>

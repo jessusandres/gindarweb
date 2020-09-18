@@ -64,11 +64,19 @@ const WebRoutes: Routes = [
       // },
       {path: 'vitrina/buscar/:query', component: SearchComponent, data: {prev: [''], page: 'Búsqueda'}},
       {
-        path: 'vitrina/detalle/:itemcode',
+        path: 'vitrina/10/detalle/:itemcode',
         component: ItemDetailComponent,
         data: {
-          prev: ['', 'Invicta'],
-          page: 'Specialty Men Mod. 12847'
+          prev: ['', 'Vitrina'],
+          page: 'Detalle de Producto'
+        }
+      },
+      {
+        path: 'vitrina/20/detalle/:itemcode',
+        component: ItemDetailComponent,
+        data: {
+          prev: ['', 'Vitrina'],
+          page: 'Detalle de Producto'
         }
       },
       // {path: 'vitrina/:category', component: ShowcaseComponent},

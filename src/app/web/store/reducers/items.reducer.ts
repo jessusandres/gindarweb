@@ -35,6 +35,14 @@ export const ItemsReducer = (state = initialState, action: ItemsActions): ItemsS
         errorMessage: null,
       };
     }
+    case ItemsTypes.LOAD_ITEMS_BY_SUBLINE: {
+      return {
+        ...state,
+        items: [],
+        isLoading: true,
+        errorMessage: null
+      };
+    }
     case ItemsTypes.LOAD_ITEMS_SUCCESS: {
       return {
         ...state,

@@ -1,13 +1,25 @@
 <app-breadcrumbs></app-breadcrumbs>
 
-
 <div class="container container-ms mt-4 mb-5 animated fadeInUp">
-  <div class="row">
+  <div class="row" *ngIf="loading">
+    <app-loading-container
+      class="col-12 text-center"
+      [message]="'Obteniendo información de producto...'">
+    </app-loading-container>
+  </div>
+
+  <div class="row" *ngIf="errorMessage && !loading">
+    <app-error-container
+      [errorMessage]="errorMessage"
+      class="col-12 text-center">
+    </app-error-container>
+  </div>
+
+  <div class="row" *ngIf="!loading && !errorMessage">
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
           <div class="row mb-gc">
-
             <!--            SLIDER-->
             <div class="col-12 col-sm-12 col-md-12 col-lg-7 mt-2 mb-c1">
 
@@ -18,11 +30,12 @@
                   <div class="col-12 col col-pers-prod d-flex-start-ms">
                     <ul class="carousel-indicators carousel-indicators-ms">
 
-                      <li data-target="#carousel-thumb" data-slide-to="0" active>
-                        <img src="../../../../assets/img/img_producto/reference/reference_123_1.jpg" width="50">
-                      </li>
-                      <li data-target="#carousel-thumb" data-slide-to="1">
-                        <img src="../../../../assets/img/img_producto/reference/reference_123_2.jpg" width="50">
+                      <li
+                        *ngFor="let image of images;index as i"
+                        data-target="#carousel-thumb"
+                        data-slide-to="{{i}}"
+                        [attr.active]="i === 0">
+                        <img [src]="image?.image | itemImage" width="50" alt="">
                       </li>
 
                     </ul>
@@ -30,18 +43,14 @@
                   <div class="col col-xs-ms">
                     <div class="carousel-inner" role="listbox">
 
-                      <div class="zoom-img_ms carousel-item active">
-                        <img class="d-block w-100" src="../../../../assets/img/img_producto/reference/reference_123_1.jpg"
-                             data-zoom-image="./assets/img/img_producto/reference/reference_123_1.jpg"
-                             alt="Gindar imagen 1">
+                      <div class="zoom-img_ms carousel-item "
+                           *ngFor="let image of images; index as i"
+                           [ngClass]="{'active': i === 0}">
+                        <img class="d-block w-100"
+                             [src]="image.image | itemImage"
+                             [attr.data-zoom-image]="image.image | itemImage"
+                             alt="Gindar imagen {{i}}">
                       </div>
-
-                      <div class="zoom-img_ms carousel-item">
-                        <img class="d-block w-100" src="../../../../assets/img/img_producto/reference/reference_123_2.jpg"
-                             data-zoom-image="./assets/img/img_producto/reference/reference_123_2.jpg"
-                             alt="Gindar imagen 2">
-                      </div>
-
 
                     </div>
                   </div>
@@ -55,43 +64,45 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-5 mt-2">
               <h5 class="card-title mb-2">
                 <strong>
-                  <span class="gindar-blue-text mb-2">Invicta</span>
+                  <span class="gindar-blue-text mb-2">{{item.brandName}}</span>
                 </strong>
               </h5>
-              <h5 class="text-muted">Specialty Men Mod. 12847</h5>
-              <p class="font-weight-bold text-dark text-tachado">
-                <strong>S/. 975</strong>
-                <span class="badge badge-primary text-oferta ml-1">S/. 487</span>
+              <h5 class="text-muted">{{item.description}}</h5>
+              <p class="font-weight-bold text-dark" *ngIf="item.sysPrice < item.webPrice">
+                <span class="badge badge-primary text-oferta ml-1">S/ {{item.webPrice}}</span>
+              </p>
+              <p class="font-weight-bold text-dark text-tachado" *ngIf="item.sysPrice > item.webPrice">
+                <strong>S/. {{item.sysPrice}}</strong>
+                <span class="badge badge-primary text-oferta ml-1">S/ {{item.webPrice}}</span>
               </p>
               <hr>
               <div class="row">
 
-                <div class="col-6 col-md-6">
-                  <div class="md-form mt-2">
-                    <select class="browser-default custom-select" onchange="">
-                      <option value="off" selected>Seleccione Talla</option>
-                    </select>
-                  </div>
-                </div>
+                <!--                <div class="col-6 col-md-6">-->
+                <!--                  <div class="md-form mt-2">-->
+                <!--                    <select class="browser-default custom-select" onchange="">-->
+                <!--                      <option value="off" selected>Seleccione Talla</option>-->
+                <!--                    </select>-->
+                <!--                  </div>-->
+                <!--                </div>-->
 
-                <div class="col-4 col-md-4 d-none">
-                  <div class="md-form mt-2">
-                    <select class="browser-default custom-select" onchange="">
-                      <option value="off" selected>Color</option>
-                    </select>
-                  </div>
-                </div>
+                <!--                <div class="col-4 col-md-4 d-none">-->
+                <!--                  <div class="md-form mt-2">-->
+                <!--                    <select class="browser-default custom-select" onchange="">-->
+                <!--                      <option value="off" selected>Color</option>-->
+                <!--                    </select>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+
                 <div class="col-6 col-md-6">
                   <div class="md-form mt-2">
                     <input type="number" min="1" id="itemAmount" class="form-control">
                     <label for="itemAmount">Cantidad</label>
                   </div>
                 </div>
-
-                <div class="col-md-12">
+                <div class="col-6">
                   <button type="button"
-                          class="btn btn-primary waves-effect waves-light float-right"
-                          onclick="">
+                          class="btn btn-primary waves-effect waves-light float-right">
                     <i class="fas fa-shopping-cart"></i>
                     Añadir al Carrito
                   </button>
@@ -100,13 +111,10 @@
                 <div class="col-md-12 my-3">
                   <hr>
                   <h4 class="text-primary">Marca</h4>
-                  <p class="text-muted font-weight-light">Invicta</p>
+                  <p class="text-muted font-weight-light">{{item.brandName}}</p>
                   <h4 class="text-primary">Descripción</h4>
                   <p class="text-muted font-weight-light">
-                    Reloj Invicta 12847 Specialty Para Hombre. Tamaño De La Caja: 45mm De Acero Inoxidable. Correa
-                    Poliuretano . Movimiento De Cuarzo Japones. Resistencia Al Agua Hasta 100 Mts (metros).
-                    © {{currentYear}} Copyright - Todos los derechos reservados www.gindarperu.com.
-
+                    {{item.description}}
                   </p>
                 </div>
 

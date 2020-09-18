@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BreadcrumbsComponent} from './breadcrumbs/breadcrumbs.component';
 import {FilterBoxComponent} from './filter-box/filter-box.component';
 import {WebPipesModule} from '../pipes/web-pipes.module';
+import { CircleDiscountComponent } from './circle-discount/circle-discount.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {WebPipesModule} from '../pipes/web-pipes.module';
     FooterComponent,
     LoginModalComponent,
     BreadcrumbsComponent,
-    FilterBoxComponent
+    FilterBoxComponent,
+    CircleDiscountComponent
   ],
   imports: [
     CommonModule,
@@ -30,15 +32,16 @@ import {WebPipesModule} from '../pipes/web-pipes.module';
     FormsModule,
     WebPipesModule
   ],
-  exports: [
-    HeaderComponent,
-    AdvertisementsComponent,
-    TopbarComponent,
-    NavbarComponent,
-    FooterComponent,
-    BreadcrumbsComponent,
-    FilterBoxComponent
-  ]
+    exports: [
+        HeaderComponent,
+        AdvertisementsComponent,
+        TopbarComponent,
+        NavbarComponent,
+        FooterComponent,
+        BreadcrumbsComponent,
+        FilterBoxComponent,
+        CircleDiscountComponent
+    ]
 })
 export class SharedModule {
 }

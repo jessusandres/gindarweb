@@ -5,12 +5,12 @@ export class ItemModel implements ItemInterface {
   public code: string;
   public allowVoucher: boolean;
   public appPrice: number;
-  public brandCode: string;
+  public brandCode: number;
   public brandName: string;
   public codf: string;
   public description: string;
   public ruc: string;
-  public shortDescription: boolean;
+  public shortDescription: string;
   public sysPrice: number;
   public unity: string;
   public webPrice: number;

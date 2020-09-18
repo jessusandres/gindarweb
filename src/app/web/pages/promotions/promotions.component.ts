@@ -4,6 +4,7 @@ import {AppState} from '../../store/app.reducer';
 import {Subscription} from 'rxjs';
 import {ItemsState} from '../../store/reducers/items.reducer';
 import {ItemInterface} from '../../interfaces/item.interface';
+import {LoadPromotionalItemsAction} from '../../store/actions/items.actions';
 
 @Component({
   selector: 'app-promotions',
@@ -28,7 +29,7 @@ export class PromotionsComponent implements OnInit, OnDestroy {
       this.errorMessage = itemsState.promotionalErrorMessage;
     });
     if (!this.loading && this.promotionalItems.length === 0) {
-      console.log('reload');
+      this.store.dispatch(new LoadPromotionalItemsAction());
     }
   }
 

@@ -8,6 +8,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from './store/app.reducer';
 import {LoadPromotionalItemsAction, LoadReleaseItemsAction} from './store/actions/items.actions';
 import {LoadBrandsAction} from './store/actions/brands.actions';
+import {LoadSubLinesAction} from './store/actions/sublines.actions';
 
 declare function restPlugins(): any;
 
@@ -22,6 +23,7 @@ declare function WOW(): any;
 })
 export class WebComponent implements OnInit, AfterViewInit {
   private linkTheme = document.querySelector('#adminHref');
+
   constructor(private store: Store<AppState>, private router: Router) {
   }
 
@@ -58,6 +60,7 @@ export class WebComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new LoadPromotionalItemsAction());
     this.store.dispatch(new LoadReleaseItemsAction());
     this.store.dispatch(new LoadBrandsAction());
+    this.store.dispatch(new LoadSubLinesAction());
   }
 
   ngAfterViewInit(): void {

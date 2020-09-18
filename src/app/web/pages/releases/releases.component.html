@@ -1,10 +1,11 @@
 <app-breadcrumbs></app-breadcrumbs>
 
 <div class="container container-ms mt-4 animated fadeInUp">
+
   <div class="row animated fadeIn" *ngIf="!loading && releaseItems.length > 0">
 
     <app-release-item
-      class="col-6 col-md-4 col-sm-6 col-lg-3 mb-3 d-flex pd-xss wow fadeIn"
+      class="col-6 col-md-4 col-sm-6 col-lg-3 mb-3 d-flex pd-xss animated fadeIn"
       *ngFor="let item of releaseItems"
       [item]="item"></app-release-item>
 

@@ -1,4 +1,5 @@
 import {Action} from '@ngrx/store';
+import {ItemInterface} from '../../interfaces/item.interface';
 
 export enum AllowedOrders {
   LOWEST_PRICE = 'LOWEST PRICE',
@@ -7,46 +8,33 @@ export enum AllowedOrders {
 }
 
 export enum FilterTypes {
-  SET_CATEGORY = '[SHOWCASE] SET CATEGORY',
-  SET_SUB_CATEGORY = '[SHOWCASE] SET SUB CATEGORY',
-  SET_SIZE = '[SHOWCASE] SET SIZE',
+  SET_SUBLINE = '[SHOWCASE] SET LINE',
   SET_BRAND = '[SHOWCASE] SET BRAND',
   SET_ORDER = '[SHOWCASE] SET ORDER',
   SET_QUERY = '[SHOWCASE] SET QUERY',
+  SHOW_FILTERED_ITEMS = '[SHOWCASE] SHOW FILTERED ITEMS',
+  HIDE_FILTERED_ITEMS = '[SHOWCASE] HIDE FILTERED ITEMS',
+  SET_FILTERED_ITEMS = '[SHOWCASE] SET FILTERED ITEMS',
 }
 
-export class SetCategoryAction implements Action {
-  readonly type = FilterTypes.SET_CATEGORY;
+export class SetSubLineAction implements Action {
+  readonly type = FilterTypes.SET_SUBLINE;
 
-  constructor(public payload: { categoryCode: number }) {
-  }
-}
-
-export class SetSubCategoryAction implements Action {
-  readonly type = FilterTypes.SET_SUB_CATEGORY;
-
-  constructor(public payload: { subCategoryCode: number }) {
-  }
-}
-
-export class SetSizeAction implements Action {
-  readonly type = FilterTypes.SET_SIZE;
-
-  constructor(public payload: { size: string }) {
+  constructor(public payload: { items: ItemInterface[]; sublineCode: number }) {
   }
 }
 
 export class SetBrandAction implements Action {
   readonly type = FilterTypes.SET_BRAND;
 
-  constructor(public payload: { brandCode: number }) {
+  constructor(public payload: { items: ItemInterface[]; brandCode: number }) {
   }
 }
 
 export class SetOrderAction implements Action {
   readonly type = FilterTypes.SET_ORDER;
 
-  constructor(public payload: { order: AllowedOrders }) {
+  constructor(public payload: { items: ItemInterface[]; order: AllowedOrders }) {
   }
 }
 
@@ -57,10 +45,29 @@ export class SetQueryAction implements Action {
   }
 }
 
-export type ShowcaseActions = SetCategoryAction |
-  SetSubCategoryAction |
-  SetSizeAction |
+export class ShowFilteredItemsAction implements Action {
+  readonly type = FilterTypes.SHOW_FILTERED_ITEMS;
+}
+
+export class HideFilteredItemsAction implements Action {
+  readonly type = FilterTypes.HIDE_FILTERED_ITEMS;
+
+  constructor(public payload: { items: ItemInterface[] }) {
+  }
+}
+
+export class SetFilteredItemsAction implements Action {
+  readonly type = FilterTypes.SET_FILTERED_ITEMS;
+
+  constructor(public payload: { items: ItemInterface[] }) {
+  }
+}
+
+export type ShowcaseActions = SetFilteredItemsAction |
+  SetSubLineAction |
   SetBrandAction |
   SetOrderAction |
-  SetQueryAction;
+  SetQueryAction |
+  ShowFilteredItemsAction |
+  HideFilteredItemsAction;
 

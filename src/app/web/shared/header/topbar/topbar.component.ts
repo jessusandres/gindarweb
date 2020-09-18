@@ -56,6 +56,10 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   search(query: string): void {
     // console.log(query);
+    if (query.trim().length < 4) {
+      return;
+    }
+    query = query.trim();
     this.router.navigate([`vitrina/buscar/${query}`]);
   }
 

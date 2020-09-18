@@ -28,9 +28,10 @@ export class AuthEffects {
 
         return this.authService.login(loguser.email, loguser.password).pipe(
           map((user: UserModel) => new LoginSuccessAction({user})),
-          catchError((err) => {
-            return of(new LoginFailureAction({errorCode: 1, errorMessage: err.error.message}));
-          })
+          catchError((err) => of(new LoginFailureAction({
+            errorCode: err.status,
+            errorMessage: err.error.message
+          })))
         );
 
       }
@@ -44,11 +45,7 @@ export class AuthEffects {
       const userRegisterModel: UserRegisterModel = registerAction.payload.user;
       return this.authService.register(userRegisterModel).pipe(
         map((user: UserModel) => new LoginSuccessAction({user})),
-        catchError((err) => {
-          // console.warn(err);
-          // console.log(err.error);
-          return of(new RegisterFailureAction({message: err.error.message}));
-        })
+        catchError((err) => of(new RegisterFailureAction({message: err.error.message})))
       );
     })
   );
@@ -81,10 +78,7 @@ export class AuthEffects {
             }
             return new LoginSuccessAction({user});
           }),
-          catchError((err) => {
-            console.warn(err);
-            return of(new LoginFailureAction({errorCode: 500, errorMessage: null}));
-          })
+          catchError((err) => of(new LoginFailureAction({errorCode: 500, errorMessage: null})))
         );
 
       }

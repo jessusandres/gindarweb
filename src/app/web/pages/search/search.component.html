@@ -6,13 +6,54 @@
 
     <div class="col-12 col-md-9">
       <h6 class="h6-responsive font-weight-bold">Resultados de búsqueda</h6>
-      <div class="row">
+
+      <div class="row" *ngIf="items.length !== 0 && !loading && !showFilter">
         <app-showcase-item
           class="animated fadeIn col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss"
           *ngFor="let item of items"
           [item]="item">
         </app-showcase-item>
       </div>
+
+      <div class="row animated fadeIn" *ngIf="!loading && showFilter">
+
+        <app-showcase-item *ngFor="let item of filteredItems"
+                           [item]="item"
+                           class="col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss animated fadeIn">
+        </app-showcase-item>
+
+        <app-info-container
+          *ngIf="filteredItems.length === 0"
+          class="col-12 text-center animated fadeIn"
+          [message]="'No se encontraron productos con los filtros especificados'">
+        </app-info-container>
+
+      </div>
+
+      <div class="row" *ngIf="loading">
+        <app-loading-container
+          class="col-12 mt-2 text-center"
+          [message]="'Cargando items..'"></app-loading-container>
+      </div>
+      <div class="row" *ngIf="errorMessage">
+        <app-error-container
+          class="col-12 mt-2 text-center"
+          [errorMessage]="errorMessage"></app-error-container>
+      </div>
+
+      <div class="row" *ngIf="!loading && items.length === 0 && !errorMessage">
+
+        <div class="col-12 mt-2 text-center">
+
+          <app-success-container
+            [message]="'Opps... No encontramos productos en esta categoría'">
+
+          </app-success-container>
+
+        </div>
+
+      </div>
+
     </div>
 
   </div>

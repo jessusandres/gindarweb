@@ -5,7 +5,11 @@ import {
   ItemsTypes,
   LoadingItemsFailureAction,
   LoadingItemsSuccessAction,
-  LoadItemsByQueryAction, LoadPromotionalItemsFailureAction, LoadPromotionalItemsSuccessAction, LoadReleaseItemsFailureAction,
+  LoadItemsByQueryAction,
+  LoadItemsBySubLineAction,
+  LoadPromotionalItemsFailureAction,
+  LoadPromotionalItemsSuccessAction,
+  LoadReleaseItemsFailureAction,
   LoadReleaseItemsSuccessAction
 } from '../actions/items.actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
@@ -32,6 +36,18 @@ export class ItemsEffects {
   );
 
   @Effect()
+  loadItemBySubLIneEffect = this.actions$.pipe(
+    ofType(ItemsTypes.LOAD_ITEMS_BY_SUBLINE),
+    mergeMap((action: LoadItemsBySubLineAction) => {
+      return this.itemsService.getItemsForSubline(action.payload.ruc, action.payload.subline)
+        .pipe(
+          map((items) => new LoadingItemsSuccessAction({items})),
+          catchError((err) => of(new LoadingItemsFailureAction({message: err.error.message})))
+        );
+    })
+  );
+
+  @Effect()
   loadReleaseItemEffect = this.actions$.pipe(
     ofType(ItemsTypes.LOAD_RELEASE_ITEMS),
     mergeMap(() => {
@@ -49,7 +65,7 @@ export class ItemsEffects {
   loadPromotionalItemEffect = this.actions$.pipe(
     ofType(ItemsTypes.LOAD_PROMOTIONAL_ITEMS),
     mergeMap(() => {
-      return this.itemsService.getReleaseItems()
+      return this.itemsService.getPromotionalItems()
         .pipe(
           map((items) => new LoadPromotionalItemsSuccessAction({items})),
           catchError((err) => {
