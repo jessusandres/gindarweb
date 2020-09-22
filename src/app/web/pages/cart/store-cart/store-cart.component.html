@@ -1,0 +1,44 @@
+<div class="card">
+  <div class="card-title">
+    <div class="col-6">
+      <h3> {{storeName}} </h3>
+    </div>
+  </div>
+  <div class="card-body card-body-ms">
+    <div class="table-responsive">
+      <table class="table producto-table">
+        <thead class="cl-gindar-blue white-text">
+        <tr>
+          <th class="font-weight-bold text-center">
+            <strong>Imagen</strong>
+          </th>
+          <th class="font-weight-bold text-center">
+            <strong>Producto</strong>
+          </th>
+          <th class="font-weight-bold text-center">
+            <strong>Precio</strong>
+          </th>
+          <th class="font-weight-bold text-center">
+            <strong>Cantidad</strong>
+          </th>
+          <th class="font-weight-bold text-center">
+            <strong>Sub-Total</strong>
+          </th>
+          <th class="font-weight-bold text-center">
+            <strong>Acciones</strong>
+          </th>
+        </tr>
+        </thead>
+        <tbody class="pd-td">
+
+        <app-cart-item
+          *ngFor="let cart of items"
+          [cart]="cart">
+        </app-cart-item>
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

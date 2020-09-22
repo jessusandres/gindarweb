@@ -5,6 +5,7 @@ import {catchError, map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {BASE_URL} from '../../config/config';
 import {UserModel, UserRegisterModel} from '../models/user.model';
+import {WebDataService} from './web-data.service';
 
 declare function jQuery(s: string): any;
 
@@ -13,7 +14,7 @@ declare function jQuery(s: string): any;
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient, private router: Router, private readonly dataService: WebDataService) {
   }
 
   login(email: string, password: string): Observable<UserModel> {
@@ -35,11 +36,11 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    localStorage.setItem('gindar_jwt', token);
+    this.dataService.saveToken(token);
   }
 
   removeToken(): void {
-    localStorage.removeItem('gindar_jwt');
+    this.dataService.removeToken();
   }
 
   logout(): void {
@@ -54,7 +55,7 @@ export class AuthService {
 
 
   verifyLogin(redirect: boolean): Observable<UserModel | string> {
-    const token = localStorage.getItem('gindar_jwt');
+    const token = this.dataService.getToken();
     if (token) {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));

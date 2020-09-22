@@ -27,6 +27,8 @@ import {ContactComponent} from './contact/contact.component';
 import {ClaimComponent} from './claim/claim.component';
 import {AdminSharedModule} from '../../admin/shared/admin-shared.module';
 import {WebPipesModule} from '../pipes/web-pipes.module';
+import {FormsModule} from '@angular/forms';
+import { StoreCartComponent } from './cart/store-cart/store-cart.component';
 
 
 @NgModule({
@@ -50,19 +52,21 @@ import {WebPipesModule} from '../pipes/web-pipes.module';
     SearchComponent,
     CartItemComponent,
     ContactComponent,
-    ClaimComponent
+    ClaimComponent,
+    StoreCartComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    HttpClientModule,
-    RouterModule,
-    AgmCoreModule.forRoot({
-      apiKey: MAPS_API_KEY
-    }),
-    AdminSharedModule,
-    WebPipesModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        HttpClientModule,
+        RouterModule,
+        AgmCoreModule.forRoot({
+            apiKey: MAPS_API_KEY
+        }),
+        AdminSharedModule,
+        WebPipesModule,
+        FormsModule
+    ],
   exports: [
     HomeComponent,
     WePageComponent

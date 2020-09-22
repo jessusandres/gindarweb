@@ -1,1 +1,48 @@
-<p>cart-item works!</p>
+<!--<tr>-->
+  <th scope="row" class="img-th  text-center">
+    <a class="img-car-wd" style="cursor: text;">
+      <img [src]="cart.itemImage | itemImage" [alt]="cart.detail.shortDescription"
+           class="img-fluid z-depth-0">
+    </a>
+  </th>
+  <td>
+    <h6 class="mt-3 h6-xs-ms font-OpenSans-regular">
+      <a routerLink="/vitrina/{{cart.storeRuc.substr(0,2)}}/detalle/{{cart.detail.code}}">
+        {{cart.detail.shortDescription || cart.detail.description}}</a>
+    </h6>
+  </td>
+
+  <td class="text-right font-OpenSans-regular">S/ {{cart.itemPrice.toFixed(2)}}</td>
+
+  <td class="text-center font-OpenSans-regular">
+    <input type="number" [(ngModel)]="newAmount" [value]="newAmount">
+  </td>
+
+  <td class="font-weight-bold font-OpenSans-regular text-right">
+    <strong>S/ {{(cart.itemPrice * cart.amount).toFixed(2)}}</strong>
+  </td>
+
+  <td class=" text-center">
+    <button
+      *ngIf="cart.amount !== newAmount"
+      (click)="updateItem()"
+      type="button"
+      class="btn btn-sm btn-success waves-effect waves-light"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Update cart item"
+      data-original-title="Actualizar">
+      <i class="fas fa-check"></i>
+    </button>
+    <button
+      (click)="removeItem()"
+      type="button"
+      class="btn btn-sm btn-danger waves-effect waves-light"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Remover cart item"
+      data-original-title="Eliminar">
+      <i class="fas fa-times"></i>
+    </button>
+  </td>
+<!--</tr>-->

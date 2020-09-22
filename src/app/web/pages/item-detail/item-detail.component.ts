@@ -9,6 +9,7 @@ import {AppState} from '../../store/app.reducer';
 import {LoadingItemDetailAction} from '../../store/actions/item.actions';
 import {Subscription} from 'rxjs';
 import {RemoveItemNameAction, SetItemNameAction} from '../../store/actions/ui.actions';
+import {AddCartItemAction} from '../../store/actions/cart.actions';
 
 declare function detailPluging(): any;
 
@@ -17,7 +18,7 @@ declare function $(s: string): any;
 @Component({
   selector: 'app-item-detail',
   templateUrl: './item-detail.component.html',
-  styles: ['button { height: 90%; }']
+  styles: ['button { height: 63%; }']
 })
 export class ItemDetailComponent implements OnInit, OnDestroy {
   currentYear: any;
@@ -27,8 +28,14 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
   loading: boolean;
   errorMessage: string;
 
+  cartLoading: boolean;
+  cartErrorMessage: string;
+  cartMessage: string;
+
   routeSubs: Subscription;
   itemSubs: Subscription;
+  cartSubs: Subscription;
+  amount = 1;
 
   constructor(private itemsService: ItemsService,
               private activatedRoute: ActivatedRoute,
@@ -50,11 +57,26 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
       this.loading = itemState.loading;
       this.images = itemState.images;
       this.errorMessage = itemState.errorMessage;
+      if (this.images.length === 0) {
+        this.images = [
+          {
+            image: null,
+            ruc: null,
+            code: null
+          }
+        ];
+      }
       this.store.dispatch(new SetItemNameAction({itemName: this.item?.shortDescription || this.item?.description}));
       detailPluging();
       setTimeout(() => {
         $('.zoom-img_ms').zoom();
       }, 0);
+    });
+
+    this.cartSubs = this.store.select('cartState').subscribe((cartState) => {
+      this.cartErrorMessage = cartState.actionErrorMessage;
+      this.cartLoading = cartState.actionLoading;
+      this.cartMessage = cartState.actionMessage;
     });
 
 
@@ -64,6 +86,18 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     this.store.dispatch(new RemoveItemNameAction());
     this.routeSubs.unsubscribe();
     this.itemSubs.unsubscribe();
+    this.cartSubs.unsubscribe();
   }
 
+  addItemToCart(): void {
+    // console.log(this.amount);
+    if (isNaN(this.amount) || this.amount <= 0) {
+      this.cartErrorMessage = 'Cantidad incorrecta!';
+      return;
+    }
+
+    this.cartErrorMessage = null;
+
+    this.store.dispatch(new AddCartItemAction({item: this.item, amount: this.amount}));
+  }
 }

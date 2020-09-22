@@ -78,34 +78,39 @@
               <hr>
               <div class="row">
 
-                <!--                <div class="col-6 col-md-6">-->
-                <!--                  <div class="md-form mt-2">-->
-                <!--                    <select class="browser-default custom-select" onchange="">-->
-                <!--                      <option value="off" selected>Seleccione Talla</option>-->
-                <!--                    </select>-->
-                <!--                  </div>-->
-                <!--                </div>-->
-
-                <!--                <div class="col-4 col-md-4 d-none">-->
-                <!--                  <div class="md-form mt-2">-->
-                <!--                    <select class="browser-default custom-select" onchange="">-->
-                <!--                      <option value="off" selected>Color</option>-->
-                <!--                    </select>-->
-                <!--                  </div>-->
-                <!--                </div>-->
-
                 <div class="col-6 col-md-6">
                   <div class="md-form mt-2">
-                    <input type="number" min="1" id="itemAmount" class="form-control">
-                    <label for="itemAmount">Cantidad</label>
+                    <input [(ngModel)]="amount" [value]="amount" type="number" min="1" id="itemAmount"
+                           class="form-control">
+                    <label for="itemAmount" class="active">Cantidad</label>
                   </div>
                 </div>
                 <div class="col-6">
                   <button type="button"
+                          [disabled]="cartLoading"
+                          (click)="addItemToCart()"
                           class="btn btn-primary waves-effect waves-light float-right">
                     <i class="fas fa-shopping-cart"></i>
                     Añadir al Carrito
                   </button>
+                </div>
+
+                <div class="col-12 text-center animated jello" *ngIf="cartErrorMessage && !cartLoading">
+                  <app-error-container
+                    [errorMessage]="cartErrorMessage">
+                  </app-error-container>
+                </div>
+
+                <div class="col-12 text-center animated fadeIn" *ngIf="!cartLoading && cartMessage">
+                  <app-success-container
+                    [message]="cartMessage">
+                  </app-success-container>
+                </div>
+
+                <div class="col-12 text-center animated fadeIn" *ngIf="cartLoading">
+                  <app-loading-container
+                    [message]="'Agregando item al carrito'"
+                  ></app-loading-container>
                 </div>
 
                 <div class="col-md-12 my-3">

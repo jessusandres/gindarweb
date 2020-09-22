@@ -1,18 +1,32 @@
-import {CartItem} from '../../interfaces/cart_item.interface';
+import {CartInterface} from '../../interfaces/cart_item.interface';
 import {CartActions, CartTypes} from '../actions/cart.actions';
 
 
 export interface CartState {
-  items: CartItem[];
+  gcart: CartInterface[];
+  rcart: CartInterface[];
+  ocart: CartInterface[];
   loading: boolean;
   message: string;
+  errorMessage: string;
+  actionLoading: boolean;
+  actionMessage: string;
+  actionErrorMessage: string;
+  amount: number;
   total: number;
 }
 
 const initialState: CartState = {
-  items: [],
+  gcart: [],
+  rcart: [],
+  ocart: [],
   loading: false,
   message: null,
+  errorMessage: null,
+  actionLoading: false,
+  actionMessage: null,
+  actionErrorMessage: null,
+  amount: 0.00,
   total: 0.00,
 };
 
@@ -22,59 +36,74 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
       return {
         ...state,
         loading: true,
+        errorMessage: null,
         message: 'Cargando Carrito...'
       };
     }
     case CartTypes.LOAD_CART_SUCCESS: {
       return {
         ...state,
-        items: action.payload.items,
+        errorMessage: null,
+        actionMessage: null,
+        gcart: action.payload.gcart,
+        rcart: action.payload.rcart,
+        ocart: action.payload.ocart,
         loading: false,
         message: null,
-        total: action.payload.total
+        amount: action.payload.amount,
+        total: action.payload.total,
       };
     }
     case CartTypes.LOAD_CART_FAILURE: {
       return {
         ...state,
-        items: [],
+        gcart: [],
+        rcart: [],
+        ocart: [],
         total: 0.0,
+        amount: 0,
         loading: false,
-        message: action.payload.message
+        actionMessage: null,
+        message: null,
+        errorMessage: action.payload.message
       };
     }
     case CartTypes.ADD_CART_ITEM: {
       return {
         ...state,
-        loading: true,
+        actionLoading: true,
       };
     }
     case CartTypes.ADD_CART_ITEM_FAILURE: {
       return {
         ...state,
-        loading: false,
-        message: action.payload.message
+        actionLoading: false,
+        message: null,
+        actionMessage: null,
+        actionErrorMessage: action.payload.message
       };
     }
     case CartTypes.ADD_CART_ITEM_SUCCESS: {
       return {
         ...state,
-        loading: false,
-        message: action.payload.message,
+        actionLoading: false,
+        errorMessage: null,
+        message: null,
+        actionMessage: action.payload.message,
       };
     }
     case CartTypes.DROP_CART_ITEM: {
       return {
         ...state,
-        items: state.items.filter(item => item.code !== action.payload.item.code),
-        total: state.total - action.payload.item.webPrice
+        loading: true,
+        // amount: state.items.filter(item => item.code !== action.payload.item.code).length,
+        // total: state.total - (action.payload.item.itemPrice * action.payload.item.amount),
+        // items: state.items.filter(item => item.code !== action.payload.item.code)
       };
     }
     case CartTypes.EMPTY_CART: {
       return {
-        ...state,
-        items: [],
-        total: 0.0
+        ...initialState
       };
     }
     case CartTypes.UPDATE_CART_ITEM:
@@ -86,13 +115,29 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
       return {
         ...state,
         loading: false,
+        message: null,
+        actionMessage: action.payload.message
       };
     case CartTypes.UPDATE_CART_ITEM_FAILURE:
       return {
         ...state,
         loading: false,
-        message: action.payload.message
+        message: null,
+        actionMessage: null,
+        errorMessage: action.payload.message
       };
+    case CartTypes.DROP_CART_ITEM_FAILURE: {
+      return {
+        ...state,
+        actionErrorMessage: action.payload.message
+      };
+    }
+    case CartTypes.DROP_CART_ITEM_SUCCESS: {
+      return {
+        ...state,
+        actionErrorMessage: action.payload.message
+      };
+    }
     default: {
       return {...state};
     }

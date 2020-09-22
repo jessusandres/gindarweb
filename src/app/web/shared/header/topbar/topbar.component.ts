@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {UiState} from '../../../store/reducers/ui.reducer';
 import {ShowCaseState} from '../../../store/reducers/showcase.reducer';
 import {LogoutAction, ResetStatusAction} from '../../../store/actions/auth.actions';
+import {CartState} from '../../../store/reducers/cart.reducer';
 
 @Component({
   selector: 'app-topbar',
@@ -20,10 +21,13 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   query: string;
 
+  cartAmount: number;
+
   // StoreSubscriptions
   uiSubscription: Subscription;
   authSubscription: Subscription;
   showcaseSubscription: Subscription;
+  cartSubscription: Subscription;
 
   constructor(private store: Store<AppState>, private router: Router) {
   }
@@ -35,6 +39,10 @@ export class TopbarComponent implements OnInit, OnDestroy {
         this.isAuthenticated = data.isAuthenticated;
       }
     );
+
+    this.cartSubscription = this.store.select('cartState').subscribe((cartState: CartState) => {
+      this.cartAmount = cartState.amount;
+    });
 
     this.uiSubscription = this.store.select('uiState').subscribe(
       (data: UiState) => {
@@ -52,6 +60,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
     this.uiSubscription.unsubscribe();
+    this.cartSubscription.unsubscribe();
+    this.showcaseSubscription.unsubscribe();
   }
 
   search(query: string): void {

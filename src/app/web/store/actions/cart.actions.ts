@@ -1,6 +1,5 @@
 import {Action} from '@ngrx/store';
-import {CartItem} from '../../interfaces/cart_item.interface';
-import {act} from '@ngrx/effects';
+import {CartInterface} from '../../interfaces/cart_item.interface';
 import {ItemModel} from '../../models/item.model';
 
 export enum CartTypes {
@@ -15,18 +14,26 @@ export enum CartTypes {
   UPDATE_CART_ITEM_SUCESS = '[CART] UPDATE ITEM SUCCESS',
   UPDATE_CART_ITEM_FAILURE = '[CART] UPDATE ITEM FAILURE',
   DROP_CART_ITEM = '[CART] DROP ITEM',
+  DROP_CART_ITEM_SUCCESS = '[CART] DROP ITEM SUCCESS',
+  DROP_CART_ITEM_FAILURE = '[CART] DROP ITEM FAILURE',
   EMPTY_CART = '[CART] EMPTY CART',
 
 }
 
-export class LoadCartActionAction implements Action {
+export class LoadCartAction implements Action {
   readonly type = CartTypes.LOAD_CART;
+
 }
 
 export class LoadCartSuccessAction implements Action {
   readonly type = CartTypes.LOAD_CART_SUCCESS;
 
-  constructor(public payload: { items: CartItem[], total: number }) {
+  constructor(public payload: {
+    gcart: CartInterface[],
+    rcart: CartInterface[],
+    ocart: CartInterface[],
+    amount: number, total: number
+  }) {
   }
 }
 
@@ -40,7 +47,7 @@ export class LoadCartFailureAction implements Action {
 export class AddCartItemAction implements Action {
   readonly type = CartTypes.ADD_CART_ITEM;
 
-  constructor(public payload: { item: ItemModel }) {
+  constructor(public payload: { item: ItemModel, amount: number }) {
   }
 }
 
@@ -61,7 +68,7 @@ export class AddCartItemFailureAction implements Action {
 export class UpdateCartItemAction implements Action {
   readonly type = CartTypes.UPDATE_CART_ITEM;
 
-  constructor(public payload: { item: ItemModel }) {
+  constructor(public payload: { item: ItemModel, amount: number }) {
   }
 }
 
@@ -82,7 +89,21 @@ export class UpdateCartItemFailureAction implements Action {
 export class DropCartItemAction implements Action {
   readonly type = CartTypes.DROP_CART_ITEM;
 
-  constructor(public payload: { item: ItemModel }) {
+  constructor(public payload: { item: CartInterface }) {
+  }
+}
+
+export class DropCartItemSuccessAction implements Action {
+  readonly type = CartTypes.DROP_CART_ITEM_SUCCESS;
+
+  constructor(public payload: { message: string }) {
+  }
+}
+
+export class DropCartItemFailureAction implements Action {
+  readonly type = CartTypes.DROP_CART_ITEM_FAILURE;
+
+  constructor(public payload: { message: string }) {
   }
 }
 
@@ -90,7 +111,8 @@ export class EmptyCartAction implements Action {
   readonly type = CartTypes.EMPTY_CART;
 }
 
-export type CartActions = LoadCartActionAction |
+
+export type CartActions = LoadCartAction |
   LoadCartSuccessAction |
   LoadCartFailureAction |
   AddCartItemAction |
@@ -100,5 +122,7 @@ export type CartActions = LoadCartActionAction |
   UpdateCartItemSuccessAction |
   UpdateCartItemFailureAction |
   DropCartItemAction |
+  DropCartItemSuccessAction |
+  DropCartItemFailureAction |
   EmptyCartAction;
 

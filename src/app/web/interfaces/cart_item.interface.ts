@@ -1,7 +1,20 @@
-import {ItemModel} from '../models/item.model';
+import {ItemInterface} from './item.interface';
 
-export interface CartItem {
+export interface CartInterface {
   code: string;
-  item: ItemModel;
-  date: string;
+  clientCode: string;
+  storeRuc: string;
+  storeName: string;
+  itemCode: string;
+  itemFCode: string;
+  itemDescription: string;
+  amount: number;
+  itemPrice: number;
+  itemImage: string;
+  itemBrand: string;
+  itemUnity: string;
+  registrationDate: string;
+  statusCode: number;
+  senderDOF: string;
+  detail: ItemInterface;
 }

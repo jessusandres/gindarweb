@@ -12,6 +12,7 @@ import {
 import {catchError, map, mergeMap, tap} from 'rxjs/operators';
 import {LogUserModel, UserModel, UserRegisterModel} from '../../models/user.model';
 import {of} from 'rxjs';
+import {EmptyCartAction, LoadCartAction} from '../actions/cart.actions';
 
 
 @Injectable()
@@ -78,9 +79,36 @@ export class AuthEffects {
             }
             return new LoginSuccessAction({user});
           }),
-          catchError((err) => of(new LoginFailureAction({errorCode: 500, errorMessage: null})))
+          catchError((err) => of(new LoginFailureAction({errorCode: 500, errorMessage: err.error?.message})))
         );
 
+      }
+    )
+  );
+
+  @Effect()
+  SuccessLoginCart = this.actions$.pipe(
+    ofType(AuthTypes.LOGIN_USER_SUCCESS),
+    mergeMap(() => {
+        return of(new LoadCartAction());
+      }
+    )
+  );
+
+  @Effect()
+  FailureLoginCart = this.actions$.pipe(
+    ofType(AuthTypes.LOGIN_USER_FAILURE),
+    mergeMap(() => {
+        return of(new EmptyCartAction());
+      }
+    )
+  );
+
+  @Effect()
+  LogoutLoginCart = this.actions$.pipe(
+    ofType(AuthTypes.LOGOUT_USER),
+    mergeMap(() => {
+        return of(new EmptyCartAction());
       }
     )
   );

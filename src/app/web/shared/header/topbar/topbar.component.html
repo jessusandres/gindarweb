@@ -25,7 +25,7 @@
           <div class="text-pimp pd-car-ms">
             <i class="fas fa-shopping-cart"></i>
           </div>
-          <span id="ordenes" class="counter-car caract-count-car">0</span>
+          <span id="ordenes" class="counter-car caract-count-car">{{cartAmount}}</span>
         </a>
 
         <a *ngIf="!isAuthenticated" href="javascript:void(0)" (click)="resetAuthForm()" data-toggle="modal" data-target="#loginModal">
