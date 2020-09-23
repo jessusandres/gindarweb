@@ -29,6 +29,7 @@ import {AdminSharedModule} from '../../admin/shared/admin-shared.module';
 import {WebPipesModule} from '../pipes/web-pipes.module';
 import {FormsModule} from '@angular/forms';
 import { StoreCartComponent } from './cart/store-cart/store-cart.component';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { StoreCartComponent } from './cart/store-cart/store-cart.component';
         }),
         AdminSharedModule,
         WebPipesModule,
-        FormsModule
+        FormsModule,
+        SweetAlert2Module
     ],
   exports: [
     HomeComponent,

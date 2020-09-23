@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {WebModule} from './web/web.module';
 import {AdminModule} from './admin/admin.module';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {AdminModule} from './admin/admin.module';
     ReactiveFormsModule,
     FormsModule,
     WebModule,
-    AdminModule
+    AdminModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   exports: [],

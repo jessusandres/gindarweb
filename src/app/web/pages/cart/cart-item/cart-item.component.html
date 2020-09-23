@@ -1,5 +1,5 @@
 <!--<tr>-->
-  <th scope="row" class="img-th  text-center">
+<th scope="row" class="img-th  text-center">
     <a class="img-car-wd" style="cursor: text;">
       <img [src]="cart.itemImage | itemImage" [alt]="cart.detail.shortDescription"
            class="img-fluid z-depth-0">
@@ -35,7 +35,8 @@
       <i class="fas fa-check"></i>
     </button>
     <button
-      (click)="removeItem()"
+      [swal]="swalOptions"
+      (confirm)="removeItem()"
       type="button"
       class="btn btn-sm btn-danger waves-effect waves-light"
       data-toggle="tooltip"

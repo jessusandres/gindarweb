@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {ItemImagePipe} from './item-image.pipe';
 import {SublinesFilterPipe} from './sublines-filter.pipe';
 import { DiscountPipe } from './discount.pipe';
+import { TotalStorePipe } from './total-store.pipe';
 
 
 
@@ -10,7 +11,8 @@ import { DiscountPipe } from './discount.pipe';
   declarations: [
     ItemImagePipe,
     SublinesFilterPipe,
-    DiscountPipe
+    DiscountPipe,
+    TotalStorePipe
   ],
   imports: [
     CommonModule
@@ -18,7 +20,8 @@ import { DiscountPipe } from './discount.pipe';
     exports: [
         ItemImagePipe,
         SublinesFilterPipe,
-        DiscountPipe
+        DiscountPipe,
+        TotalStorePipe
     ]
 })
 export class WebPipesModule { }

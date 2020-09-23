@@ -4,6 +4,7 @@ import {AppState} from '../../store/app.reducer';
 import {Subscription} from 'rxjs';
 import {CartState} from '../../store/reducers/cart.reducer';
 import {CartInterface} from '../../interfaces/cart_item.interface';
+import {SetStoreCartAction} from '../../store/actions/cart.actions';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +23,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   cartSubscription: Subscription;
   text = 'producto';
-  storeSelected: string;
+  storeSelected: { name: string, ruc: string };
 
   constructor(private store: Store<AppState>) {
   }
@@ -30,6 +31,7 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.cartSubscription = this.store.select('cartState').subscribe((cartState: CartState) => {
+
       this.loading = cartState.loading;
       this.cartAmount = cartState.amount;
       this.gindarCartItems = cartState.gcart;
@@ -38,6 +40,8 @@ export class CartComponent implements OnInit, OnDestroy {
       this.total = cartState.total;
       this.actionLoading = cartState.actionLoading;
       this.text = (this.cartAmount === 0 || this.cartAmount > 1) ? 'productos' : 'producto';
+
+      this.storeSelected = cartState.storeSelected;
     });
   }
 

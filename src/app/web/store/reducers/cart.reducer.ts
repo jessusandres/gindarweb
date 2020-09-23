@@ -6,6 +6,7 @@ export interface CartState {
   gcart: CartInterface[];
   rcart: CartInterface[];
   ocart: CartInterface[];
+  storeSelected: { ruc: string, name: string };
   loading: boolean;
   message: string;
   errorMessage: string;
@@ -21,6 +22,7 @@ const initialState: CartState = {
   rcart: [],
   ocart: [],
   loading: false,
+  storeSelected: null,
   message: null,
   errorMessage: null,
   actionLoading: false,
@@ -136,6 +138,15 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
       return {
         ...state,
         actionErrorMessage: action.payload.message
+      };
+    }
+    case CartTypes.CART_SET_STORE: {
+      return {
+        ...state,
+        storeSelected: {
+          name: action.payload.name,
+          ruc: action.payload.ruc
+        }
       };
     }
     default: {

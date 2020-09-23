@@ -10,6 +10,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../store/app.reducer';
 import {UserModel} from '../models/user.model';
 import {ItemInterface} from '../interfaces/item.interface';
+import {SetStoreCartAction} from '../store/actions/cart.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,15 @@ export class CartService {
           rCart: CartInterface[],
           oCart: CartInterface[], total: number, amount: number
         }) => {
+
+          if (res.gCart.length > 0) {
+            this.store.dispatch(new SetStoreCartAction({ruc: res.gCart[0].storeRuc, name: res.gCart[0].storeName}));
+          } else if (res.rCart.length > 0) {
+            this.store.dispatch(new SetStoreCartAction({ruc: res.rCart[0].storeRuc, name: res.rCart[0].storeName}));
+          } else if (res.oCart.length > 0) {
+            this.store.dispatch(new SetStoreCartAction({ruc: '00000000000', name: 'Otros'}));
+          }
+
           return {
             gcart: res.gCart,
             rcart: res.rCart,

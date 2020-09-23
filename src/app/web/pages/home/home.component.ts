@@ -27,16 +27,16 @@ export class HomeComponent implements OnInit {
   ];
 
   videoItems = [
-    {
-      code: 4,
-      url: 'cJmyzpUPaRU',
-      text: 'RELOJ INVICTA TRITNITE',
-    },
-    {
-      code: 4,
-      url: 'cJmyzpUPaRU',
-      text: 'RELOJ INVICTA TRITNITE',
-    },
+    // {
+    //   code: 4,
+    //   url: 'cJmyzpUPaRU',
+    //   text: 'RELOJ INVICTA TRITNITE',
+    // },
+    // {
+    //   code: 4,
+    //   url: 'cJmyzpUPaRU',
+    //   text: 'RELOJ INVICTA TRITNITE',
+    // },
   ];
 
   @ViewChild('featuredItems') container;

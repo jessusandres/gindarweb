@@ -5,7 +5,6 @@ import {map} from 'rxjs/operators';
 import {AdminUserInterface} from '../interfaces/admin-user.interface';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
-import Swal from 'sweetalert2';
 import {AuthDataService} from './auth-data.service';
 
 @Injectable({
@@ -115,7 +114,7 @@ export class AdminAuthService {
   }
 
   successRegister(user: AdminUserInterface): void {
-    Swal.fire(`Usuaio:  ${user.nick} registrado`);
+    // Swal.fire(`Usuaio:  ${user.nick} registrado`);
   }
 
   removeToken(): void {

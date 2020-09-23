@@ -17,6 +17,7 @@ export enum CartTypes {
   DROP_CART_ITEM_SUCCESS = '[CART] DROP ITEM SUCCESS',
   DROP_CART_ITEM_FAILURE = '[CART] DROP ITEM FAILURE',
   EMPTY_CART = '[CART] EMPTY CART',
+  CART_SET_STORE = '[CART] SET STORE CART',
 
 }
 
@@ -111,6 +112,14 @@ export class EmptyCartAction implements Action {
   readonly type = CartTypes.EMPTY_CART;
 }
 
+export class SetStoreCartAction implements Action {
+  readonly type = CartTypes.CART_SET_STORE;
+
+  constructor(public payload: { name: string, ruc: string }) {
+  }
+
+}
+
 
 export type CartActions = LoadCartAction |
   LoadCartSuccessAction |
@@ -124,5 +133,6 @@ export type CartActions = LoadCartAction |
   DropCartItemAction |
   DropCartItemSuccessAction |
   DropCartItemFailureAction |
-  EmptyCartAction;
+  EmptyCartAction |
+  SetStoreCartAction;
 

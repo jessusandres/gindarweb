@@ -37,7 +37,10 @@ export class CartEffects {
           amount: data.amount,
           total: data.total
         })),
-        catchError((err) => of(new LoadCartFailureAction({message: err.error.message})))
+        catchError((err) => {
+          console.log(err);
+          return of(new LoadCartFailureAction({message: err.error.message}));
+        })
       );
     })
   );
