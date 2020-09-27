@@ -1,19 +1,29 @@
-import {Component, OnInit} from '@angular/core';
-import {GenericDataService} from '../../../services/generic-data.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SublineInterface} from '../../../interfaces/subline.interface';
 import {WebRuc} from '../../../types/types';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../store/app.reducer';
+import {Subscription} from 'rxjs';
+import {UiState} from '../../../store/reducers/ui.reducer';
+import {InvictaItem} from '../../../interfaces/ui.interfaces';
 
+declare function mdbMinPlugin(): any;
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styles: []
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   subLines: SublineInterface[] = [];
 
-  constructor(public genericDataService: GenericDataService) {
+  invictaMenu: InvictaItem[][];
+  invictaMobileItems: InvictaItem[] = [];
+
+  uiSubscription: Subscription;
+
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -83,6 +93,33 @@ export class NavbarComponent implements OnInit {
         imageCode: 8
       }
     ];
+
+    this.uiSubscription = this.store.select('uiState').subscribe((uiState: UiState) => {
+
+      if (this.invictaMenu !== uiState.invictaMenuTags) {
+
+        this.invictaMenu = uiState.invictaMenuTags;
+
+        if (this.invictaMenu.length > 0) {
+          const itemsForMobileMenu = [];
+          this.invictaMenu.forEach((item) => {
+            item.forEach((tag) => {
+              itemsForMobileMenu.push(tag);
+            });
+          });
+
+          this.invictaMobileItems = itemsForMobileMenu;
+        }
+
+        setTimeout(() => {
+          mdbMinPlugin();
+        });
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.uiSubscription.unsubscribe();
   }
 
 }

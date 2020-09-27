@@ -17,7 +17,7 @@
     <h5 class="card-title mb-2">
       <span class="text-primary mb-2 font-OpenSans-regular">{{item.brandName}}</span>
     </h5>
-    <h5 class="text-muted font-OpenSans-regular">{{item.shortDescription || item.description}}</h5>
+    <h5 class="text-muted font-OpenSans-regular">{{item.description}}</h5>
 
     <p class="font-weight-bold text-dark" *ngIf="item.sysPrice <= item.webPrice">
       <span class="badge badge-primary text-oferta ml-1">S/ {{item.webPrice.toFixed(2)}}</span>

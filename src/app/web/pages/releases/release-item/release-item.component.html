@@ -18,7 +18,7 @@
       <br>
       <span class="badge badge-pill danger-color">Nuevo</span>
     </h5>
-    <h5 class="text-muted font-OpenSans-regular">{{item.shortDescription || item.description}}</h5>
+    <h5 class="text-muted font-OpenSans-regular">{{item.description}}</h5>
 
     <p class="font-weight-bold text-dark" *ngIf="item.sysPrice <= item.webPrice">
       <span class="badge badge-primary text-oferta ml-1">S/ {{item.webPrice.toFixed(2)}}</span>

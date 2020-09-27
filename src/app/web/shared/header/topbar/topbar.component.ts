@@ -8,6 +8,8 @@ import {UiState} from '../../../store/reducers/ui.reducer';
 import {ShowCaseState} from '../../../store/reducers/showcase.reducer';
 import {LogoutAction, ResetStatusAction} from '../../../store/actions/auth.actions';
 import {CartState} from '../../../store/reducers/cart.reducer';
+import {SPLIT_REGEX} from '../../../../config/config';
+import {WebDataService} from '../../../services/web-data.service';
 
 @Component({
   selector: 'app-topbar',
@@ -29,7 +31,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
   showcaseSubscription: Subscription;
   cartSubscription: Subscription;
 
-  constructor(private store: Store<AppState>, private router: Router) {
+  constructor(private store: Store<AppState>,
+              private router: Router,
+              private dataService: WebDataService) {
   }
 
   ngOnInit(): void {
@@ -41,7 +45,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     );
 
     this.cartSubscription = this.store.select('cartState').subscribe((cartState: CartState) => {
-      this.cartAmount = cartState.amount;
+      this.cartAmount = (!this.isAuthenticated) ? this.dataService.getLocalCart().length : cartState.amount;
     });
 
     this.uiSubscription = this.store.select('uiState').subscribe(
@@ -65,7 +69,6 @@ export class TopbarComponent implements OnInit, OnDestroy {
   }
 
   search(query: string): void {
-    // console.log(query);
     if (query.trim().length < 4) {
       return;
     }

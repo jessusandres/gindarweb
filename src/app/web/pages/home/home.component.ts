@@ -1,4 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/app.reducer';
+import {Subscription} from 'rxjs';
+import {UiState} from '../../store/reducers/ui.reducer';
 
 declare function WOW(): any;
 
@@ -7,13 +11,9 @@ declare function WOW(): any;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
-  items = [
-    {code: 1, tag: 'example'},
-    {code: 2, tag: 'example'},
-    {code: 3, tag: 'example'}
-  ];
+  sliders: { image: string }[];
 
   featured = [
     {code: 1, tag: 'example'},
@@ -32,25 +32,26 @@ export class HomeComponent implements OnInit {
     //   url: 'cJmyzpUPaRU',
     //   text: 'RELOJ INVICTA TRITNITE',
     // },
-    // {
-    //   code: 4,
-    //   url: 'cJmyzpUPaRU',
-    //   text: 'RELOJ INVICTA TRITNITE',
-    // },
   ];
 
-  @ViewChild('featuredItems') container;
+  uiSubscription: Subscription;
 
-  constructor() {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
-    // setTimeout(() => {
-    //   // WOW().init();
-    // }, 0);
+
+    this.uiSubscription = this.store.select('uiState').subscribe((uiState: UiState) => {
+      this.sliders = uiState.sliders;
+    });
+
+    setTimeout(() => {
+      WOW().init();
+    }, 0);
   }
 
-  goToFeatured(): void {
-    this.container.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  ngOnDestroy(): void {
+    this.uiSubscription.unsubscribe();
   }
+
 }

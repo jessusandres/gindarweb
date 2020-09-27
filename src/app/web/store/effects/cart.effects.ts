@@ -4,7 +4,7 @@ import {CartService} from '../../services/cart.service';
 import {
   AddCartItemAction,
   AddCartItemFailureAction,
-  AddCartItemSuccessAction,
+  AddCartItemSuccessAction, AddLocalItemAction, AddLocalItemSuccessAction,
   CartTypes,
   DropCartItemAction,
   DropCartItemFailureAction,
@@ -77,6 +77,30 @@ export class CartEffects {
         .pipe(
           map((message) => new DropCartItemSuccessAction({message})),
           catchError((err) => of(new DropCartItemFailureAction({message: err.error.message})))
+        );
+    })
+  );
+
+  @Effect()
+  addLocalItem = this.actions$.pipe(
+    ofType(CartTypes.ADD_LOCAL_ITEM),
+    mergeMap((action: AddLocalItemAction) => {
+        return this.cartService.addLocalItem(action.payload.item, action.payload.amount)
+          .pipe(
+            map((message) => new AddLocalItemSuccessAction({message}))
+          );
+      }
+    )
+  );
+
+  @Effect()
+  SyncLocalCart = this.actions$.pipe(
+    ofType(CartTypes.SYNC_LOCAL_CART),
+    mergeMap(() => {
+      return this.cartService.syncCart()
+        .pipe(
+          map(() => new LoadCartAction()),
+          catchError(() => of(new AddCartItemFailureAction({message: 'Algunos items no se agregaron correctamente al carrito.'})))
         );
     })
   );

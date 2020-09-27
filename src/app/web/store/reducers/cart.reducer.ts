@@ -15,6 +15,7 @@ export interface CartState {
   actionErrorMessage: string;
   amount: number;
   total: number;
+  showCartForm: boolean;
 }
 
 const initialState: CartState = {
@@ -30,6 +31,7 @@ const initialState: CartState = {
   actionErrorMessage: null,
   amount: 0.00,
   total: 0.00,
+  showCartForm: false,
 };
 
 export const CartReducer = (state: CartState = initialState, action: CartActions): CartState => {
@@ -51,7 +53,9 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
         rcart: action.payload.rcart,
         ocart: action.payload.ocart,
         loading: false,
+        actionLoading: false,
         message: null,
+        actionErrorMessage: null,
         amount: action.payload.amount,
         total: action.payload.total,
       };
@@ -94,13 +98,29 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
         actionMessage: action.payload.message,
       };
     }
+    case CartTypes.ADD_LOCAL_ITEM: {
+      return {
+        ...state,
+        actionLoading: true
+      };
+    }
+    case CartTypes.ADD_LOCAL_ITEM_SUCCESS: {
+      return {
+        ...state,
+        actionLoading: false,
+        actionMessage: action.payload.message
+      };
+    }
+    case CartTypes.SYNC_LOCAL_CART: {
+      return {
+        ...state,
+        actionLoading: true
+      };
+    }
     case CartTypes.DROP_CART_ITEM: {
       return {
         ...state,
         loading: true,
-        // amount: state.items.filter(item => item.code !== action.payload.item.code).length,
-        // total: state.total - (action.payload.item.itemPrice * action.payload.item.amount),
-        // items: state.items.filter(item => item.code !== action.payload.item.code)
       };
     }
     case CartTypes.EMPTY_CART: {
@@ -137,7 +157,8 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
     case CartTypes.DROP_CART_ITEM_SUCCESS: {
       return {
         ...state,
-        actionErrorMessage: action.payload.message
+        actionErrorMessage: null,
+        actionMessage: action.payload.message
       };
     }
     case CartTypes.CART_SET_STORE: {
@@ -147,6 +168,12 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
           name: action.payload.name,
           ruc: action.payload.ruc
         }
+      };
+    }
+    case CartTypes.CART_SHOW_FORM: {
+      return {
+        ...state,
+        showCartForm: action.payload.show
       };
     }
     default: {

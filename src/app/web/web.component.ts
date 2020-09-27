@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {filter, map} from 'rxjs/operators';
 import {ActivatedRouteSnapshot, ActivationEnd, Router} from '@angular/router';
 import {StatusLoginAction} from './store/actions/auth.actions';
-import {SetPageAction} from './store/actions/ui.actions';
+import {LoadAdvertisementsAction, LoadCarrouselAction, LoadInvictaMenuAction, SetPageAction} from './store/actions/ui.actions';
 import {HomeComponent} from './pages/home/home.component';
 import {Store} from '@ngrx/store';
 import {AppState} from './store/app.reducer';
@@ -29,7 +29,11 @@ export class WebComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.linkTheme.removeAttribute('href');
-    this.store.dispatch(new StatusLoginAction({redirect: false}));
+
+    this.store.dispatch(new StatusLoginAction());
+    this.store.dispatch(new LoadAdvertisementsAction());
+    this.store.dispatch(new LoadInvictaMenuAction());
+    this.store.dispatch(new LoadCarrouselAction());
 
     mdbMinPlugin();
     WOW().init();
@@ -47,7 +51,7 @@ export class WebComponent implements OnInit, AfterViewInit {
         }
 
         if (activatedRouteSnapshot.routeConfig.canActivate === undefined) {
-          this.store.dispatch(new StatusLoginAction({redirect: false}));
+          this.store.dispatch(new StatusLoginAction());
         }
 
         this.store.dispatch(new SetPageAction({

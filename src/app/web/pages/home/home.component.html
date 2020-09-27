@@ -4,36 +4,14 @@
 
     <div class="carousel-inner" role="listbox">
 
-      <!--      <app-carousel-item *ngFor="let item of items; index as ind" [item]="item" [active]="ind===0"></app-carousel-item>-->
-      <div class="carousel-item" *ngFor="let item of items; index as ind" [ngClass]="{'active': ind===0}">
+      <div class="carousel-item animated fadeIn" *ngFor="let slider of sliders; index as ind" [ngClass]="{'active': ind===0}">
         <div class="view">
-          <img class="d-block w-100 height-img-xs" src="./assets/img/slider/slider_{{item.code}}.jpg"
+          <img class="d-block w-100 height-img-xs" src="{{slider.image | sliderImage}}"
                alt="First slide">
           <div class="mask rgba-black-gdlight"></div>
         </div>
       </div>
 
-      <div class="carousel-caption carousel-caption-ms wow fadeIn">
-
-        <a
-          *ngIf="items[1] !== null"
-          href="javascript:void(0)"
-          class="btn btn-outline-light waves-light btn-ms font-OpenSans-bold">M&aacute;s
-          Detalles</a>
-
-        <a
-          *ngIf="items[1] === null"
-          href="javascript:void(0)"
-          class="btn btn-outline-light waves-light btn-ms font-OpenSans-bold">M&aacute;s
-          Detalles</a>
-
-
-        <a href="javascript:void(0)"
-           (click)="goToFeatured()"
-           class="white-text mt-4 d-block page-scroll hidden-arrow-ms ani-pers">
-          <i
-            class="fas fa-angle-double-down fa-3x animated bounce infinite"></i></a>
-      </div>
     </div>
 
     <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
@@ -62,7 +40,7 @@
 
 <!--NUEVOS VIDEOS-->
 
-<header class="mt-5">
+<header class="mt-5" hidden>
   <div class="container-fluid">
     <section class="text-center my-5">
       <!--<h1 class="my-5 pt-bloque h3 text-center font-OpenSans-bold font-tnr-size estilizado-time-roman wow fadeIn gindar-blue-text">NUEVOS VIDEOS</h1>-->
@@ -80,7 +58,7 @@
     <div class="row d-flex">
       <div class="flex-fill">
         <a href="">
-          <img src="../../../../assets/img/delivery.svg" alt="Envio a todo el Perú"> Env&iacute;o a todo Per&uacute;
+          <img src="../../../../assets/img/delivery.svg" alt="Envio a todo el Perú"> Envío a todo Perú
         </a>
       </div>
       <div class="flex-fill br-lr">
@@ -90,7 +68,7 @@
       </div>
       <div class="flex-fill">
         <a href="">
-          <img src="../../../../assets/img/devolution.svg" alt="Devoluciones"> Garant&iacute;a y Serv. Técnico </a>
+          <img src="../../../../assets/img/devolution.svg" alt="Devoluciones"> Garantía y Serv. Técnico </a>
       </div>
     </div>
   </div>

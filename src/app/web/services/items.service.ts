@@ -11,11 +11,10 @@ import {ImageInterface} from '../interfaces/image.interface';
 })
 export class ItemsService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient) {
   }
 
   getItemsForQuery(query: string): Observable<ItemInterface[]> {
-    // console.log(query);
     return this.httpClient.get(`${BASE_URL}/search/${query}`)
       .pipe(
         map((res: any) => res.items)

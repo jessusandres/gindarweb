@@ -70,6 +70,15 @@ export const AuthReducer = (state: AuthState = initialState, action: AuthActions
         isLoading: true
       };
     }
+    case AuthTypes.STATUS_LOGIN_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        authErrorMessage: null,
+        isAuthenticated: true,
+        user: action.payload.user
+      };
+    }
     case AuthTypes.LOGOUT_USER: {
       return initialState;
     }

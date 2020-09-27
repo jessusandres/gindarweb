@@ -1,5 +1,6 @@
 <app-breadcrumbs></app-breadcrumbs>
 <div class="container" *ngIf="loading">
+
   <div class="row">
     <app-loading-container
       class="col-12 text-center animated fadeInLeft"
@@ -14,75 +15,16 @@
       message="Actualizando carrito..."></app-loading-container>
   </div>
 </div>
-<div
-  *ngIf="!loading && !actionLoading"
-  class="container animated fadeInUp">
-  <h4 class="h4-responsive h4-responsive-xs py-3">
-    Tienes
-    <span>
-      <b> {{cartAmount}} </b>
-    </span>
-    {{text}} en tu carrito de compras</h4>
 
-  <div class="row pd-xss-pagar" *ngIf="cartAmount > 0">
 
-    <app-store-cart
-      *ngIf="gindarCartItems.length > 0"
-      storeName="Gindar Perú"
-      [storeRuc]="gindarCartItems[0].storeRuc"
-      [items]="gindarCartItems"
-      class="col-md-12 table-col-ms-pd mt-3">
-    </app-store-cart>
+<app-cart-table
+  *ngIf="!loading && !actionLoading && !showOrderForm"
+  [ngClass]="{'fadeOut': showOrderForm}"
+  class="row animated">
+</app-cart-table>
 
-    <app-store-cart
-      *ngIf="rogerCartItems.length > 0"
-      storeName="Roger Finqin"
-      [storeRuc]="rogerCartItems[0].storeRuc"
-      [items]="rogerCartItems"
-      class="col-md-12 table-col-ms-pd mt-3">
-    </app-store-cart>
+<app-cart-form *ngIf="!loading && !actionLoading && showOrderForm"
+               class="row animated">
+</app-cart-form>
 
-    <app-store-cart
-      *ngIf="otherCartItems.length > 0"
-      storeName="Otros"
-      storeRuc="00000000000"
-      [items]="otherCartItems"
-      class="col-md-12 table-col-ms-pd mt-3">
-    </app-store-cart>
 
-    <div class="col-md-12 table-col-ms-pd" *ngIf="storeSelected">
-      <div class="card my-3 table-vert-ms font-OpenSans-regular">
-        <div class="card-body">
-          <hr class="mt-3 mb-2">
-          <div class="row">
-            <div class="col-6 col-md-6 text-left my-2">
-              <h5 class="h4-responsive-xs font-weight-bold">
-                TOTAL
-                EN : {{storeSelected.name.toUpperCase()}}
-              </h5>
-            </div>
-            <div class="col-6 col-md-6 text-right my-2">
-              <h5 class="h4-responsive-xs text-dark font-weight-bold">
-                S/ {{ storeSelected.ruc | totalStore: [gindarCartItems, rogerCartItems, otherCartItems] }}
-              </h5>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="md-form mb-0 mt-4">
-                <form>
-                  <button type="button" class="waves-effect waves-light btn btn-gindar btn-block mt-0">
-                    Realizar pedido
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-</div>

@@ -9,7 +9,10 @@ import {AppState} from '../../store/app.reducer';
 import {LoadingItemDetailAction} from '../../store/actions/item.actions';
 import {Subscription} from 'rxjs';
 import {RemoveItemNameAction, SetItemNameAction} from '../../store/actions/ui.actions';
-import {AddCartItemAction} from '../../store/actions/cart.actions';
+import {AddCartItemAction, AddLocalItemAction} from '../../store/actions/cart.actions';
+import {AuthState} from '../../store/reducers/auth.reducer';
+import {Meta} from '@angular/platform-browser';
+import {environment} from '../../../../environments/environment';
 
 declare function detailPluging(): any;
 
@@ -21,10 +24,14 @@ declare function $(s: string): any;
   styles: ['button { height: 63%; }']
 })
 export class ItemDetailComponent implements OnInit, OnDestroy {
+
+  amount = 1;
   currentYear: any;
 
   item: ItemInterface;
   images: ImageInterface[];
+
+  isAuth: boolean;
   loading: boolean;
   errorMessage: string;
 
@@ -35,14 +42,39 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
   routeSubs: Subscription;
   itemSubs: Subscription;
   cartSubs: Subscription;
-  amount = 1;
+  authSubs: Subscription;
 
   constructor(private itemsService: ItemsService,
               private activatedRoute: ActivatedRoute,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private meta: Meta) {
   }
 
   ngOnInit(): void {
+
+    this.meta.updateTag({
+      property: 'og:description',
+      content: 'Detalle de Producto'
+    });
+
+    this.meta.updateTag({
+      content: 'Detalle de Producto B'
+    }, 'name=Description');
+
+    this.meta.updateTag({
+      property: 'og:title',
+      content: 'Titulo de Página'
+    });
+
+    this.meta.updateTag({
+      property: 'og:url',
+      content: 'https://gindarperu.com/vitrina/20/detalle/0101160001'
+    });
+
+    this.meta.updateTag({
+      property: 'og:image',
+      content: `https://gindarperu.com/assets/img/img_producto/20605477551010107009028097.jpg`
+    });
 
     this.currentYear = new Date().getFullYear();
 
@@ -53,7 +85,9 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     });
 
     this.itemSubs = this.store.select('itemState').subscribe((itemState) => {
+
       this.item = itemState.item;
+
       this.loading = itemState.loading;
       this.images = itemState.images;
       this.errorMessage = itemState.errorMessage;
@@ -66,17 +100,24 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
           }
         ];
       }
-      this.store.dispatch(new SetItemNameAction({itemName: this.item?.shortDescription || this.item?.description}));
+      this.store.dispatch(new SetItemNameAction({itemName: this.item?.description || 'Detalle de Producto'}));
+
       detailPluging();
+
       setTimeout(() => {
         $('.zoom-img_ms').zoom();
       }, 0);
+
     });
 
     this.cartSubs = this.store.select('cartState').subscribe((cartState) => {
       this.cartErrorMessage = cartState.actionErrorMessage;
       this.cartLoading = cartState.actionLoading;
       this.cartMessage = cartState.actionMessage;
+    });
+
+    this.authSubs = this.store.select('authState').subscribe((authState: AuthState) => {
+      this.isAuth = authState.isAuthenticated;
     });
 
 
@@ -97,6 +138,11 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     }
 
     this.cartErrorMessage = null;
+
+    if (!this.isAuth) {
+      this.store.dispatch(new AddLocalItemAction({item: this.item, amount: this.amount}));
+      return;
+    }
 
     this.store.dispatch(new AddCartItemAction({item: this.item, amount: this.amount}));
   }

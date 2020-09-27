@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
   storeDevTools: [],
-  baseUrl: `http://restgindar.redmovildenegocios.com`
+  baseUrl: `https://tuquepides.com/gindarapi/`,
+  publicPath: './assets/img',
 };

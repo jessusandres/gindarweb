@@ -118,8 +118,7 @@
                   <h4 class="text-primary">Marca</h4>
                   <p class="text-muted font-weight-light">{{item.brandName}}</p>
                   <h4 class="text-primary">Descripción</h4>
-                  <p class="text-muted font-weight-light">
-                    {{item.description}}
+                  <p class="text-muted font-weight-light" [innerHTML]="item.shortDescription | sanitizerHtml">
                   </p>
                 </div>
 

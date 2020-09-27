@@ -23,6 +23,7 @@ import {BrandsEffects} from './store/effects/brands.effects';
 import {SublinesEffects} from './store/effects/sublines.effects';
 import {ItemEffects} from './store/effects/item.effects';
 import {CartEffects} from './store/effects/cart.effects';
+import {UiEffects} from './store/effects/ui.effects';
 
 @NgModule({
   declarations: [WebComponent,
@@ -34,6 +35,7 @@ import {CartEffects} from './store/effects/cart.effects';
     StoreModule.forRoot(AppReducer),
     EffectsModule.forRoot([
       AuthEffects,
+      UiEffects,
       ItemsEffects,
       ItemEffects,
       BrandsEffects,

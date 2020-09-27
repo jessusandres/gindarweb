@@ -25,4 +25,16 @@ export class WebDataService {
       Authorization: `Bearer ${this.getToken()}`
     });
   }
+
+  getLocalCart(): any {
+    return JSON.parse(localStorage.getItem('cart_gst')) || [];
+  }
+
+  setCart(localItems: any[]): void {
+    localStorage.setItem('cart_gst', JSON.stringify(localItems));
+  }
+
+  dropCart(): void {
+    localStorage.removeItem('cart_gst');
+  }
 }

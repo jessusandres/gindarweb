@@ -10,7 +10,10 @@ export enum AuthTypes {
   REGISTER_USER_FAILURE = '[AUTH] REGISTER FAILURE',
   LOGOUT_USER = '[AUTH] LOGOUT USER',
   STATUS_LOGIN = '[AUTH] STATUS LOGIN',
-  RESET_STATUS = '[AUTH] RESET STATUS'
+  RESET_STATUS = '[AUTH] RESET STATUS',
+  SYNC_AWAIT = '[AUTH] SYNC AWAIT',
+  GUARD_LOGIN = '[AUTH] GUARD VERIFICATION',
+  STATUS_LOGIN_SUCCESS = '[AUTH] STATUS SUCCESS LOGIN',
 }
 
 export class ResetStatusAction implements Action {
@@ -27,7 +30,7 @@ export class LoginAction implements Action {
 export class LoginSuccessAction implements Action {
   readonly type = AuthTypes.LOGIN_USER_SUCCESS;
 
-  constructor(public payload: { user: UserModel }) {
+  constructor(public payload: { user: UserModel, status: boolean }) {
   }
 }
 
@@ -63,10 +66,26 @@ export class LogoutAction implements Action {
   readonly type = AuthTypes.LOGOUT_USER;
 }
 
+export class GuardLoginAction implements Action {
+  readonly type = AuthTypes.GUARD_LOGIN;
+
+  constructor(public payload: { redirect: boolean }) {
+  }
+}
+
 export class StatusLoginAction implements Action {
   readonly type = AuthTypes.STATUS_LOGIN;
-  constructor(public payload: { redirect: boolean}) {
+}
+
+export class StatusSuccessAction implements Action {
+  readonly type = AuthTypes.STATUS_LOGIN_SUCCESS;
+
+  constructor(public payload: { user: UserModel }) {
   }
+}
+
+export class AuthSyncAwait implements Action {
+  readonly type = AuthTypes.SYNC_AWAIT;
 }
 
 export type AuthActions = ResetStatusAction |
@@ -77,4 +96,6 @@ export type AuthActions = ResetStatusAction |
   RegisterSuccessAction |
   RegisterFailureAction |
   LogoutAction |
-  StatusLoginAction;
+  StatusLoginAction |
+  StatusSuccessAction |
+  AuthSyncAwait;

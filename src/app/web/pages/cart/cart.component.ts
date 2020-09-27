@@ -15,15 +15,10 @@ export class CartComponent implements OnInit, OnDestroy {
 
   loading: boolean;
   actionLoading: boolean;
-  total: number;
-  cartAmount: number;
-  gindarCartItems: CartInterface[];
-  rogerCartItems: CartInterface[];
-  otherCartItems: CartInterface[];
+
+  showOrderForm: boolean;
 
   cartSubscription: Subscription;
-  text = 'producto';
-  storeSelected: { name: string, ruc: string };
 
   constructor(private store: Store<AppState>) {
   }
@@ -33,15 +28,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartSubscription = this.store.select('cartState').subscribe((cartState: CartState) => {
 
       this.loading = cartState.loading;
-      this.cartAmount = cartState.amount;
-      this.gindarCartItems = cartState.gcart;
-      this.rogerCartItems = cartState.rcart;
-      this.otherCartItems = cartState.ocart;
-      this.total = cartState.total;
       this.actionLoading = cartState.actionLoading;
-      this.text = (this.cartAmount === 0 || this.cartAmount > 1) ? 'productos' : 'producto';
-
-      this.storeSelected = cartState.storeSelected;
+      this.showOrderForm = cartState.showCartForm;
     });
   }
 

@@ -18,7 +18,11 @@ export enum CartTypes {
   DROP_CART_ITEM_FAILURE = '[CART] DROP ITEM FAILURE',
   EMPTY_CART = '[CART] EMPTY CART',
   CART_SET_STORE = '[CART] SET STORE CART',
-
+  ADD_LOCAL_ITEM = '[CART] ADD LOCAL ITEM',
+  ADD_LOCAL_ITEM_SUCCESS = '[CART] ADD LOCAL ITEM SUCCESS',
+  SYNC_LOCAL_CART = '[CART] SYNC LOCAL CART',
+  SYNC_AWAIT = '[CART] SYNC AWAIT',
+  CART_SHOW_FORM = '[CART] SHOW CART FORM',
 }
 
 export class LoadCartAction implements Action {
@@ -40,6 +44,20 @@ export class LoadCartSuccessAction implements Action {
 
 export class LoadCartFailureAction implements Action {
   readonly type = CartTypes.LOAD_CART_FAILURE;
+
+  constructor(public payload: { message: string }) {
+  }
+}
+
+export class AddLocalItemAction implements Action {
+  readonly type = CartTypes.ADD_LOCAL_ITEM;
+
+  constructor(public payload: { item: ItemModel, amount: number }) {
+  }
+}
+
+export class AddLocalItemSuccessAction implements Action {
+  readonly type = CartTypes.ADD_LOCAL_ITEM_SUCCESS;
 
   constructor(public payload: { message: string }) {
   }
@@ -120,10 +138,27 @@ export class SetStoreCartAction implements Action {
 
 }
 
+export class SyncLocalCartAction implements Action {
+  readonly type = CartTypes.SYNC_LOCAL_CART;
+}
+
+export class SyncAwaitAction implements Action {
+  readonly type = CartTypes.SYNC_AWAIT;
+}
+
+export class ShowCartForm implements Action {
+  readonly type = CartTypes.CART_SHOW_FORM;
+
+  constructor(public payload: { show: boolean }) {
+  }
+}
+
 
 export type CartActions = LoadCartAction |
   LoadCartSuccessAction |
   LoadCartFailureAction |
+  AddLocalItemAction |
+  AddLocalItemSuccessAction |
   AddCartItemAction |
   AddCartItemSuccessAction |
   AddCartItemFailureAction |
@@ -134,5 +169,8 @@ export type CartActions = LoadCartAction |
   DropCartItemSuccessAction |
   DropCartItemFailureAction |
   EmptyCartAction |
-  SetStoreCartAction;
+  SetStoreCartAction |
+  SyncLocalCartAction |
+  SyncAwaitAction |
+  ShowCartForm;
 

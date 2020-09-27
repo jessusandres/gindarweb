@@ -27,6 +27,7 @@ export class ReleasesComponent implements OnInit, OnDestroy {
       this.releaseItems = itemsState.releaseItems;
       this.loading = itemsState.releaseLoading;
       this.errorMessage = itemsState.releaseErrorMessage;
+      console.log(this.releaseItems);
     });
     if (!this.loading && this.releaseItems.length === 0) {
       this.store.dispatch(new LoadReleaseItemsAction());

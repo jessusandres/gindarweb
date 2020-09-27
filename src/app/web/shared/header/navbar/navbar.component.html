@@ -11,7 +11,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarGindar">
         <ul class="navbar-nav font-OpenSans-regular nav-link-a-nav text-center tam-font-size">
-          <!-- =========== NAVEGADOR PARA PC ==================== -->
+          <!-- =========== PC MENU ==================== -->
+
           <!--PROMOCION DEL MES-->
           <li class="nav-item bd-cl-tb">
             <a class="nav-link btn-promo animated pulse infinite" routerLink="promociones"><i
@@ -19,93 +20,19 @@
           </li>
           <!-- RELOJES -->
           <li class="nav-item dropdown mega-dropdown visible-mega-menu">
-            <!--      id="     navbarGindar -->
             <a class="nav-link dropdown-toggle text-uppercase tfs1" id="navbarGindar2"
                data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">INVICTA
-              <!--<span class="sr-only">(current)</span>-->
             </a>
             <div class="dropdown-menu mega-menu mega-hover mega-menu-coleccion v-1 z-depth-1 white py-5 px-3"
                  aria-labelledby="navbarMegaMenuColeccion">
               <div class="row">
-                <div class="col-md-4 col-lg-4 col-xl-4 sub-menu mb-md-0 mb-xl-0 mb-4">
+
+                <div class="col-md-4 col-lg-4 col-xl-4 sub-menu mb-md-0 mb-xl-0 mb-4" *ngFor="let item of invictaMenu">
                   <ul class="list-unstyled">
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Akula">
-                        Akula
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Force">
-                        Force
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Aviator">
-                        Aviator
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Reverse">
-                        Reverse
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Bolt">
-                        Bolt
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-md-4 col-lg-4 col-xl-4 sub-menu mb-xl-0 mb-4">
-                  <ul class="list-unstyled">
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Marvel">
-                        Marvel
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Pro Diver">
-                        Pro Diver
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Angel">
-                        Angel
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Character">
-                        Character
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Colletion">
-                        Colletion
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-md-4 col-lg-4 col-xl-4 sub-menu mb-xl-0 mb-4">
-                  <ul class="list-unstyled">
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Limited">
-                        Limited
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/Art">
-                        Art
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/I-Force">
-                        I-Force
-                      </a>
-                    </li>
-                    <li>
-                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/todos">
-                        Todos
+                    <li *ngFor="let tag of item">
+                      <a class="menu-item pl-0 pd-a-ms" routerLink="invicta/{{tag.text}}">
+                        {{tag.text}}
                       </a>
                     </li>
                   </ul>
@@ -115,7 +42,7 @@
             </div>
           </li>
 
-          <!-- HOMBRES -->
+          <!-- MANS -->
           <li class="nav-item dropdown mega-dropdown visible-mega-menu">
             <a class="nav-link dropdown-toggle text-uppercase tfs1" id="navbarMegaMenuHombres"
                data-toggle="dropdown"
@@ -135,7 +62,6 @@
                         <img src="./assets/img/navbar/navbar_{{subline.imageCode}}.jpg"
                              class="img-fluid rounded mb-0" alt="smaple image">
                         <div class="mask flex-center rgba-cyan-strong">
-                          <!--<p class="white-text font-OpenSans-light font-hover-gindar">GINDAR</p>-->
                         </div>
                       </div>
                     </a>
@@ -146,7 +72,7 @@
             </div>
           </li>
 
-          <!-- MUJERES -->
+          <!-- WOMANS -->
           <li class="nav-item dropdown mega-dropdown visible-mega-menu">
             <a class="nav-link dropdown-toggle text-uppercase tfs1" id="navbarMegaMenuMujeres"
                data-toggle="dropdown"
@@ -166,7 +92,6 @@
                         <img src="./assets/img/navbar/navbar_{{subline.imageCode}}.jpg"
                              class="img-fluid rounded mb-0" alt="smaple image">
                         <div class="mask flex-center rgba-cyan-strong">
-                          <!--<p class="white-text font-OpenSans-light font-hover-gindar">GINDAR</p>-->
                         </div>
                       </div>
                     </a>
@@ -177,13 +102,15 @@
             </div>
           </li>
 
-          <!-- ==================== NAVEGADOR PARA DISPOSITIVOS ==================== -->
+          <!-- ==================== MOBILE MENU ==================== -->
           <li class="nav-item dropdown bd-cl-tb visible-menu-dispositivo border-0-xs">
             <a class="nav-link waves-effect waves-light" id="navbarMenuDispoColeccion" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">COLECCIÓN</a>
+               aria-haspopup="true" aria-expanded="false">INVICTA</a>
             <div class="dropdown-menu dp-menu-ms bd-sub-menu border-0 text-center"
                  aria-labelledby="navbarMenuDispoColeccion">
-              <a class="dropdown-item dp-a-ms" routerLink="">Invicta</a>
+              <a class="dropdown-item dp-a-ms" *ngFor="let tag of invictaMobileItems" routerLink="invicta/{{tag.text}}">
+                {{tag.text}}
+              </a>
             </div>
           </li>
 

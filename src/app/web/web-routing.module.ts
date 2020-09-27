@@ -55,13 +55,6 @@ const WebRoutes: Routes = [
         },
         component: ShowcaseComponent
       },
-      // {
-      //   path: 'vitrina/:line', component: ShowcaseComponent,
-      //   data: {
-      //     prev: [''],
-      //     page: 'Vitrina'
-      //   }
-      // },
       {path: 'vitrina/buscar/:query', component: SearchComponent, data: {prev: [''], page: 'Búsqueda'}},
       {
         path: 'vitrina/10/detalle/:itemcode',

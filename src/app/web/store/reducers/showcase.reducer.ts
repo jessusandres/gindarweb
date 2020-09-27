@@ -79,7 +79,7 @@ export const ShowcaseReducer = (state: ShowCaseState = initState, action: Showca
     case FilterTypes.SET_QUERY: {
       return {
         ...state,
-        query: action.payload.query,
+        query: action.payload.query.split(/\W+/).join(' '),
         showFilter: false
       };
     }

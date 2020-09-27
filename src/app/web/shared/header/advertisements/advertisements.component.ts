@@ -1,35 +1,32 @@
-import {Component, OnInit} from '@angular/core';
-import {GenericDataService} from '../../../services/generic-data.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AppState} from '../../../store/app.reducer';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs';
+import {UiState} from '../../../store/reducers/ui.reducer';
 
 @Component({
   selector: 'app-advertisements',
   templateUrl: './advertisements.component.html',
   styles: []
 })
-export class AdvertisementsComponent implements OnInit {
+export class AdvertisementsComponent implements OnInit, OnDestroy {
 
-  advertisements: { advertisement: string }[] = [];
+  advertisements: { title: string }[] = [];
 
-  constructor(public genericDataService: GenericDataService) {
+  uiSubscription: Subscription;
+
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
-    // this.genericDataService.getAdvertisements()
-    //   .subscribe((advertisements) => {
-    //     this.advertisements = advertisements;
-    //   });
-    const advertisements = {
-      ok: true,
-      advertisements: [
-        {
-          advertisement: 'Tenemos un regalo para ti! Usa este código para obtener un 10% de descuento.'
-        },
-        {
-          advertisement: 'Marquesina de pruebas actualizado.'
-        }
-      ]
-    };
-    this.advertisements = advertisements.advertisements;
+
+    this.store.select('uiState').subscribe((uiState: UiState) => {
+      this.advertisements = uiState.advertisements;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.uiSubscription.unsubscribe();
   }
 
 }

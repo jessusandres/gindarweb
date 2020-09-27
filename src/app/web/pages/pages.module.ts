@@ -1,20 +1,25 @@
 import {NgModule} from '@angular/core';
+
 import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
+import {AgmCoreModule} from '@agm/core';
+import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
+
+import {MAPS_API_KEY} from '../../config/config';
+
 import {HomeComponent} from './home/home.component';
 import {WePageComponent} from './we-page/we-page.component';
 import {SharedModule} from '../shared/shared.module';
-import {HttpClientModule} from '@angular/common/http';
 import {ReleasesComponent} from './releases/releases.component';
 import {PromotionsComponent} from './promotions/promotions.component';
-import {CarouselItemComponent} from './home/carousel-item/carousel-item.component';
 import {PrivacyPolicyComponent} from './privacy-policy/privacy-policy.component';
 import {ReturnPolicyComponent} from './return-policy/return-policy.component';
-import {RouterModule} from '@angular/router';
+
 import {FeaturedProductComponent} from './home/featured-product/featured-product.component';
 import {VideoItemComponent} from './home/video-item/video-item.component';
 import {GServicesComponent} from './home/g-services/g-services.component';
-import {AgmCoreModule} from '@agm/core';
-import {MAPS_API_KEY} from '../../config/config';
 import {ShowcaseComponent} from './showcase/showcase.component';
 import {ItemDetailComponent} from './item-detail/item-detail.component';
 import {ShowcaseItemComponent} from './showcase/showcase-item/showcase-item.component';
@@ -27,9 +32,9 @@ import {ContactComponent} from './contact/contact.component';
 import {ClaimComponent} from './claim/claim.component';
 import {AdminSharedModule} from '../../admin/shared/admin-shared.module';
 import {WebPipesModule} from '../pipes/web-pipes.module';
-import {FormsModule} from '@angular/forms';
 import { StoreCartComponent } from './cart/store-cart/store-cart.component';
-import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
+import { CartTableComponent } from './cart/cart-table/cart-table.component';
+import { CartFormComponent } from './cart/cart-form/cart-form.component';
 
 
 @NgModule({
@@ -38,7 +43,6 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
     WePageComponent,
     ReleasesComponent,
     PromotionsComponent,
-    CarouselItemComponent,
     PrivacyPolicyComponent,
     ReturnPolicyComponent,
     FeaturedProductComponent,
@@ -54,7 +58,9 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
     CartItemComponent,
     ContactComponent,
     ClaimComponent,
-    StoreCartComponent
+    StoreCartComponent,
+    CartTableComponent,
+    CartFormComponent
   ],
     imports: [
         CommonModule,
@@ -67,7 +73,8 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
         AdminSharedModule,
         WebPipesModule,
         FormsModule,
-        SweetAlert2Module
+        SweetAlert2Module,
+        ReactiveFormsModule
     ],
   exports: [
     HomeComponent,

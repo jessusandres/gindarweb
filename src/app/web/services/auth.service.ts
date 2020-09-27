@@ -14,7 +14,9 @@ declare function jQuery(s: string): any;
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient, private router: Router, private readonly dataService: WebDataService) {
+  constructor(public httpClient: HttpClient,
+              private router: Router,
+              private readonly dataService: WebDataService) {
   }
 
   login(email: string, password: string): Observable<UserModel> {
@@ -55,6 +57,7 @@ export class AuthService {
 
 
   verifyLogin(redirect: boolean): Observable<UserModel | string> {
+
     const token = this.dataService.getToken();
     if (token) {
       try {

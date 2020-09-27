@@ -9,7 +9,8 @@ export const environment = {
   storeDevTools: [
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: false})
   ],
-  baseUrl: `http://localhost:3000`
+  baseUrl: `http://localhost:3000`,
+  publicPath: 'https://gindarperu.com/assets/img'
 };
 
 /*
