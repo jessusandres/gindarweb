@@ -13,3 +13,6 @@ export const WEB_REGEX: RegExp = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2
 export const SPLIT_REGEX: RegExp = /\W+/;
 
 export const NUMBER_REGEX: RegExp = new RegExp('^\\d+$');
+
+//CULQI
+export const CULQI_KEY = `pk_test_9fb7c16dc0ed24f5`;

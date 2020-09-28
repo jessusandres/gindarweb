@@ -19,6 +19,9 @@ export class CartComponent implements OnInit, OnDestroy {
   showOrderForm: boolean;
 
   cartSubscription: Subscription;
+  orderSubscription: Subscription;
+  orderLoading: boolean;
+  orderMessage: string;
 
   constructor(private store: Store<AppState>) {
   }
@@ -31,11 +34,17 @@ export class CartComponent implements OnInit, OnDestroy {
       this.actionLoading = cartState.actionLoading;
       this.showOrderForm = cartState.showCartForm;
     });
+
+    this.orderSubscription = this.store.select('orderState').subscribe((orderState) => {
+      this.orderLoading = orderState.loading;
+      this.orderMessage = orderState.infoMessage;
+    })
   }
 
 
   ngOnDestroy(): void {
     this.cartSubscription.unsubscribe();
+    this.orderSubscription.unsubscribe();
   }
 
 

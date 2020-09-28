@@ -24,6 +24,7 @@ import {SublinesEffects} from './store/effects/sublines.effects';
 import {ItemEffects} from './store/effects/item.effects';
 import {CartEffects} from './store/effects/cart.effects';
 import {UiEffects} from './store/effects/ui.effects';
+import {OrderEffects} from "./store/effects/order.effects";
 
 @NgModule({
   declarations: [WebComponent,
@@ -40,7 +41,8 @@ import {UiEffects} from './store/effects/ui.effects';
       ItemEffects,
       BrandsEffects,
       SublinesEffects,
-      CartEffects]),
+      CartEffects,
+      OrderEffects]),
     environment.storeDevTools,
     FormsModule,
     SharedModule,

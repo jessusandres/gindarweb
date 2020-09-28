@@ -1,14 +1,14 @@
 <!--<tr>-->
 <th scope="row" class="img-th  text-center">
     <a class="img-car-wd" style="cursor: text;">
-      <img [src]="cart.itemImage | itemImage" [alt]="cart.detail.shortDescription"
+      <img [src]="cart.itemImage | itemImage" [alt]="cart.detail.description"
            class="img-fluid z-depth-0">
     </a>
   </th>
   <td>
     <h6 class="mt-3 h6-xs-ms font-OpenSans-regular">
       <a routerLink="/vitrina/{{cart.storeRuc.substr(0,2)}}/detalle/{{cart.detail.code}}">
-        {{cart.detail.shortDescription || cart.detail.description}}</a>
+        {{cart.detail.description}}</a>
     </h6>
   </td>
 

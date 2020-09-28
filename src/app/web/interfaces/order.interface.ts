@@ -62,13 +62,24 @@ export enum VoucherTypes {
   BOL = 'B',
 }
 
+export interface CardInterface {
+  card_number: string,
+  cvv: string,
+  expiration_month: string,
+  expiration_year: string,
+  email: string
+}
+
 export interface OrderParamsInterface {
   ruc: string;
   phone: string;
   email: string;
   dof: string;
   voucher: boolean;
-  voucherType: VoucherTypes;
-  voucherName: string;
-  voucherDocument: string;
+  onlinePayment: boolean;
+  voucherType?: VoucherTypes;
+  voucherName?: string;
+  voucherDocument?: string;
+  paymentToken?: string;
+  cardData?: CardInterface;
 }

@@ -6,8 +6,6 @@ import {HttpHeaders} from '@angular/common/http';
 })
 export class WebDataService {
 
-  constructor() { }
-
   saveToken(token: string): void {
     localStorage.setItem('gindar_jwt', token);
   }

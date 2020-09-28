@@ -10,3 +10,9 @@ export interface SliderItem {
   image: string;
 }
 
+export interface StoreSelected {
+  ruc: string,
+  name: string
+}
+
+

@@ -10,7 +10,7 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +19,7 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
     FormsModule,
     WebModule,
     AdminModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
   ],
   providers: [],
   exports: [],

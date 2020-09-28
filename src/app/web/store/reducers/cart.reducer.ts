@@ -1,12 +1,13 @@
 import {CartInterface} from '../../interfaces/cart_item.interface';
 import {CartActions, CartTypes} from '../actions/cart.actions';
+import {StoreSelected} from "../../interfaces/ui.interfaces";
 
 
 export interface CartState {
   gcart: CartInterface[];
   rcart: CartInterface[];
   ocart: CartInterface[];
-  storeSelected: { ruc: string, name: string };
+  storeSelected: StoreSelected;
   loading: boolean;
   message: string;
   errorMessage: string;
@@ -16,6 +17,8 @@ export interface CartState {
   amount: number;
   total: number;
   showCartForm: boolean;
+  voucher: boolean;
+  onlinePayment: boolean;
 }
 
 const initialState: CartState = {
@@ -32,6 +35,8 @@ const initialState: CartState = {
   amount: 0.00,
   total: 0.00,
   showCartForm: false,
+  onlinePayment: false,
+  voucher: false,
 };
 
 export const CartReducer = (state: CartState = initialState, action: CartActions): CartState => {
@@ -41,6 +46,9 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
         ...state,
         loading: true,
         errorMessage: null,
+        onlinePayment: false,
+        voucher: false,
+        showCartForm: false,
         message: 'Cargando Carrito...'
       };
     }

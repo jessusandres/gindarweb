@@ -7,6 +7,7 @@ import {ItemsReducer, ItemsState} from './reducers/items.reducer';
 import {BrandReducer, BrandsState} from './reducers/brands.reducer';
 import {SubLineReducer, SubLineState} from './reducers/sublines.reducer';
 import {ItemReducer, ItemState} from './reducers/item.reducer';
+import {OrderReducer, OrderState} from "./reducers/order.reducer";
 
 
 export interface AppState {
@@ -18,6 +19,7 @@ export interface AppState {
   showcaseState: ShowCaseState;
   itemsState: ItemsState;
   itemState: ItemState;
+  orderState: OrderState;
 }
 
 export const AppReducer: ActionReducerMap<AppState> = {
@@ -28,5 +30,6 @@ export const AppReducer: ActionReducerMap<AppState> = {
   brandsState: BrandReducer,
   showcaseState: ShowcaseReducer,
   itemsState: ItemsReducer,
-  itemState: ItemReducer
+  itemState: ItemReducer,
+  orderState: OrderReducer
 };

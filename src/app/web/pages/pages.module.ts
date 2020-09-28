@@ -35,6 +35,7 @@ import {WebPipesModule} from '../pipes/web-pipes.module';
 import { StoreCartComponent } from './cart/store-cart/store-cart.component';
 import { CartTableComponent } from './cart/cart-table/cart-table.component';
 import { CartFormComponent } from './cart/cart-form/cart-form.component';
+import { CulqiFormComponent } from './cart/culqi-form/culqi-form.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { CartFormComponent } from './cart/cart-form/cart-form.component';
     ClaimComponent,
     StoreCartComponent,
     CartTableComponent,
-    CartFormComponent
+    CartFormComponent,
+    CulqiFormComponent
   ],
     imports: [
         CommonModule,

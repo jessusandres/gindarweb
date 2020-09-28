@@ -71,6 +71,7 @@
                   </div>
 
                 </div>
+
                 <div class="form-row animated "
                      [ngClass]="{'fadeOut': !voucher,'fadeIn': voucher}"
                      *ngIf="voucher">
@@ -95,11 +96,13 @@
                       <input type="text"
                              placeholder="Nombre en la {{docTypeLText}}"
                              class="form-control"
+                             [ngClass]="{'invalid': (orderForm.controls.voucherName.errors ||
+                             orderForm.errors?.voucherNameUndefined === true)
+                             && orderForm.controls.voucherName.touched }"
                              id="voucherName"
                              formControlName="voucherName"
-                             name="voucherName"
-                             required>
-                      <label for="voucherName" >{{voucherNameLText}} </label>
+                             name="voucherName">
+                      <label for="voucherName">{{voucherNameLText}} </label>
                     </div>
                   </div>
 
@@ -108,16 +111,114 @@
                       <input type="text"
                              placeholder="Ejemplo: 12345678"
                              class="form-control"
+                             [ngClass]="{'invalid': (orderForm.controls.voucherDocument.errors ||
+                             orderForm.errors?.voucherDocumentUndefined === true)
+                             && orderForm.controls.voucherDocument.touched }"
                              id="voucherDocument"
                              formControlName="voucherDocument"
                              name="voucherDocument"
-                             required
                              [maxlength]="voucherDocLength">
                       <label for="voucherDocument"> {{ voucherDocLText }} </label>
                     </div>
                   </div>
 
 
+                </div>
+
+                <div class="form-row">
+                  <div class="col-12 text-left">
+                    <div class="form-check">
+                      <input class="form-check-input"
+                             type="checkbox"
+                             value=""
+                             id="typepayment"
+                             [checked]="onlinePayment"
+                             (change)="togglePayment()">
+                      <label class="form-check-label" for="typepayment">
+                        Pago Electrónico
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row animated fadeIn" *ngIf="onlinePayment">
+                  <div class="col-md-4">
+                    <div class="md-form form-group">
+                      <input
+                        placeholder="41111 **** ***** ****"
+                        class="form-control"
+                        [ngClass]="{'invalid': (orderForm.controls.cardNumber.errors ||
+                             orderForm.errors?.cardNumberUndefined === true)
+                             && orderForm.controls.cardNumber.touched }"
+                        type="number" size="20"
+                        data-culqi="card[number]"
+                        id="card[number]"
+                        name="cardNumber"
+                        formControlName="cardNumber">
+                      <label for="card[number]">Número de Tarjeta</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-1">
+                    <div class="md-form form-group">
+                      <input class="form-control"
+                             [ngClass]="{'invalid': (orderForm.controls.cardCVV.errors ||
+                             orderForm.errors?.cardCVVUndefined === true)
+                             && orderForm.controls.cardCVV.touched }"
+                             type="text" size="4"
+                             data-culqi="card[cvv]"
+                             id="card[cvv]"
+                             placeholder="****"
+                             name="cardCVV"
+                             formControlName="cardCVV">
+                      <label for="card[cvv]">CVV</label>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-3">
+                    <div class="md-form form-group">
+                      <input class="form-control"
+                             [ngClass]="{'invalid': (orderForm.controls.cardMonth.errors ||
+                             orderForm.errors?.cardMonthUndefined === true)
+                             && orderForm.controls.cardMonth.touched }"
+                             type="text" size="2"
+                             data-culqi="card[exp_month]"
+                             name="cardMonth"
+                             formControlName="cardMonth"
+                             id="card[exp_month]">
+                      <label for="card[exp_month]">Mes de expiración (MM)</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="md-form form-group">
+                      <input class="form-control"
+                             type="text"
+                             size="4"
+                             data-culqi="card[exp_year]"
+                             name="cardYear"
+                             formControlName="cardYear"
+                             id="card[exp_year]">
+                      <label for="card[exp_year]">Año de Expiración (YYYY)</label>
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div class="row mt-2">
+                  <app-error-container class="col-12 animated fadeIn"
+                                       *ngIf="tokenCardError " [errorMessage]="tokenCardErrorMessage">
+                  </app-error-container>
+
+                  <app-error-container class="col-12 animated fadeIn"
+                                       *ngIf="orderError " [errorMessage]="orderErrorMessage">
+                  </app-error-container>
+
+                  <app-error-container class="col-12 animated fadeIn"
+                                       *ngIf="formErrorMessage" [errorMessage]="formErrorMessage">
+                  </app-error-container>
                 </div>
 
                 <div class="row mb-2">
