@@ -3,8 +3,8 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {Subscription} from 'rxjs';
 import {CartState} from '../../store/reducers/cart.reducer';
-import {CartInterface} from '../../interfaces/cart_item.interface';
-import {SetStoreCartAction} from '../../store/actions/cart.actions';
+import {ResetOrderAction} from "../../store/actions/order.actions";
+import {OrderInterface} from "../../interfaces/order.interface";
 
 @Component({
   selector: 'app-cart',
@@ -23,13 +23,14 @@ export class CartComponent implements OnInit, OnDestroy {
   orderLoading: boolean;
   orderMessage: string;
 
+  order: OrderInterface;
+
   constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
 
     this.cartSubscription = this.store.select('cartState').subscribe((cartState: CartState) => {
-
       this.loading = cartState.loading;
       this.actionLoading = cartState.actionLoading;
       this.showOrderForm = cartState.showCartForm;
@@ -38,11 +39,15 @@ export class CartComponent implements OnInit, OnDestroy {
     this.orderSubscription = this.store.select('orderState').subscribe((orderState) => {
       this.orderLoading = orderState.loading;
       this.orderMessage = orderState.infoMessage;
+      this.order = orderState.order;
     })
   }
 
 
   ngOnDestroy(): void {
+    if (!this.order) {
+      this.store.dispatch(new ResetOrderAction());
+    }
     this.cartSubscription.unsubscribe();
     this.orderSubscription.unsubscribe();
   }

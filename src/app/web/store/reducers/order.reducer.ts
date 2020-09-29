@@ -1,4 +1,4 @@
-import {OrderInterface, OrderParamsInterface} from "../../interfaces/order.interface";
+import {OrderInterface, OrderParamsInterface, VoucherTypes} from "../../interfaces/order.interface";
 import {OrderActions, OrderTypes} from "../actions/order.actions";
 
 export interface OrderState {
@@ -85,6 +85,11 @@ export const OrderReducer = (state: OrderState = initialState, action: OrderActi
         error: false,
         order: action.payload.order,
         infoMessage: null
+      }
+    }
+    case OrderTypes.RESET_ORDER: {
+      return {
+        ...initialState
       }
     }
     default: {

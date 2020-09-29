@@ -33,6 +33,8 @@ export interface OrderInterface {
   phone: string;
   respond: number;
   details?: OrderDetailInterface[];
+  voucher: boolean;
+  onlinePayment: boolean;
 }
 
 export interface OrderDetailInterface {

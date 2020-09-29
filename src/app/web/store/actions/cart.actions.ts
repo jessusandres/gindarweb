@@ -23,6 +23,8 @@ export enum CartTypes {
   SYNC_LOCAL_CART = '[CART] SYNC LOCAL CART',
   SYNC_AWAIT = '[CART] SYNC AWAIT',
   CART_SHOW_FORM = '[CART] SHOW CART FORM',
+  CART_TOGGLE_VOUCHER = '[CART] TOGGLE CART VOUCHER',
+  CART_TOGGLE_ONLINE_PAYMENT = '[CART] TOGGLE CART ONLINE PAYMENT',
 }
 
 export class LoadCartAction implements Action {
@@ -153,6 +155,19 @@ export class ShowCartForm implements Action {
   }
 }
 
+export class ToggleVoucherAction implements Action {
+  readonly type = CartTypes.CART_TOGGLE_VOUCHER;
+
+  constructor(public payload: { status: boolean }) {
+  }
+}
+
+export class ToggleOnlinePaymentAction implements Action {
+  readonly type = CartTypes.CART_TOGGLE_ONLINE_PAYMENT;
+
+  constructor(public payload: { status: boolean }) {
+  }
+}
 
 export type CartActions = LoadCartAction |
   LoadCartSuccessAction |
@@ -172,5 +187,7 @@ export type CartActions = LoadCartAction |
   SetStoreCartAction |
   SyncLocalCartAction |
   SyncAwaitAction |
-  ShowCartForm;
+  ShowCartForm |
+  ToggleVoucherAction |
+  ToggleOnlinePaymentAction;
 

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/app.reducer';
-import {ShowCartForm} from '../../../store/actions/cart.actions';
+import {ShowCartForm, ToggleOnlinePaymentAction, ToggleVoucherAction} from '../../../store/actions/cart.actions';
 import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {EMAIL_REGEX, NUMBER_REGEX} from '../../../../config/config';
 import {OrderParamsInterface} from "../../../interfaces/order.interface";
@@ -55,11 +55,22 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
       this.voucher = cartState.voucher;
       this.onlinePayment = cartState.onlinePayment;
+
+      setTimeout(() => {
+        mdbMinPlugin();
+      });
     });
 
     this.orderSubscription = this.store.select('orderState').subscribe((orderState) => {
       this.orderError = orderState.error;
       this.orderErrorMessage = orderState.errorMessage;
+
+      if (orderState.order) {
+        this.orderForm.setValue({...orderState.order});
+        setTimeout(() => {
+          mdbMinPlugin();
+        });
+      }
 
     })
 
@@ -94,7 +105,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
       cardNumber: new FormControl('',
         [Validators.minLength(8)]),
       cardCVV: new FormControl('',
-        [Validators.maxLength(3), Validators.pattern(NUMBER_REGEX)]),
+        [Validators.maxLength(4), Validators.minLength(3), Validators.pattern(NUMBER_REGEX)]),
       cardMonth: new FormControl('',
         [Validators.maxLength(2), Validators.pattern(NUMBER_REGEX)]),
       cardYear: new FormControl('',
@@ -200,6 +211,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   toggleVoucher(): void {
     this.voucher = !this.voucher;
+    this.store.dispatch(new ToggleVoucherAction({status: this.voucher}));
     setTimeout(() => mdbMinPlugin());
   }
 
@@ -221,16 +233,9 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   togglePayment() {
     this.onlinePayment = !this.onlinePayment;
+    this.store.dispatch(new ToggleOnlinePaymentAction({status: this.onlinePayment}));
     setTimeout(() => mdbMinPlugin());
   }
-
-
-  validateCardInputs(): boolean {
-
-
-    return true;
-  }
-
 
   sendOrder(): void {
 

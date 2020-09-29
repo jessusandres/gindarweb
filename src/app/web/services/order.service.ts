@@ -17,7 +17,9 @@ export class OrderService {
 
   private user: UserModel;
 
-  constructor(public httpClient: HttpClient, public dataService: WebDataService, private store: Store<AppState>) {
+  constructor(public httpClient: HttpClient,
+              public dataService: WebDataService,
+              private store: Store<AppState>) {
     this.store.select('authState').subscribe((authState: AuthState) => {
       this.user = authState.user;
     });
@@ -65,10 +67,7 @@ export class OrderService {
 
     return this.httpClient.post(`${BASE_URL}/order/${this.user.id}`, body, {headers: this.dataService.headers()})
       .pipe(
-        map((res: any) => {
-          // console.log(res);
-          return res.order;
-        })
+        map((res: any) => res.order)
       );
   }
 

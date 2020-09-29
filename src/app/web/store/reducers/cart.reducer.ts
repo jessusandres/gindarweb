@@ -184,6 +184,18 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
         showCartForm: action.payload.show
       };
     }
+    case CartTypes.CART_TOGGLE_ONLINE_PAYMENT: {
+      return {
+        ...state,
+        onlinePayment: action.payload.status
+      }
+    }
+    case CartTypes.CART_TOGGLE_VOUCHER: {
+      return {
+        ...state,
+        voucher: action.payload.status
+      }
+    }
     default: {
       return {...state};
     }

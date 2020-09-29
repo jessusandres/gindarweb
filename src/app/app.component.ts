@@ -1,7 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 
-declare const Culqi: any;
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +15,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    Culqi.publicKey = 'pk_test_9fb7c16dc0ed24f5';
   }
 
 }

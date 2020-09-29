@@ -36,6 +36,7 @@ import { StoreCartComponent } from './cart/store-cart/store-cart.component';
 import { CartTableComponent } from './cart/cart-table/cart-table.component';
 import { CartFormComponent } from './cart/cart-form/cart-form.component';
 import { CulqiFormComponent } from './cart/culqi-form/culqi-form.component';
+import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { CulqiFormComponent } from './cart/culqi-form/culqi-form.component';
     StoreCartComponent,
     CartTableComponent,
     CartFormComponent,
-    CulqiFormComponent
+    CulqiFormComponent,
+    OrderConfirmComponent
   ],
     imports: [
         CommonModule,

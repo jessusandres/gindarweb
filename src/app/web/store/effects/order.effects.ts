@@ -11,11 +11,14 @@ import {catchError, map, mergeMap} from "rxjs/operators";
 import {of} from "rxjs";
 import {OrderParamsInterface} from "../../interfaces/order.interface";
 import {LoadCartAction} from "../actions/cart.actions";
+import {Router} from "@angular/router";
 
 
 @Injectable()
 export class OrderEffects {
-  constructor(private actions$: Actions, private readonly orderService: OrderService) {
+  constructor(private actions$: Actions,
+              private readonly orderService: OrderService,
+              private router: Router) {
   }
 
   @Effect()
@@ -43,7 +46,10 @@ export class OrderEffects {
   @Effect()
   OrderSuccess = this.actions$.pipe(
     ofType(OrderTypes.SEND_ORDER_SUCESS),
-    mergeMap(() => of(new LoadCartAction()))
+    mergeMap(() => {
+      this.router.navigate(['confirmacion-pedido']);
+      return of(new LoadCartAction())
+    })
   );
 
   @Effect()

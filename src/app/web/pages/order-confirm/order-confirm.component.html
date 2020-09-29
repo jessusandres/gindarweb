@@ -1,0 +1,58 @@
+<app-breadcrumbs></app-breadcrumbs>
+
+<div class="container animated fadeInUp" *ngIf="order">
+  <div class="row">
+    <div class="col-12" *ngIf="order.onlinePayment">
+      <h4 class="text-center">{{storeName}} agradece tu compra</h4>
+      <hr>
+    </div>
+    <div class="col-12 text-center" *ngIf="!order.onlinePayment">
+      <p>Resumen de pedido #{{order.code}}</p>
+    </div>
+
+    <div class="col-12" *ngIf="order.onlinePayment">
+      <h6 class="ml-3 h6-bold">Resumen de pago</h6>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="container">
+            <p class="float-left w-100">Fecha de Pago <span class="float-right">{{order.paymentDate}}</span></p>
+            <p class="float-left w-100">Método de Pago <span class="float-right">{{order.cardBrand}}
+              - {{order.cardNumber}}</span></p>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class="w-100">
+    </div>
+
+    <div class="col-12">
+      <h6 class="ml-3 h6-bold">Número de pedido <span class="float-right"> {{order.code}}</span></h6>
+      <hr class="w-100">
+    </div>
+
+    <div class="col-12">
+      <h6 class="ml-3 h6-bold">Resumen de pedido </h6>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="container">
+            <p class="float-left w-100" *ngFor="let item of order.details">
+              {{item.itemDescription}} (x{{item.amount}} {{item.unity.toUpperCase()}} )
+              <span class="float-right">{{(item.amount * item.itemPrice).toFixed(2)}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="w-100">
+    </div>
+
+    <div class="col-12">
+      <h6 class="ml-3 h6-bold">TOTAL(PEN) <span class="float-right"> {{order.net.toFixed(2)}}</span></h6>
+      <hr class="w-100">
+    </div>
+
+  </div>
+</div>

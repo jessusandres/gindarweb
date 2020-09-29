@@ -9,6 +9,7 @@ export enum OrderTypes {
   SEND_ORDER = '[ORDER] SEND ORDER',
   SEND_ORDER_SUCESS = '[ORDER] SEND ORDER SUCCESS',
   SEND_ORDER_FAILURE = '[ORDER] SEND ORDER FAILURE',
+  RESET_ORDER = '[ORDER] RESET ORDER',
 }
 
 export class GenerateTokenAction implements Action {
@@ -57,6 +58,10 @@ export class GenerateOrderFailureAction implements Action {
   }
 }
 
+export class ResetOrderAction implements Action {
+  readonly type = OrderTypes.RESET_ORDER;
+}
+
 
 export type OrderActions = GenerateTokenAction |
   GenerateTokenSuccessAction |
@@ -64,4 +69,5 @@ export type OrderActions = GenerateTokenAction |
   SwitchOrderAction |
   GenerateOrderAction |
   GenerateOrderSuccessAction |
-  GenerateOrderFailureAction;
+  GenerateOrderFailureAction |
+  ResetOrderAction;

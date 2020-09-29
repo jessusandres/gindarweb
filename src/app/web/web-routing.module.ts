@@ -16,6 +16,8 @@ import {ReleasesComponent} from './pages/releases/releases.component';
 import {PrivacyPolicyComponent} from './pages/privacy-policy/privacy-policy.component';
 import {ReturnPolicyComponent} from './pages/return-policy/return-policy.component';
 import {WebComponent} from './web.component';
+import {OrderConfirmComponent} from "./pages/order-confirm/order-confirm.component";
+import {OrderGuard} from "./guards/order.guard";
 
 
 const WebRoutes: Routes = [
@@ -72,7 +74,6 @@ const WebRoutes: Routes = [
           page: 'Detalle de Producto'
         }
       },
-      // {path: 'vitrina/:category', component: ShowcaseComponent},
       {path: 'vitrina/20/:line', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
       {path: 'vitrina/10/:line', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
       {path: 'nosotros', component: WePageComponent, data: {prev: [''], page: 'Nosotros', reload: true}},
@@ -82,6 +83,12 @@ const WebRoutes: Routes = [
         path: 'privacidad',
         component: PrivacyPolicyComponent,
         data: {prev: [''], page: 'Política de privacidad', reload: true}
+      },
+      {
+        path: 'confirmacion-pedido',
+        component: OrderConfirmComponent,
+        canActivate: [OrderGuard],
+        data: {prev: [''], page: 'Confirmación de pedido', reload: true}
       },
       {
         path: 'devoluciones',
