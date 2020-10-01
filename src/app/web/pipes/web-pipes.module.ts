@@ -6,6 +6,8 @@ import { DiscountPipe } from './discount.pipe';
 import { TotalStorePipe } from './total-store.pipe';
 import { SliderImagePipe } from './slider-image.pipe';
 import { SanitizerHtmlPipe } from './sanitizer-html.pipe';
+import { CoverSquareImagePipe } from './cover-square-image.pipe';
+import { CoverSquareLinkPipe } from './cover-square-link.pipe';
 
 
 
@@ -16,18 +18,22 @@ import { SanitizerHtmlPipe } from './sanitizer-html.pipe';
     DiscountPipe,
     TotalStorePipe,
     SliderImagePipe,
-    SanitizerHtmlPipe
+    SanitizerHtmlPipe,
+    CoverSquareImagePipe,
+    CoverSquareLinkPipe
   ],
   imports: [
     CommonModule
   ],
-    exports: [
-        ItemImagePipe,
-        SublinesFilterPipe,
-        DiscountPipe,
-        TotalStorePipe,
-        SliderImagePipe,
-        SanitizerHtmlPipe
-    ]
+  exports: [
+    ItemImagePipe,
+    SublinesFilterPipe,
+    DiscountPipe,
+    TotalStorePipe,
+    SliderImagePipe,
+    SanitizerHtmlPipe,
+    CoverSquareImagePipe,
+    CoverSquareLinkPipe
+  ]
 })
 export class WebPipesModule { }

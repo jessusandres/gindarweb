@@ -39,7 +39,7 @@ export class ItemsEffects {
   loadItemBySubLIneEffect = this.actions$.pipe(
     ofType(ItemsTypes.LOAD_ITEMS_BY_SUBLINE),
     mergeMap((action: LoadItemsBySubLineAction) => {
-      return this.itemsService.getItemsForSubline(action.payload.ruc, action.payload.subline)
+      return this.itemsService.getItemsForSubline(action.payload.subline)
         .pipe(
           map((items) => new LoadingItemsSuccessAction({items})),
           catchError((err) => of(new LoadingItemsFailureAction({message: err.error.message})))

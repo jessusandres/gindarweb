@@ -5,13 +5,22 @@ import {ItemInterface} from '../interfaces/item.interface';
 import {BASE_URL} from '../../config/config';
 import {combineAll, concatAll, map} from 'rxjs/operators';
 import {ImageInterface} from '../interfaces/image.interface';
+import {Store} from "@ngrx/store";
+import {AppState} from "../store/app.reducer";
+import {ShowCaseState} from "../store/reducers/showcase.reducer";
+import {SetTotalFilterItemsAction} from "../store/actions/showcase.actions";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemsService {
+  private page: number;
 
-  constructor(public httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient, private store: Store<AppState>) {
+
+    this.store.select('showcaseState').subscribe((showCaseState: ShowCaseState) => {
+      this.page = showCaseState.page;
+    })
   }
 
   getItemsForQuery(query: string): Observable<ItemInterface[]> {
@@ -35,11 +44,14 @@ export class ItemsService {
       );
   }
 
-  getItemsForSubline(ruc: string, subline: string): Observable<ItemInterface[]> {
-    // console.log(`${BASE_URL}/filter/${ruc}/${subline}`);
-    return this.httpClient.get(`${BASE_URL}/filter/${ruc}/${subline}`)
+  getItemsForSubline(subline: string): Observable<ItemInterface[]> {
+    console.log(this.page)
+    return this.httpClient.get(`${BASE_URL}/items/filter/${subline}?page=${(this.page)}`)
       .pipe(
-        map((res: any) => res.items)
+        map((res: any) => {
+          this.store.dispatch(new SetTotalFilterItemsAction({amount: res.pages}));
+          return res.items
+        })
       );
   }
 

@@ -35,6 +35,7 @@ export interface OrderInterface {
   details?: OrderDetailInterface[];
   voucher: boolean;
   onlinePayment: boolean;
+  latinPaymentDate: string;
 }
 
 export interface OrderDetailInterface {

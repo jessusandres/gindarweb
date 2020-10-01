@@ -22,7 +22,7 @@ export class CartItemComponent implements OnInit {
     this.newAmount = this.cart.amount;
     this.swalOptions = {
       title: '¿Está Seguro?',
-      text: `${this.cart.detail.shortDescription || this.cart.detail.description} será removido de su carrito`,
+      text: `${this.cart.detail.description} será removido de su carrito`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

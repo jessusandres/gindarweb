@@ -4,6 +4,8 @@ import {ItemInterface} from '../../interfaces/item.interface';
 
 export interface ShowCaseState {
   filteredItems: ItemInterface[];
+  page: number,
+  totalFilter: number;
   showFilter: boolean;
   line: number;
   brandCode: number;
@@ -13,6 +15,8 @@ export interface ShowCaseState {
 
 const initState: ShowCaseState = {
   filteredItems: [],
+  page: 0,
+  totalFilter: 0,
   showFilter: false,
   line: 0,
   brandCode: 0,
@@ -104,6 +108,18 @@ export const ShowcaseReducer = (state: ShowCaseState = initState, action: Showca
         showFilter: false,
         filteredItems: action.payload.items
       };
+    }
+    case FilterTypes.SET_TOTAL_FILTER: {
+      return {
+        ...state,
+        totalFilter: action.payload.amount
+      }
+    }
+    case FilterTypes.UPDATE_PAGE_FILTER: {
+      return {
+        ...state,
+        page: action.payload.page
+      }
     }
     default: {
       return {...state};

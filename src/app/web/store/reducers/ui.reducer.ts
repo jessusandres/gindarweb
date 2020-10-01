@@ -1,5 +1,7 @@
 import {UiActions, UiTypes} from '../actions/ui.actions';
 import {AdvertisementItem, InvictaItem, SliderItem} from '../../interfaces/ui.interfaces';
+import {GenderMenuInterface} from "../../interfaces/gender-menu.interface";
+import {CoverSquareInterface} from "../../interfaces/cover-squares.interface";
 
 export interface UiState {
   isExpanded: boolean;
@@ -8,6 +10,8 @@ export interface UiState {
   advertisements: AdvertisementItem[];
   sliders: SliderItem[];
   invictaMenuTags: InvictaItem[][];
+  genderMenu: GenderMenuInterface;
+  coverSquares: CoverSquareInterface[];
 }
 
 
@@ -17,7 +21,9 @@ const initialState: UiState = {
   itemDetailName: null,
   sliders: [{image: 'slider_1.jpg'}],
   advertisements: [{title: 'Obteniendo Marquesinas'}],
-  invictaMenuTags: []
+  invictaMenuTags: [],
+  genderMenu: null,
+  coverSquares: []
 };
 
 export const UiReducer = (state: UiState = initialState, action: UiActions): UiState => {
@@ -58,6 +64,18 @@ export const UiReducer = (state: UiState = initialState, action: UiActions): UiS
         ...state,
         invictaMenuTags: action.payload.items
       };
+    }
+    case UiTypes.UI_LOAD_GENDER_MENU_SUCCESS: {
+      return {
+        ...state,
+        genderMenu: action.payload.menu
+      }
+    }
+    case UiTypes.UI_LOAD_COVER_SQUARES_SUCCESS: {
+      return {
+        ...state,
+        coverSquares: action.payload.squares
+      }
     }
     default: {
       return {...state};

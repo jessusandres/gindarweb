@@ -102,6 +102,7 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
         ...state,
         actionLoading: false,
         errorMessage: null,
+        actionErrorMessage: null,
         message: null,
         actionMessage: action.payload.message,
       };

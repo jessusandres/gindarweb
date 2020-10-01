@@ -47,25 +47,18 @@
             <a class="nav-link dropdown-toggle text-uppercase tfs1" id="navbarMegaMenuHombres"
                data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">HOMBRES</a>
-            <div class="dropdown-menu mega-menu mega-hover mega-menu-mujeres v-1 z-depth-1 white py-5 px-3"
-                 aria-labelledby="navbarMegaMenuHombres">
+            <div class="dropdown-menu mega-menu mega-hover mega-menu-coleccion v-1 z-depth-1 white py-5 px-3"
+                 aria-labelledby="navbarMegaMenuColeccion">
               <div class="row">
 
-                <div class="col-md-3 col-lg-3 col-xl-3 sub-menu mb-xl-0 mb-4"
-                     *ngFor="let subline of subLines | sublinesFilter: 1">
-                  <h6 class="sub-title text-uppercase font-weight-bold">{{subline.name}}</h6>
-                  <div class="card z-depth-1">
-                    <a href="javascript:void(0)"
-                       routerLink="vitrina/{{subline.rucPrefix}}/{{subline.code}}"
-                       class="pd-0-card-img">
-                      <div class="view overlay c-pointer zoom">
-                        <img src="./assets/img/navbar/navbar_{{subline.imageCode}}.jpg"
-                             class="img-fluid rounded mb-0" alt="smaple image">
-                        <div class="mask flex-center rgba-cyan-strong">
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+                <div class="col-md-4 col-lg-4 col-xl-4 sub-menu mb-md-0 mb-xl-0 mb-4" *ngFor="let item of genderMenu?.manMenu">
+                  <ul class="list-unstyled">
+                    <li *ngFor="let tag of item">
+                      <a class="menu-item pl-0 pd-a-ms" routerLink="filtrar/{{tag.code}}">
+                        {{tag.text}}
+                      </a>
+                    </li>
+                  </ul>
                 </div>
 
               </div>
@@ -77,25 +70,18 @@
             <a class="nav-link dropdown-toggle text-uppercase tfs1" id="navbarMegaMenuMujeres"
                data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">MUJERES</a>
-            <div class="dropdown-menu mega-menu mega-hover mega-menu-mujeres v-1 z-depth-1 white py-5 px-3"
-                 aria-labelledby="navbarMegaMenuHombres">
+            <div class="dropdown-menu mega-menu mega-hover mega-menu-coleccion v-1 z-depth-1 white py-5 px-3"
+                 aria-labelledby="navbarMegaMenuColeccion">
               <div class="row">
 
-                <div class="col-md-3 col-lg-3 col-xl-3 sub-menu mb-xl-0 mb-4"
-                     *ngFor="let subline of subLines | sublinesFilter: 2">
-                  <h6 class="sub-title text-uppercase font-weight-bold">{{subline.name}}</h6>
-                  <div class="card z-depth-1">
-                    <a href="javascript:void(0)"
-                       routerLink="vitrina/{{subline.rucPrefix}}/{{subline.code}}"
-                       class="pd-0-card-img">
-                      <div class="view overlay c-pointer zoom">
-                        <img src="./assets/img/navbar/navbar_{{subline.imageCode}}.jpg"
-                             class="img-fluid rounded mb-0" alt="smaple image">
-                        <div class="mask flex-center rgba-cyan-strong">
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+                <div class="col-md-4 col-lg-4 col-xl-4 sub-menu mb-md-0 mb-xl-0 mb-4" *ngFor="let item of genderMenu?.womanMenu">
+                  <ul class="list-unstyled">
+                    <li *ngFor="let tag of item">
+                      <a class="menu-item pl-0 pd-a-ms" routerLink="filtrar/{{tag.code}}">
+                        {{tag.text}}
+                      </a>
+                    </li>
+                  </ul>
                 </div>
 
               </div>
@@ -119,8 +105,8 @@
                aria-haspopup="true" aria-expanded="false">HOMBRES</a>
             <div class="dropdown-menu dp-menu-ms bd-sub-menu border-0 text-center"
                  aria-labelledby="navbarMenuDispoHombres">
-              <a *ngFor="let subline of subLines | sublinesFilter: 1" class="dropdown-item dp-a-ms"
-                 href="javascript:void(0)">{{subline.name}}</a>
+              <a *ngFor="let tag of manMobileMenu" class="dropdown-item dp-a-ms"
+                 routerLink="filtrar/{{tag.code}}">{{tag.text}}</a>
             </div>
           </li>
 
@@ -129,8 +115,8 @@
                aria-haspopup="true" aria-expanded="false">MUJERES</a>
             <div class="dropdown-menu dp-menu-ms bd-sub-menu border-0 text-center"
                  aria-labelledby="navbarMenuDispoMujeres">
-              <a *ngFor="let subline of subLines | sublinesFilter: 2" class="dropdown-item dp-a-ms"
-                 href="javascript:void(0)">{{subline.name}}</a>
+              <a *ngFor="let tag of womanMobileMenu" class="dropdown-item dp-a-ms"
+                 routerLink="filtrar/{{tag.code}}">{{tag.text}}</a>
             </div>
           </li>
 

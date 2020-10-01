@@ -1,8 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {GenericDataService} from '../../services/generic-data.service';
-import {LoadAdvertisementsSuccessAction, LoadCarrouselSuccessAction, LoadInvictaMenuSuccessAction, UiTypes} from '../actions/ui.actions';
-import {map, mergeMap} from 'rxjs/operators';
+import {
+  LoadAdvertisementsSuccessAction,
+  LoadCarrouselSuccessAction, LoadCoverSquaresFailureAction, LoadCoverSquaresSuccessAction, LoadGenderMenuFailureAction,
+  LoadGenderMenuSuccessAction,
+  LoadInvictaMenuSuccessAction,
+  UiTypes
+} from '../actions/ui.actions';
+import {catchError, map, mergeMap} from 'rxjs/operators';
+import {of} from "rxjs";
 
 @Injectable()
 export class UiEffects {
@@ -37,7 +44,32 @@ export class UiEffects {
     mergeMap(() => {
       return this.genericDataService.getInvictaMenu()
         .pipe(
-          map((items) => new LoadInvictaMenuSuccessAction({items}))
+          map((items) => new LoadInvictaMenuSuccessAction({items})),
+          catchError(() => of(new LoadGenderMenuFailureAction))
+        );
+    })
+  );
+
+  @Effect()
+  GenderMenuEffect = this.actions$.pipe(
+    ofType(UiTypes.UI_LOAD_GENDER_MENU),
+    mergeMap(() => {
+      return this.genericDataService.getGenderMenu()
+        .pipe(
+          map((menu) => new LoadGenderMenuSuccessAction({menu})),
+          catchError(() => of(new LoadGenderMenuFailureAction()))
+        );
+    })
+  );
+
+  @Effect()
+  CoverSquaresEffect = this.actions$.pipe(
+    ofType(UiTypes.UI_LOAD_COVER_SQUARES),
+    mergeMap(() => {
+      return this.genericDataService.getCoverSquares()
+        .pipe(
+          map((squares) => new LoadCoverSquaresSuccessAction({squares})),
+          catchError(() => of(new LoadCoverSquaresFailureAction()))
         );
     })
   );

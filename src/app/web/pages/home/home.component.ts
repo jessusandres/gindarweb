@@ -3,6 +3,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {Subscription} from 'rxjs';
 import {UiState} from '../../store/reducers/ui.reducer';
+import {CoverSquareInterface} from "../../interfaces/cover-squares.interface";
 
 declare function WOW(): any;
 
@@ -15,16 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   sliders: { image: string }[];
 
-  featured = [
-    {code: 1, tag: 'example'},
-    {code: 2, tag: 'example'},
-    {code: 3, tag: 'example'},
-    {code: 4, tag: 'example'},
-    {code: 5, tag: 'example'},
-    {code: 6, tag: 'example'},
-    {code: 7, tag: 'example'},
-    {code: 8, tag: 'example'}
-  ];
+  featured: CoverSquareInterface[] = [];
 
   videoItems = [
     // {
@@ -43,11 +35,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.uiSubscription = this.store.select('uiState').subscribe((uiState: UiState) => {
       this.sliders = uiState.sliders;
+      this.featured = uiState.coverSquares;
+      setTimeout(() => {
+        WOW().init();
+      }, 0);
     });
 
-    setTimeout(() => {
-      WOW().init();
-    }, 0);
+
   }
 
   ngOnDestroy(): void {

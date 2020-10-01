@@ -74,8 +74,9 @@ const WebRoutes: Routes = [
           page: 'Detalle de Producto'
         }
       },
-      {path: 'vitrina/20/:line', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
-      {path: 'vitrina/10/:line', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
+      {path: 'filtrar/:subline', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
+      // {path: 'vitrina/20/:line', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
+      // {path: 'vitrina/10/:line', component: ShowcaseComponent, data: {prev: [''], page: 'Vitrina'}},
       {path: 'nosotros', component: WePageComponent, data: {prev: [''], page: 'Nosotros', reload: true}},
       {path: 'promociones', component: PromotionsComponent, data: {prev: [''], page: 'Promociones', reload: true}},
       {path: 'novedades', component: ReleasesComponent, data: {prev: [''], page: 'Nuevos Ingresos', reload: true}},

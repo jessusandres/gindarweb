@@ -90,11 +90,11 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   private setOrderForm(): FormGroup {
     return new FormGroup({
-      phone: new FormControl('',
+      phone: new FormControl('934556536',
         [Validators.required, Validators.maxLength(9), Validators.minLength(9)]),
-      email: new FormControl('',
+      email: new FormControl('jaccspanki@gmail.com',
         [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-      dof: new FormControl('',
+      dof: new FormControl('75747625',
         [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
 
       voucherType: new FormControl('B', []),
@@ -102,13 +102,13 @@ export class CartFormComponent implements OnInit, OnDestroy {
       voucherDocument: new FormControl('',
         [Validators.minLength(8), Validators.maxLength(11)]),
 
-      cardNumber: new FormControl('',
+      cardNumber: new FormControl('5111111111111118',
         [Validators.minLength(8)]),
-      cardCVV: new FormControl('',
+      cardCVV: new FormControl('039',
         [Validators.maxLength(4), Validators.minLength(3), Validators.pattern(NUMBER_REGEX)]),
-      cardMonth: new FormControl('',
+      cardMonth: new FormControl('06',
         [Validators.maxLength(2), Validators.pattern(NUMBER_REGEX)]),
-      cardYear: new FormControl('',
+      cardYear: new FormControl('2025',
         [Validators.maxLength(4), Validators.pattern(NUMBER_REGEX)]),
 
     }, {

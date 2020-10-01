@@ -25,7 +25,7 @@ export class LoadItemsByQueryAction implements Action {
 export class LoadItemsBySubLineAction implements Action {
   readonly type = ItemsTypes.LOAD_ITEMS_BY_SUBLINE;
 
-  constructor(public payload: { ruc: string, subline: string }) {
+  constructor(public payload: { subline: string }) {
   }
 }
 

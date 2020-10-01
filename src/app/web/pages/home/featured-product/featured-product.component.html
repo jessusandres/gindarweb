@@ -1,6 +1,15 @@
-<div class="view overlay zoom">
-  <a href="javascript:void(0)">
-    <img src="./assets/img/secondary-slider/secondary_slider_{{outstanding.code}}.jpg"
+<div class="view overlay zoom" *ngIf="outstanding.type ==='P'">
+  <a routerLink="{{outstanding.link | coverSquareLink : outstanding.type}}"
+     target="{{outstanding.target === 1 ? '_blank' : ''}}">
+    <img src="{{outstanding.image | coverSquareImage}}"
+         class="img-fluid "
+         alt="smaple image">
+  </a>
+</div>
+
+<div class="view overlay zoom" *ngIf="outstanding.type === 'L'">
+  <a href="{{outstanding.link}}" target="{{outstanding.target === 1 ? '_blank' : ''}}">
+    <img src="{{outstanding.image | coverSquareImage}}"
          class="img-fluid "
          alt="smaple image">
   </a>

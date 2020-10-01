@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import {ItemInterface} from '../../interfaces/item.interface';
+import {filter} from "rxjs/operators";
 
 export enum AllowedOrders {
   LOWEST_PRICE = 'LOWEST PRICE',
@@ -15,6 +16,8 @@ export enum FilterTypes {
   SHOW_FILTERED_ITEMS = '[SHOWCASE] SHOW FILTERED ITEMS',
   HIDE_FILTERED_ITEMS = '[SHOWCASE] HIDE FILTERED ITEMS',
   SET_FILTERED_ITEMS = '[SHOWCASE] SET FILTERED ITEMS',
+  SET_TOTAL_FILTER = '[SHOWCASE] SET TOTAL FILTER ITEMS',
+  UPDATE_PAGE_FILTER = '[SHOWCASE] UPDATE FILTER PAGE',
 }
 
 export class SetSubLineAction implements Action {
@@ -63,11 +66,27 @@ export class SetFilteredItemsAction implements Action {
   }
 }
 
+export class UpdateFilterPageAction implements Action {
+  readonly type = FilterTypes.UPDATE_PAGE_FILTER;
+
+  constructor(public payload: { page: number }) {
+  }
+}
+
+export class SetTotalFilterItemsAction implements Action {
+  readonly type = FilterTypes.SET_TOTAL_FILTER;
+
+  constructor(public payload: { amount: number }) {
+  }
+}
+
 export type ShowcaseActions = SetFilteredItemsAction |
   SetSubLineAction |
   SetBrandAction |
   SetOrderAction |
   SetQueryAction |
   ShowFilteredItemsAction |
+  UpdateFilterPageAction |
+  SetTotalFilterItemsAction |
   HideFilteredItemsAction;
 

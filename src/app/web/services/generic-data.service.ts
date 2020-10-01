@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {BASE_URL} from '../../config/config';
 import {map} from 'rxjs/operators';
 import {AdvertisementItem, SliderItem} from '../interfaces/ui.interfaces';
+import {GenderMenuInterface} from "../interfaces/gender-menu.interface";
+import {CoverSquareInterface} from "../interfaces/cover-squares.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +33,20 @@ export class GenericDataService {
     return this.httpClient.get(`${BASE_URL}/invictamenu`)
       .pipe(
         map((res: any) => res.menu)
+      );
+  }
+
+  getGenderMenu(): Observable<GenderMenuInterface> {
+    return this.httpClient.get(`${BASE_URL}/gendermenus`)
+      .pipe(
+        map((res: any) => res.menus)
+      );
+  }
+
+  getCoverSquares(): Observable<CoverSquareInterface[]> {
+    return this.httpClient.get(`${BASE_URL}/coversquares`)
+      .pipe(
+        map((res: any) => res.squares)
       );
   }
 }

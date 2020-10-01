@@ -8,7 +8,7 @@ import {ItemsState} from '../../store/reducers/items.reducer';
 import {filter, map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {WebRuc} from '../../types/types';
-import {SetFilteredItemsAction} from '../../store/actions/showcase.actions';
+import {SetFilteredItemsAction, UpdateFilterPageAction} from '../../store/actions/showcase.actions';
 
 declare function detailPluging(): any;
 
@@ -25,6 +25,10 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
 
   loading: boolean;
   errorMessage: string;
+
+  filterCode: string;
+  page: number;
+  limit: number;
 
   routerSubs: Subscription;
   itemSubs: Subscription;
@@ -46,16 +50,15 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
       )
       .subscribe((activatedRouteSnapshot: ActivatedRouteSnapshot) => {
         // console.log(activatedRouteSnapshot);
-        const {query, line} = activatedRouteSnapshot.params;
+        const {query, subline} = activatedRouteSnapshot.params;
 
         if (query) {
           this.store.dispatch(new LoadItemsByQueryAction({text: query}));
         } else {
-          // console.log('already');
-          const rucPrefixi = this.activatedRoute.snapshot.url[1].path;
+
+          this.filterCode = subline;
           this.store.dispatch(new LoadItemsBySubLineAction({
-            ruc: (rucPrefixi === '10') ? WebRuc.ROGER : WebRuc.GINDAR,
-            subline: line,
+            subline: subline,
           }));
         }
       });
@@ -75,21 +78,23 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
     this.showcaseSubs = this.store.select('showcaseState').subscribe((showcaseState) => {
       this.showFilter = showcaseState.showFilter;
       this.filteredItems = showcaseState.filteredItems;
+      this.page = showcaseState.page;
+      this.limit = showcaseState.totalFilter;
     });
 
     detailPluging();
 
-    const rucPrefix = this.activatedRoute.snapshot.url[1].path;
+    // const rucPrefix = this.activatedRoute.snapshot.url[1].path;
     const fquery = this.activatedRoute.snapshot.params.query;
-    const fline = this.activatedRoute.snapshot.params.line;
+    const fline = this.activatedRoute.snapshot.params.subline;
 
     if (fquery) {
       this.store.dispatch(new LoadItemsByQueryAction({text: fquery}));
 
     } else {
 
+      this.filterCode = fline;
       this.store.dispatch(new LoadItemsBySubLineAction({
-        ruc: (rucPrefix === '10') ? WebRuc.ROGER : WebRuc.GINDAR,
         subline: fline,
       }));
     }
@@ -97,10 +102,18 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.store.dispatch(new UpdateFilterPageAction({page: 0}));
     this.routerSubs.unsubscribe();
     this.itemSubs.unsubscribe();
     this.itemsSubs.unsubscribe();
     this.showcaseSubs.unsubscribe();
   }
 
+  updatePage(number: number) {
+
+    this.store.dispatch(new UpdateFilterPageAction({page: this.page + number}));
+
+    this.store.dispatch(new LoadItemsBySubLineAction({subline: this.filterCode}));
+
+  }
 }
