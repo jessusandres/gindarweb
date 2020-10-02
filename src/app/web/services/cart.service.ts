@@ -34,7 +34,7 @@ export class CartService {
   }> {
 
     return this.httpClient.get(`${BASE_URL}/cart/${this.user.id}`, {
-      headers: this.dataService.headers()
+      headers: this.dataService.headers(),
     })
       .pipe(
         map((res: {
@@ -63,10 +63,11 @@ export class CartService {
   }
 
   addItemCart(item: ItemModel, amount: number): Observable<string> {
-    const payload = {
+
+    const payload = this.dataService.setBodyFromObject({
       amount,
       code: item.code
-    };
+    });
 
     if (!this.user) {
       return;
@@ -115,18 +116,20 @@ export class CartService {
   }
 
   updateItemCart(item: ItemModel, amount: number): Observable<string> {
-    const payload = {
-      amount,
-      code: item.code
-    };
+
     if (!this.user) {
       return;
     }
+
+    const payload = this.dataService.setBodyFromObject({
+      amount,
+      code: item.code
+    });
+
     return this.httpClient.put(`${BASE_URL}/cart/${this.user.id}/${item.ruc.slice(0, 2)}`,
       payload, {headers: this.dataService.headers()})
       .pipe(
         map((res) => {
-          console.log(res);
           return `Item actualizado en el carrito`;
         })
       );

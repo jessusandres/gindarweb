@@ -31,10 +31,8 @@ export class OrderConfirmComponent implements OnInit, OnDestroy {
     this.orderSubscription = this.store.select('orderState').subscribe((orderState: OrderState) => {
       this.order = orderState.order;
 
-      if (!this.order) {
-        console.log('no order')
-        // this.router.navigate(['/']);
-      }else {
+      if (this.order) {
+
         if (this.order.storeRuc === WebRuc.GINDAR) {
           this.storeName = 'GINDAR PERÚ';
         } else {

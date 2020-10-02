@@ -11,17 +11,21 @@ export interface ShowCaseState {
   brandCode: number;
   order: AllowedOrders;
   query: string;
+  queryPage: number;
+  totalQueryPages: number;
 }
 
 const initState: ShowCaseState = {
   filteredItems: [],
   page: 0,
+  queryPage: 0,
   totalFilter: 0,
   showFilter: false,
   line: 0,
   brandCode: 0,
   order: AllowedOrders.NAME,
   query: null,
+  totalQueryPages: 0
 };
 
 export const ShowcaseReducer = (state: ShowCaseState = initState, action: ShowcaseActions): ShowCaseState => {
@@ -119,6 +123,18 @@ export const ShowcaseReducer = (state: ShowCaseState = initState, action: Showca
       return {
         ...state,
         page: action.payload.page
+      }
+    }
+    case FilterTypes.UPDATE_QUERY_PAGE: {
+      return {
+        ...state,
+        queryPage: action.payload.page
+      }
+    }
+    case FilterTypes.UPDATE_SET_TOTAL_QUERY_PAGE: {
+      return {
+        ...state,
+        totalQueryPages: action.payload.amount
       }
     }
     default: {

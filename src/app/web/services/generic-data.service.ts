@@ -3,9 +3,10 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {BASE_URL} from '../../config/config';
 import {map} from 'rxjs/operators';
-import {AdvertisementItem, SliderItem} from '../interfaces/ui.interfaces';
+import {AdvertisementItem, SliderItem, WebPhones} from '../interfaces/ui.interfaces';
 import {GenderMenuInterface} from "../interfaces/gender-menu.interface";
 import {CoverSquareInterface} from "../interfaces/cover-squares.interface";
+import {GindarInfoInterface} from "../../admin/interfaces/gindar-info.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,10 @@ export class GenericDataService {
   constructor(public httpClient: HttpClient) {
   }
 
-  getAdvertisements(): Observable<AdvertisementItem[]> {
-    return this.httpClient.get(`${BASE_URL}/advertisements`)
+  getStoreInfo(): Observable<GindarInfoInterface> {
+    return this.httpClient.get(`${BASE_URL}/info`)
       .pipe(
-        map((res: any) => res.advertisements)
+        map((res: any) => res.info)
       );
   }
 
@@ -47,6 +48,13 @@ export class GenericDataService {
     return this.httpClient.get(`${BASE_URL}/coversquares`)
       .pipe(
         map((res: any) => res.squares)
+      );
+  }
+
+  getWebPhones(): Observable<WebPhones> {
+    return this.httpClient.get(`${BASE_URL}/webphones`)
+      .pipe(
+        map((res: any) => res.phones)
       );
   }
 }

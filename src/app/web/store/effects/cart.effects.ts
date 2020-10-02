@@ -38,7 +38,6 @@ export class CartEffects {
           total: data.total
         })),
         catchError((err) => {
-          console.log(err);
           return of(new LoadCartFailureAction({message: err.error.message}));
         })
       );

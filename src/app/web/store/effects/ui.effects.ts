@@ -3,18 +3,39 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {GenericDataService} from '../../services/generic-data.service';
 import {
   LoadAdvertisementsSuccessAction,
-  LoadCarrouselSuccessAction, LoadCoverSquaresFailureAction, LoadCoverSquaresSuccessAction, LoadGenderMenuFailureAction,
+  LoadCarrouselSuccessAction,
+  LoadCoverSquaresFailureAction,
+  LoadCoverSquaresSuccessAction,
+  LoadGenderMenuFailureAction,
   LoadGenderMenuSuccessAction,
   LoadInvictaMenuSuccessAction,
+  LoadStoreInfoFailureAction,
+  LoadStoreInfoSuccessAction, LoadWhatsappNumbersFailureAction,
+  LoadWhatsappNumbersSuccessAction,
   UiTypes
 } from '../actions/ui.actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {of} from "rxjs";
+import {ItemsService} from "../../services/items.service";
 
 @Injectable()
 export class UiEffects {
-  constructor(private actions$: Actions, public genericDataService: GenericDataService) {
+  constructor(private actions$: Actions,
+              public genericDataService: GenericDataService,
+              public itemsService: ItemsService) {
   }
+
+  @Effect()
+  StoreInfoEffect = this.actions$.pipe(
+    ofType(UiTypes.UI_LOAD_STORE_INFO),
+    mergeMap(() => {
+      return this.genericDataService.getStoreInfo()
+        .pipe(
+          map((info) => new LoadStoreInfoSuccessAction({info})),
+          catchError(err => of(new LoadStoreInfoFailureAction({message: err.error.message})))
+        );
+    })
+  );
 
   @Effect()
   SlidersEffect = this.actions$.pipe(
@@ -31,7 +52,7 @@ export class UiEffects {
   AdvertisementssEffect = this.actions$.pipe(
     ofType(UiTypes.UI_LOAD_ADVERTISEMENTS),
     mergeMap(() => {
-      return this.genericDataService.getAdvertisements()
+      return this.itemsService.getAdvertisements()
         .pipe(
           map((advertisements) => new LoadAdvertisementsSuccessAction({advertisements}))
         );
@@ -70,6 +91,18 @@ export class UiEffects {
         .pipe(
           map((squares) => new LoadCoverSquaresSuccessAction({squares})),
           catchError(() => of(new LoadCoverSquaresFailureAction()))
+        );
+    })
+  );
+
+  @Effect()
+  WebPhonesEffect = this.actions$.pipe(
+    ofType(UiTypes.UI_LOAD_COVER_SQUARES),
+    mergeMap(() => {
+      return this.genericDataService.getWebPhones()
+        .pipe(
+          map((phones) => new LoadWhatsappNumbersSuccessAction({phones})),
+          catchError((err) => of(new LoadWhatsappNumbersFailureAction({message: err.error.message})))
         );
     })
   );

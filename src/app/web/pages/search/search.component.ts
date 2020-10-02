@@ -4,7 +4,12 @@ import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {ShowCaseState} from '../../store/reducers/showcase.reducer';
-import {SetFilteredItemsAction, SetQueryAction} from '../../store/actions/showcase.actions';
+import {
+  SetFilteredItemsAction,
+  SetQueryAction,
+  UpdateFilterPageAction,
+  UpdateQueryPageAction
+} from '../../store/actions/showcase.actions';
 import {LoadItemsByQueryAction} from '../../store/actions/items.actions';
 import {ItemsState} from '../../store/reducers/items.reducer';
 import {ItemInterface} from '../../interfaces/item.interface';
@@ -23,6 +28,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   query: string;
   showFilter: boolean;
   filteredItems: ItemInterface[];
+
+
+  queryPage: number;
+  queryLimit: number;
 
   querySubscription: Subscription;
   showCaseSubscription: Subscription;
@@ -49,6 +58,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
       this.showFilter = showcaseState.showFilter;
       this.filteredItems = showcaseState.filteredItems;
+
+
+      this.queryLimit = showcaseState.totalQueryPages;
+      this.queryPage = showcaseState.queryPage;
     });
 
     this.itemsSubscription = this.store.select('itemsState').subscribe((itemsState: ItemsState) => {
@@ -67,10 +80,17 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.store.dispatch(new UpdateQueryPageAction({page: 0}));
     this.querySubscription.unsubscribe();
     this.showCaseSubscription.unsubscribe();
     this.itemsSubscription.unsubscribe();
     this.itemSubscription.unsubscribe();
+  }
+
+  updateQueryPage(pnumber: number) {
+    this.store.dispatch(new UpdateQueryPageAction({page: this.queryPage + pnumber}));
+
+    this.store.dispatch(new LoadItemsByQueryAction({text: this.query}));
   }
 
 }

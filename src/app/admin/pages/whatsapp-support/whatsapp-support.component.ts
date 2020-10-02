@@ -14,6 +14,6 @@ export class WhatsappSupportComponent implements OnInit {
   }
 
   addWhatsapp(ruc: number): void {
-    console.log(ruc);
+    // console.log(ruc);
   }
 }

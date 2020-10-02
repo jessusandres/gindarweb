@@ -1,7 +1,8 @@
 import {Action} from '@ngrx/store';
-import {AdvertisementItem, InvictaItem, SliderItem} from '../../interfaces/ui.interfaces';
+import {AdvertisementItem, InvictaItem, SliderItem, WebPhones} from '../../interfaces/ui.interfaces';
 import {GenderMenuInterface} from "../../interfaces/gender-menu.interface";
 import {CoverSquareInterface} from "../../interfaces/cover-squares.interface";
+import {GindarInfoInterface} from "../../../admin/interfaces/gindar-info.interface";
 
 
 export enum UiTypes {
@@ -23,6 +24,12 @@ export enum UiTypes {
   UI_LOAD_COVER_SQUARES = '[UI] LOAD COVER SQUARES',
   UI_LOAD_COVER_SQUARES_SUCCESS = '[UI] LOAD COVER SQUARES SUCCESS',
   UI_LOAD_COVER_SQUARES_FAILURE = '[UI] LOAD COVER SQUARES FAILURE',
+  UI_LOAD_STORE_INFO = '[UI] LOAD STORE INFO',
+  UI_LOAD_STORE_INFO_SUCCESS = '[UI] LOAD STORE INFO SUCCESS',
+  UI_LOAD_STORE_INFO_FAILURE = '[UI] LOAD STORE INFO FAILURE',
+  UI_LOAD_WHATSAPP_NUMBERS = '[UI] LOAD WHATSAPP NUMBERS',
+  UI_LOAD_WHATSAPP_NUMBERS_SUCCESS = '[UI] LOAD WHATSAPP NUMBERS SUCCESS',
+  UI_LOAD_WHATSAPP_NUMBERS_FAILURE = '[UI] LOAD WHATSAPP NUMBERS FAILURE',
 }
 
 export class SetPageAction implements Action {
@@ -119,6 +126,42 @@ export class LoadCoverSquaresFailureAction implements Action {
   readonly type = UiTypes.UI_LOAD_COVER_SQUARES_FAILURE;
 }
 
+export class LoadStoreInfoMenuAction implements Action {
+  readonly type = UiTypes.UI_LOAD_STORE_INFO;
+}
+
+export class LoadStoreInfoSuccessAction implements Action {
+  readonly type = UiTypes.UI_LOAD_STORE_INFO_SUCCESS;
+
+  constructor(public payload: { info: GindarInfoInterface }) {
+  }
+}
+
+export class LoadStoreInfoFailureAction implements Action {
+  readonly type = UiTypes.UI_LOAD_STORE_INFO_FAILURE;
+
+  constructor(public payload: { message: string }) {
+  }
+}
+
+export class LoadWhatsappNumbersMenuAction implements Action {
+  readonly type = UiTypes.UI_LOAD_WHATSAPP_NUMBERS;
+}
+
+export class LoadWhatsappNumbersSuccessAction implements Action {
+  readonly type = UiTypes.UI_LOAD_WHATSAPP_NUMBERS_SUCCESS;
+
+  constructor(public payload: { phones: WebPhones }) {
+  }
+}
+
+export class LoadWhatsappNumbersFailureAction implements Action {
+  readonly type = UiTypes.UI_LOAD_WHATSAPP_NUMBERS_FAILURE;
+
+  constructor(public payload: { message: string }) {
+  }
+}
+
 
 export type UiActions = SetPageAction |
   SetItemNameAction |
@@ -137,4 +180,10 @@ export type UiActions = SetPageAction |
   LoadGenderMenuFailureAction |
   LoadCoverSquaresMenuAction |
   LoadCoverSquaresSuccessAction |
-  LoadCoverSquaresFailureAction ;
+  LoadCoverSquaresFailureAction |
+  LoadStoreInfoMenuAction |
+  LoadStoreInfoSuccessAction |
+  LoadStoreInfoFailureAction |
+  LoadWhatsappNumbersMenuAction |
+  LoadWhatsappNumbersSuccessAction |
+  LoadWhatsappNumbersFailureAction;

@@ -1,7 +1,8 @@
 import {UiActions, UiTypes} from '../actions/ui.actions';
-import {AdvertisementItem, InvictaItem, SliderItem} from '../../interfaces/ui.interfaces';
+import {AdvertisementItem, WebPhones, InvictaItem, SliderItem} from '../../interfaces/ui.interfaces';
 import {GenderMenuInterface} from "../../interfaces/gender-menu.interface";
 import {CoverSquareInterface} from "../../interfaces/cover-squares.interface";
+import {GindarInfoInterface} from "../../../admin/interfaces/gindar-info.interface";
 
 export interface UiState {
   isExpanded: boolean;
@@ -12,6 +13,8 @@ export interface UiState {
   invictaMenuTags: InvictaItem[][];
   genderMenu: GenderMenuInterface;
   coverSquares: CoverSquareInterface[];
+  storeInfo: GindarInfoInterface;
+  webPhones: WebPhones;
 }
 
 
@@ -23,7 +26,9 @@ const initialState: UiState = {
   advertisements: [{title: 'Obteniendo Marquesinas'}],
   invictaMenuTags: [],
   genderMenu: null,
-  coverSquares: []
+  coverSquares: [],
+  storeInfo: null,
+  webPhones: null
 };
 
 export const UiReducer = (state: UiState = initialState, action: UiActions): UiState => {
@@ -75,6 +80,18 @@ export const UiReducer = (state: UiState = initialState, action: UiActions): UiS
       return {
         ...state,
         coverSquares: action.payload.squares
+      }
+    }
+    case UiTypes.UI_LOAD_STORE_INFO_SUCCESS: {
+      return {
+        ...state,
+        storeInfo: action.payload.info
+      }
+    }
+    case UiTypes.UI_LOAD_WHATSAPP_NUMBERS_SUCCESS: {
+      return {
+        ...state,
+        webPhones: action.payload.phones
       }
     }
     default: {

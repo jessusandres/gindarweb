@@ -10,6 +10,7 @@ export const environment = {
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: false})
   ],
   baseUrl: `http://localhost:3000`,
+  // baseUrl: `https://tuquepides.com/apigindar`,
   publicPath: 'https://gindarperu.com/assets/img'
 };
 

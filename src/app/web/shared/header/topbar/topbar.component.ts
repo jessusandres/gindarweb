@@ -1,14 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../store/app.reducer';
-import {AuthState} from '../../../store/reducers/auth.reducer';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {AuthState} from '../../../store/reducers/auth.reducer';
+import {AppState} from '../../../store/app.reducer';
 import {UiState} from '../../../store/reducers/ui.reducer';
 import {ShowCaseState} from '../../../store/reducers/showcase.reducer';
-import {LogoutAction, ResetStatusAction} from '../../../store/actions/auth.actions';
 import {CartState} from '../../../store/reducers/cart.reducer';
-import {SPLIT_REGEX} from '../../../../config/config';
+import {LogoutAction, ResetStatusAction} from '../../../store/actions/auth.actions';
 import {WebDataService} from '../../../services/web-data.service';
 
 @Component({

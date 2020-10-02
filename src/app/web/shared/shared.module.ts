@@ -12,6 +12,9 @@ import {BreadcrumbsComponent} from './breadcrumbs/breadcrumbs.component';
 import {FilterBoxComponent} from './filter-box/filter-box.component';
 import {WebPipesModule} from '../pipes/web-pipes.module';
 import { CircleDiscountComponent } from './circle-discount/circle-discount.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {_MatMenuDirectivesModule, MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -30,7 +33,11 @@ import { CircleDiscountComponent } from './circle-discount/circle-discount.compo
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    WebPipesModule
+    WebPipesModule,
+    MatIconModule,
+    MatButtonModule,
+    _MatMenuDirectivesModule,
+    MatMenuModule
   ],
     exports: [
         HeaderComponent,

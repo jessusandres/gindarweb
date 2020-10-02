@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,10 @@ export class WebDataService {
     return new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`
     });
+  }
+
+  setBodyFromObject(params): HttpParams {
+    return new HttpParams({fromObject: params});
   }
 
   getLocalCart(): any {

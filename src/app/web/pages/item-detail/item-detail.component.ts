@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ItemInterface} from '../../interfaces/item.interface';
-import {ItemsService} from '../../services/items.service';
+import {ItemService} from '../../services/item.service';
 import {WebRuc} from '../../types/types';
 import {ImageInterface} from '../../interfaces/image.interface';
 import {Store} from '@ngrx/store';
@@ -44,7 +44,7 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
   cartSubs: Subscription;
   authSubs: Subscription;
 
-  constructor(private itemsService: ItemsService,
+  constructor(private itemsService: ItemService,
               private activatedRoute: ActivatedRoute,
               private store: Store<AppState>,
               private meta: Meta) {

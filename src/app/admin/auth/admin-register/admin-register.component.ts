@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
 import {AdminRegisterAction} from '../../store/actions/admin-auth.actions';
 import {AdminUserInterface} from '../../interfaces/admin-user.interface';
 import {AppAuthAdminState} from '../../store/reducers/admin-auth.reducer';
+import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
 
 @Component({
   selector: 'app-admin-register',
@@ -12,6 +13,10 @@ import {AppAuthAdminState} from '../../store/reducers/admin-auth.reducer';
   styleUrls: []
 })
 export class AdminRegisterComponent implements OnInit {
+
+  @ViewChild('confirmSwal') private confirmSwal: SwalComponent;
+
+  @ViewChild('namecontrol') private namecontrol: ElementRef;
 
   errorMessage: string;
   isLoading: boolean;
@@ -24,14 +29,6 @@ export class AdminRegisterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.storeSubs = this.store.select('adminAuthState').subscribe((adminAuthState) => {
-      this.isLoading = adminAuthState.isLoading;
-      this.errorMessage = adminAuthState.registerErrorMessage;
-      if (!adminAuthState.isLoading && adminAuthState.registerErrorMessage === null) {
-        this.registerForm?.reset();
-      }
-    });
-
     this.registerForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       nickname: new FormControl(null, [Validators.required]),
@@ -40,6 +37,18 @@ export class AdminRegisterComponent implements OnInit {
     }, {
       validators: this.verifyPassword('password', 'passwordr')
     });
+
+
+    this.storeSubs = this.store.select('adminAuthState').subscribe((adminAuthState) => {
+      this.isLoading = adminAuthState.isLoading;
+      this.errorMessage = adminAuthState.registerErrorMessage;
+      if (!adminAuthState.isLoading && adminAuthState.registerErrorMessage === null) {
+        this.registerForm?.reset();
+        this.confirmSwal?.fire();
+        this.namecontrol?.nativeElement.focus();
+      }
+    });
+
   }
 
   verifyPassword(pass1: string, pass2: string): any {
@@ -72,7 +81,7 @@ export class AdminRegisterComponent implements OnInit {
         email: '',
         password: this.registerForm.controls.passwordr.value,
       };
-      console.log(user);
+
       this.store.dispatch(new AdminRegisterAction({user}));
     }
   }

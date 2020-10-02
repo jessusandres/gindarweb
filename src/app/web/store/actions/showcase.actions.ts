@@ -18,6 +18,8 @@ export enum FilterTypes {
   SET_FILTERED_ITEMS = '[SHOWCASE] SET FILTERED ITEMS',
   SET_TOTAL_FILTER = '[SHOWCASE] SET TOTAL FILTER ITEMS',
   UPDATE_PAGE_FILTER = '[SHOWCASE] UPDATE FILTER PAGE',
+  UPDATE_SET_TOTAL_QUERY_PAGE = '[SHOWCASE] SET TOTAL QUERY PAGE',
+  UPDATE_QUERY_PAGE = '[SHOWCASE] UPDATE QUERY PAGE',
 }
 
 export class SetSubLineAction implements Action {
@@ -80,6 +82,20 @@ export class SetTotalFilterItemsAction implements Action {
   }
 }
 
+export class UpdateQueryPageAction implements Action {
+  readonly type = FilterTypes.UPDATE_QUERY_PAGE;
+
+  constructor(public payload: { page: number }) {
+  }
+}
+
+export class SetTotalQueryPageAction implements Action {
+  readonly type = FilterTypes.UPDATE_SET_TOTAL_QUERY_PAGE;
+
+  constructor(public payload: { amount: number }) {
+  }
+}
+
 export type ShowcaseActions = SetFilteredItemsAction |
   SetSubLineAction |
   SetBrandAction |
@@ -88,5 +104,7 @@ export type ShowcaseActions = SetFilteredItemsAction |
   ShowFilteredItemsAction |
   UpdateFilterPageAction |
   SetTotalFilterItemsAction |
-  HideFilteredItemsAction;
+  HideFilteredItemsAction |
+  UpdateQueryPageAction |
+  SetTotalQueryPageAction;
 

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
@@ -21,14 +21,18 @@ export class AuthService {
 
   login(email: string, password: string): Observable<UserModel> {
 
-    const body = {
+    const body = this.dataService.setBodyFromObject({
       email,
       password,
-    };
+    });
 
-    return this.httpClient.post(`${BASE_URL}/auth/login`, body).pipe(
+    const headers = new HttpHeaders()
+      .set("Content-Type", "application/x-www-form-urlencoded");
+
+    return this.httpClient.post(`${BASE_URL}/auth/login`, body, {
+      headers
+    }).pipe(
       map(({user}: any) => {
-        // console.log(user);
         jQuery('#loginModal').modal('hide');
         this.saveToken(user.token);
         return new UserModel(user.name, user.lastname, user.email, user.password, user.token, user.id);
@@ -61,11 +65,16 @@ export class AuthService {
     const token = this.dataService.getToken();
     if (token) {
       try {
+
+        const body = this.dataService.setBodyFromObject({token});
+
         const payload = JSON.parse(atob(token.split('.')[1]));
-        // console.log(payload);
+
         const isExp = this.expirated(payload.exp);
         if (isExp) {
-          return this.httpClient.post(`${BASE_URL}/auth/refreshToken`, {token}).pipe(
+
+
+          return this.httpClient.post(`${BASE_URL}/auth/refreshToken`, body).pipe(
             map(({user}: any) => {
               this.saveToken(user.token);
               return user;
@@ -79,7 +88,8 @@ export class AuthService {
           );
 
         } else {
-          return this.httpClient.post(`${BASE_URL}/auth/validateToken`, {token}).pipe(
+
+          return this.httpClient.post(`${BASE_URL}/auth/validateToken`, body).pipe(
             map(({data}: any) => data),
             catchError((err) => {
               if (redirect) {
@@ -110,7 +120,9 @@ export class AuthService {
   }
 
   register(userRegisterModel: UserRegisterModel): Observable<any> {
-    return this.httpClient.post(`${BASE_URL}/auth/register`, {...userRegisterModel}).pipe(
+    const body = this.dataService.setBodyFromObject({...userRegisterModel});
+
+    return this.httpClient.post(`${BASE_URL}/auth/register`, body).pipe(
       map(({user}: any) => {
         this.saveToken(user.token);
         this.router.navigate(['/']);

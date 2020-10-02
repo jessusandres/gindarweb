@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {ItemsService} from '../../services/items.service';
+import {ItemService} from '../../services/item.service';
 import {
   ItemTypes,
   LoadingItemDetailAction,
@@ -13,7 +13,7 @@ import {of} from 'rxjs';
 
 @Injectable()
 export class ItemEffects {
-  constructor(private actions$: Actions, private readonly itemsService: ItemsService) {
+  constructor(private actions$: Actions, private readonly itemsService: ItemService) {
   }
 
   @Effect()

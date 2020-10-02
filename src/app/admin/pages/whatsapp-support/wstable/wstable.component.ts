@@ -16,6 +16,5 @@ export class WstableComponent implements OnInit {
   }
 
   addWhatsapp(): void {
-    console.log(this.ruc);
   }
 }

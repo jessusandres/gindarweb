@@ -9,7 +9,7 @@
         <form class="m-t" [formGroup]="registerForm" (ngSubmit)="register()">
           <div class="form-group"
                [ngClass]="{'has-error': registerForm.controls.name.invalid && registerForm.controls.name.touched}">
-            <input formControlName="name" type="text" class="form-control" placeholder="Nombre" required="">
+            <input formControlName="name" #namecontrol type="text" class="form-control" placeholder="Nombre" required="">
           </div>
           <div class="form-group"
                [ngClass]="{'has-error': registerForm.controls.nickname.invalid && registerForm.controls.nickname.touched}">
@@ -34,5 +34,11 @@
       </div>
     </div>
   </div>
-
+  <swal
+    #confirmSwal
+    title="Usuario registrado!"
+    icon="info"
+    [showCancelButton]="false"
+    [focusCancel]="true">
+  </swal>
 </div>

@@ -44,10 +44,7 @@ export class AdminAuthService {
     return this.httpClient.post(`${BASE_URL}/admin/auth/register`, {...user},
       {headers: this.dataService.headers()})
       .pipe(
-        map((data: any) => {
-          console.log(data);
-          return data.user;
-        })
+        map((data: any) => data.user)
       );
   }
 
@@ -78,31 +75,19 @@ export class AdminAuthService {
         } else {
           return this.httpClient.post(`${BASE_URL}/admin/auth/validateToken`, {token: adminToken})
             .pipe(
-              map((res: { user: AdminUserInterface }) => {
-                // if (redirect) {
-                //   this.router.navigate(['/admin/login']);
-                // }
-                return res.user;
-              })
+              map((res: { user: AdminUserInterface }) => res.user)
             );
         }
 
 
       } catch (error) {
         return new Observable((subscriber => {
-          // if (redirect) {
-          //   this.router.navigate(['admin/login']);
-          // }
           subscriber.error({status: 404, error: {message: 'Bad admin token'}});
         }));
       }
 
     } else {
       return new Observable((subscriber => {
-        // if (redirect) {
-        //   this.router.navigate(['admin/login']);
-        // }
-
         subscriber.error({status: 404, error: {message: 'No admin token'}});
       }));
     }

@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {WebModule} from './web/web.module';
 import {AdminModule} from './admin/admin.module';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
     WebModule,
     AdminModule,
     SweetAlert2Module.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [],
   exports: [],

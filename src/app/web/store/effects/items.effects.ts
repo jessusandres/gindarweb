@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {ItemsService} from '../../services/items.service';
+import {ItemService} from '../../services/item.service';
 import {
   ItemsTypes,
   LoadingItemsFailureAction,
@@ -14,11 +14,13 @@ import {
 } from '../actions/items.actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {of} from 'rxjs';
+import {ItemsService} from "../../services/items.service";
 
 
 @Injectable()
 export class ItemsEffects {
-  constructor(private actions$: Actions, private itemsService: ItemsService) {
+  constructor(private actions$: Actions,
+              private itemsService: ItemsService) {
   }
 
   @Effect()

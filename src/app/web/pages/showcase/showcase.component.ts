@@ -8,7 +8,11 @@ import {ItemsState} from '../../store/reducers/items.reducer';
 import {filter, map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {WebRuc} from '../../types/types';
-import {SetFilteredItemsAction, UpdateFilterPageAction} from '../../store/actions/showcase.actions';
+import {
+  SetFilteredItemsAction,
+  UpdateFilterPageAction,
+  UpdateQueryPageAction
+} from '../../store/actions/showcase.actions';
 
 declare function detailPluging(): any;
 
@@ -49,7 +53,7 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
         map((event: ActivationEnd) => event.snapshot)
       )
       .subscribe((activatedRouteSnapshot: ActivatedRouteSnapshot) => {
-        // console.log(activatedRouteSnapshot);
+
         const {query, subline} = activatedRouteSnapshot.params;
 
         if (query) {
@@ -60,6 +64,7 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
           this.store.dispatch(new LoadItemsBySubLineAction({
             subline: subline,
           }));
+
         }
       });
 
@@ -109,11 +114,14 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
     this.showcaseSubs.unsubscribe();
   }
 
-  updatePage(number: number) {
+  updatePage(pnumber: number) {
 
-    this.store.dispatch(new UpdateFilterPageAction({page: this.page + number}));
+    this.store.dispatch(new UpdateFilterPageAction({page: this.page + pnumber}));
 
     this.store.dispatch(new LoadItemsBySubLineAction({subline: this.filterCode}));
 
   }
+
+
+
 }

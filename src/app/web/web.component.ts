@@ -6,7 +6,7 @@ import {
   LoadAdvertisementsAction,
   LoadCarrouselAction, LoadCoverSquaresMenuAction,
   LoadGenderMenuAction,
-  LoadInvictaMenuAction,
+  LoadInvictaMenuAction, LoadStoreInfoMenuAction, LoadWhatsappNumbersMenuAction,
   SetPageAction
 } from './store/actions/ui.actions';
 import {HomeComponent} from './pages/home/home.component';
@@ -37,11 +37,13 @@ export class WebComponent implements OnInit, AfterViewInit {
     this.linkTheme.removeAttribute('href');
 
     this.store.dispatch(new StatusLoginAction());
+    this.store.dispatch(new LoadStoreInfoMenuAction());
     this.store.dispatch(new LoadAdvertisementsAction());
     this.store.dispatch(new LoadInvictaMenuAction());
     this.store.dispatch(new LoadGenderMenuAction());
     this.store.dispatch(new LoadCarrouselAction());
     this.store.dispatch(new LoadCoverSquaresMenuAction());
+    this.store.dispatch(new LoadWhatsappNumbersMenuAction());
 
     mdbMinPlugin();
     WOW().init();

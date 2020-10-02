@@ -11,6 +11,7 @@ import {AdminAuthReducer} from './store/reducers/admin-auth.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {AdminAuthEffects} from './store/effects/admin-auth.effects';
 import {AdminDashboardEffects} from './store/effects/admin-dashboard.effects';
+import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
 
 
 @NgModule({
@@ -19,15 +20,16 @@ import {AdminDashboardEffects} from './store/effects/admin-dashboard.effects';
     AdminLoginComponent,
     AdminRegisterComponent
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    AdminSharedModule,
-    ReactiveFormsModule,
-    FormsModule,
-    StoreModule.forFeature('adminAuthState', AdminAuthReducer),
-    EffectsModule.forFeature([AdminAuthEffects, AdminDashboardEffects]),
-  ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        AdminSharedModule,
+        ReactiveFormsModule,
+        FormsModule,
+        StoreModule.forFeature('adminAuthState', AdminAuthReducer),
+        EffectsModule.forFeature([AdminAuthEffects, AdminDashboardEffects]),
+        SweetAlert2Module,
+    ],
   exports: [
     AdminRoutingModule,
   ]

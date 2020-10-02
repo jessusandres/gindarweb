@@ -15,4 +15,13 @@ export interface StoreSelected {
   name: string
 }
 
+export interface WhatsappNumber {
+  phone: string;
+  ruc: string;
+}
+
+export interface WebPhones {
+  gindarPhones: WhatsappNumber[];
+  rogerPhones: WhatsappNumber[];
+}
 

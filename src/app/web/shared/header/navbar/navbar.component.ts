@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs';
 import {UiState} from '../../../store/reducers/ui.reducer';
 import {InvictaItem} from '../../../interfaces/ui.interfaces';
 import {GenderItemInterface, GenderMenuInterface} from "../../../interfaces/gender-menu.interface";
+import {GindarInfoInterface} from "../../../../admin/interfaces/gindar-info.interface";
 
 declare function mdbMinPlugin(): any;
 
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   manMobileMenu: GenderItemInterface[] = [];
   womanMobileMenu: GenderItemInterface[] = [];
   genderMenu: GenderMenuInterface;
+  storeInfo: GindarInfoInterface = null;
 
   uiSubscription: Subscription;
 
@@ -28,74 +30,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.subLines = [
-    //   {
-    //     rucPrefix: '20',
-    //     ruc: WebRuc.GINDAR,
-    //     name: 'RELOJES',
-    //     code: '010107',
-    //     imageCode: 1,
-    //     filter: 1,
-    //   },
-    //   {
-    //     ruc: WebRuc.GINDAR,
-    //     rucPrefix: '20',
-    //     name: 'CAJAS PARA RELOJ INVICTA',
-    //     filter: 1,
-    //     code: '010112',
-    //     imageCode: 2
-    //   },
-    //   {
-    //     ruc: WebRuc.GINDAR,
-    //     rucPrefix: '20',
-    //     name: 'CORREAS DE RELOJ',
-    //     code: '010111',
-    //     filter: 1,
-    //     imageCode: 3
-    //   },
-    //   {
-    //     ruc: WebRuc.ROGER,
-    //     rucPrefix: '10',
-    //     name: 'LENTES',
-    //     filter: 1,
-    //     code: '000000',
-    //     imageCode: 4
-    //   },
-    //   {
-    //     ruc: WebRuc.ROGER,
-    //     rucPrefix: '10',
-    //     name: 'CARTERAS',
-    //     filter: 2,
-    //     code: '000000',
-    //     imageCode: 5
-    //   },
-    //   {
-    //     ruc: WebRuc.ROGER,
-    //     rucPrefix: '10',
-    //     name: 'CROSSBODYS',
-    //     filter: 2,
-    //     code: '000000',
-    //     imageCode: 6
-    //   },
-    //   {
-    //     ruc: WebRuc.ROGER,
-    //     rucPrefix: '10',
-    //     name: 'RELOJES',
-    //     filter: 2,
-    //     code: '010109',
-    //     imageCode: 7
-    //   },
-    //   {
-    //     ruc: WebRuc.ROGER,
-    //     rucPrefix: '10',
-    //     name: 'LENTES',
-    //     filter: 2,
-    //     code: '000000',
-    //     imageCode: 8
-    //   }
-    // ];
 
     this.uiSubscription = this.store.select('uiState').subscribe((uiState: UiState) => {
+
+      this.storeInfo = uiState.storeInfo;
 
       if (this.invictaMenu !== uiState.invictaMenuTags) {
 

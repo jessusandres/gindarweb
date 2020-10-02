@@ -26,8 +26,6 @@ export class StoreInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // console.log('init');
-
 
     const phoneValidators = [Validators.maxLength(9), Validators.minLength(9)];
 
@@ -83,7 +81,6 @@ export class StoreInfoComponent implements OnInit, OnDestroy {
     }
     this.errorMessage = null;
 
-    console.log();
     const info = {
       ...this.storeInfoForm.value
     };
