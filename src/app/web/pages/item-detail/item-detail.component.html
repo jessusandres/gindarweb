@@ -31,10 +31,11 @@
                     <ul class="carousel-indicators carousel-indicators-ms">
 
                       <li
-                        *ngFor="let image of images;index as i"
+                        *ngFor="let image of images; index as index"
                         data-target="#carousel-thumb"
-                        data-slide-to="{{i}}"
-                        [attr.active]="i === 0">
+                        [ngClass]="{'active': index===0}"
+                        [attr.data-slide-to]="index"
+                        [attr.active]="index === 0">
                         <img [src]="image?.image | itemImage" width="50" alt="">
                       </li>
 

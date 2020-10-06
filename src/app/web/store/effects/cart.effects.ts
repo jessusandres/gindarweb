@@ -4,14 +4,19 @@ import {CartService} from '../../services/cart.service';
 import {
   AddCartItemAction,
   AddCartItemFailureAction,
-  AddCartItemSuccessAction, AddLocalItemAction, AddLocalItemSuccessAction,
+  AddCartItemSuccessAction,
+  AddLocalItemAction,
+  AddLocalItemSuccessAction,
+  ApplyCouponAction,
+  ApplyCouponFailureAction,
+  ApplyCouponSuccessAction,
   CartTypes,
   DropCartItemAction,
   DropCartItemFailureAction,
   DropCartItemSuccessAction,
   LoadCartAction,
   LoadCartFailureAction,
-  LoadCartSuccessAction,
+  LoadCartSuccessAction, RemoveCouponFailureAction, RemoveCouponSuccessAction,
   UpdateCartItemAction,
   UpdateCartItemFailureAction,
   UpdateCartItemSuccessAction
@@ -31,11 +36,7 @@ export class CartEffects {
     mergeMap(() => {
       return this.cartService.getCart().pipe(
         map((data) => new LoadCartSuccessAction({
-          gcart: data.gcart,
-          rcart: data.rcart,
-          ocart: data.ocart,
-          amount: data.amount,
-          total: data.total
+          ...data
         })),
         catchError((err) => {
           return of(new LoadCartFailureAction({message: err.error.message}));
@@ -121,4 +122,29 @@ export class CartEffects {
     ofType(CartTypes.DROP_CART_ITEM_SUCCESS),
     mergeMap(() => of(new LoadCartAction()))
   );
+
+  @Effect()
+  applyCoupon = this.actions$.pipe(
+    ofType(CartTypes.APPLY_COUPON),
+    mergeMap((action: ApplyCouponAction) => {
+      return this.cartService.applyCoupon(action.payload.coupon)
+        .pipe(
+          map((message) => new ApplyCouponSuccessAction({message})),
+          catchError(err => of(new ApplyCouponFailureAction({message: err.error.message})))
+        );
+    })
+  );
+
+  @Effect()
+  removeCoupon = this.actions$.pipe(
+    ofType(CartTypes.REMOVE_COUPON),
+    mergeMap((action: ApplyCouponAction) => {
+      return this.cartService.removeCoupon(action.payload.coupon)
+        .pipe(
+          map((message) => new RemoveCouponSuccessAction({message})),
+          catchError(err => of(new RemoveCouponFailureAction({message: err.error.message})))
+        );
+    })
+  );
+
 }

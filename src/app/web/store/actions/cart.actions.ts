@@ -3,7 +3,6 @@ import {CartInterface} from '../../interfaces/cart_item.interface';
 import {ItemModel} from '../../models/item.model';
 
 export enum CartTypes {
-
   LOAD_CART = '[CART] LOAD CART',
   LOAD_CART_SUCCESS = '[CART] LOAD CART SUCCESS',
   LOAD_CART_FAILURE = '[CART] LOAD CART FAILURE',
@@ -25,21 +24,30 @@ export enum CartTypes {
   CART_SHOW_FORM = '[CART] SHOW CART FORM',
   CART_TOGGLE_VOUCHER = '[CART] TOGGLE CART VOUCHER',
   CART_TOGGLE_ONLINE_PAYMENT = '[CART] TOGGLE CART ONLINE PAYMENT',
+  SET_COUPONS = '[CART] SET COUPONS',
+  APPLY_COUPON = '[CART] APPLY COUPON',
+  APPLY_COUPON_SUCCESS = '[CART] APPLY COUPON SUCCESS',
+  APPLY_COUPON_FAILURE = '[CART] APPLY COUPON FAILURE',
+  REMOVE_COUPON = '[CART] REMOVE COUPON',
+  REMOVE_COUPON_SUCCESS = '[CART] REMOVE COUPON SUCCESS',
+  REMOVE_COUPON_FAILRE = '[CART] REMOVE COUPON FAILURE',
+  REMOVE_COUPON_MESSAGES = '[CART] REMOVE COUPON MESSAGES',
 }
 
 export class LoadCartAction implements Action {
   readonly type = CartTypes.LOAD_CART;
-
 }
 
 export class LoadCartSuccessAction implements Action {
   readonly type = CartTypes.LOAD_CART_SUCCESS;
 
   constructor(public payload: {
-    gcart: CartInterface[],
-    rcart: CartInterface[],
-    ocart: CartInterface[],
-    amount: number, total: number
+    gCart: CartInterface[],
+    rCart: CartInterface[],
+    oCart: CartInterface[],
+    amount: number,
+    total: number,
+    coupons: string[];
   }) {
   }
 }
@@ -137,8 +145,14 @@ export class SetStoreCartAction implements Action {
 
   constructor(public payload: { name: string, ruc: string }) {
   }
-
 }
+
+// export class SetCartCoupons implements Action {
+//   readonly type = CartTypes.SET_COUPONS;
+//
+//   constructor(public payload: { coupons: string[] }) {
+//   }
+// }
 
 export class SyncLocalCartAction implements Action {
   readonly type = CartTypes.SYNC_LOCAL_CART;
@@ -169,6 +183,52 @@ export class ToggleOnlinePaymentAction implements Action {
   }
 }
 
+export class ApplyCouponAction implements Action {
+  readonly type = CartTypes.APPLY_COUPON;
+
+  constructor(public payload: { coupon: string }) {
+  }
+}
+
+export class ApplyCouponSuccessAction implements Action {
+  readonly type = CartTypes.APPLY_COUPON_SUCCESS;
+
+  constructor(public payload: { message: string }) {
+  }
+}
+
+export class ApplyCouponFailureAction implements Action {
+  readonly type = CartTypes.APPLY_COUPON_FAILURE;
+
+  constructor(public payload: { message: string }) {
+  }
+}
+
+export class RemoveCouponAction implements Action {
+  readonly type = CartTypes.REMOVE_COUPON;
+
+  constructor(public payload: { coupon: string }) {
+  }
+}
+
+export class RemoveCouponSuccessAction implements Action {
+  readonly type = CartTypes.REMOVE_COUPON_SUCCESS;
+
+  constructor(public payload: { message: string }) {
+  }
+}
+
+export class RemoveCouponFailureAction implements Action {
+  readonly type = CartTypes.REMOVE_COUPON_FAILRE;
+
+  constructor(public payload: { message: string }) {
+  }
+}
+
+export class RemoveCouponMessages implements Action {
+  readonly type = CartTypes.REMOVE_COUPON_MESSAGES;
+}
+
 export type CartActions = LoadCartAction |
   LoadCartSuccessAction |
   LoadCartFailureAction |
@@ -189,5 +249,12 @@ export type CartActions = LoadCartAction |
   SyncAwaitAction |
   ShowCartForm |
   ToggleVoucherAction |
-  ToggleOnlinePaymentAction;
+  ToggleOnlinePaymentAction |
+  ApplyCouponAction |
+  ApplyCouponSuccessAction |
+  ApplyCouponFailureAction |
+  RemoveCouponAction |
+  RemoveCouponSuccessAction |
+  RemoveCouponFailureAction |
+  RemoveCouponMessages;
 

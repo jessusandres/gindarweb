@@ -1,12 +1,13 @@
 import {CartInterface} from '../../interfaces/cart_item.interface';
 import {CartActions, CartTypes} from '../actions/cart.actions';
-import {StoreSelected} from "../../interfaces/ui.interfaces";
+import {StoreSelected} from '../../interfaces/ui.interfaces';
 
 
 export interface CartState {
-  gcart: CartInterface[];
-  rcart: CartInterface[];
-  ocart: CartInterface[];
+  gCart: CartInterface[];
+  rCart: CartInterface[];
+  oCart: CartInterface[];
+  coupons: string[];
   storeSelected: StoreSelected;
   loading: boolean;
   message: string;
@@ -14,6 +15,8 @@ export interface CartState {
   actionLoading: boolean;
   actionMessage: string;
   actionErrorMessage: string;
+  couponErrorMessage: string;
+  couponMessage: string;
   amount: number;
   total: number;
   showCartForm: boolean;
@@ -22,9 +25,12 @@ export interface CartState {
 }
 
 const initialState: CartState = {
-  gcart: [],
-  rcart: [],
-  ocart: [],
+  couponErrorMessage: null,
+  couponMessage: null,
+  gCart: [],
+  rCart: [],
+  oCart: [],
+  coupons: [],
   loading: false,
   storeSelected: null,
   message: null,
@@ -36,7 +42,7 @@ const initialState: CartState = {
   total: 0.00,
   showCartForm: false,
   onlinePayment: false,
-  voucher: false,
+  voucher: false
 };
 
 export const CartReducer = (state: CartState = initialState, action: CartActions): CartState => {
@@ -57,23 +63,24 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
         ...state,
         errorMessage: null,
         actionMessage: null,
-        gcart: action.payload.gcart,
-        rcart: action.payload.rcart,
-        ocart: action.payload.ocart,
+        gCart: action.payload.gCart,
+        rCart: action.payload.rCart,
+        oCart: action.payload.oCart,
         loading: false,
         actionLoading: false,
         message: null,
         actionErrorMessage: null,
         amount: action.payload.amount,
         total: action.payload.total,
+        coupons: action.payload.coupons
       };
     }
     case CartTypes.LOAD_CART_FAILURE: {
       return {
         ...state,
-        gcart: [],
-        rcart: [],
-        ocart: [],
+        gCart: [],
+        rCart: [],
+        oCart: [],
         total: 0.0,
         amount: 0,
         loading: false,
@@ -189,13 +196,68 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
       return {
         ...state,
         onlinePayment: action.payload.status
-      }
+      };
     }
     case CartTypes.CART_TOGGLE_VOUCHER: {
       return {
         ...state,
         voucher: action.payload.status
-      }
+      };
+    }
+    // case CartTypes.SET_COUPONS: {
+    //   return {
+    //     ...state,
+    //     coupons: action.payload.coupons
+    //   };
+    // }
+    case CartTypes.APPLY_COUPON: {
+      return {
+        ...state,
+        actionLoading: true,
+      };
+    }
+    case CartTypes.APPLY_COUPON_FAILURE: {
+      return {
+        ...state,
+        actionLoading: false,
+        couponErrorMessage: action.payload.message
+      };
+    }
+    case CartTypes.APPLY_COUPON_SUCCESS: {
+      return {
+        ...state,
+        couponErrorMessage: null,
+        actionLoading: false,
+        couponMessage: action.payload.message
+      };
+    }
+    case CartTypes.REMOVE_COUPON: {
+      return {
+        ...state,
+        actionLoading: true,
+      };
+    }
+    case CartTypes.REMOVE_COUPON_FAILRE: {
+      return {
+        ...state,
+        actionLoading: false,
+        couponErrorMessage: action.payload.message
+      };
+    }
+    case CartTypes.REMOVE_COUPON_SUCCESS: {
+      return {
+        ...state,
+        actionLoading: false,
+        actionErrorMessage: null,
+        couponMessage: action.payload.message
+      };
+    }
+    case CartTypes.REMOVE_COUPON_MESSAGES: {
+      return {
+        ...state,
+        couponErrorMessage: null,
+        couponMessage: null
+      };
     }
     default: {
       return {...state};

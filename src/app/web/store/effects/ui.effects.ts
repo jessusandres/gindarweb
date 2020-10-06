@@ -15,8 +15,8 @@ import {
   UiTypes
 } from '../actions/ui.actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
-import {of} from "rxjs";
-import {ItemsService} from "../../services/items.service";
+import {of} from 'rxjs';
+import {ItemsService} from '../../services/items.service';
 
 @Injectable()
 export class UiEffects {
@@ -43,7 +43,10 @@ export class UiEffects {
     mergeMap(() => {
       return this.genericDataService.getSliders()
         .pipe(
-          map((images) => new LoadCarrouselSuccessAction({images}))
+          map((sliders) => {
+            console.log(sliders);
+            return new LoadCarrouselSuccessAction({images: sliders});
+          })
         );
     })
   );

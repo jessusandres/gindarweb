@@ -4,12 +4,21 @@ import {Subscription} from 'rxjs';
 import {CartState} from '../../../store/reducers/cart.reducer';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/app.reducer';
-import {ShowCartForm} from '../../../store/actions/cart.actions';
+import {
+  ApplyCouponAction,
+  ApplyCouponFailureAction,
+  RemoveCouponAction,
+  RemoveCouponFailureAction,
+  ShowCartForm
+} from '../../../store/actions/cart.actions';
 
 @Component({
   selector: 'app-cart-table',
   templateUrl: './cart-table.component.html',
-  styles: []
+  styles: [
+    '.badge {font-size: .9rem;}',
+    '.fa-trash {cursor: pointer}',
+  ]
 })
 export class CartTableComponent implements OnInit, OnDestroy {
 
@@ -19,6 +28,9 @@ export class CartTableComponent implements OnInit, OnDestroy {
   gindarCartItems: CartInterface[];
   rogerCartItems: CartInterface[];
   otherCartItems: CartInterface[];
+  coupons: string[] = [];
+  couponError: string;
+  couponMessage: string;
 
   cartSubscription: Subscription;
   text = 'producto';
@@ -31,10 +43,15 @@ export class CartTableComponent implements OnInit, OnDestroy {
     this.cartSubscription = this.store.select('cartState').subscribe((cartState: CartState) => {
 
       this.cartAmount = cartState.amount;
-      this.gindarCartItems = cartState.gcart;
-      this.rogerCartItems = cartState.rcart;
-      this.otherCartItems = cartState.ocart;
+      this.gindarCartItems = cartState.gCart;
+      this.rogerCartItems = cartState.rCart;
+      this.otherCartItems = cartState.oCart;
       this.total = cartState.total;
+      this.coupons = cartState.coupons;
+
+      this.couponError = cartState.couponErrorMessage;
+      this.couponMessage = cartState.couponMessage;
+
       this.text = (this.cartAmount === 0 || this.cartAmount > 1) ? 'productos' : 'producto';
 
       this.storeSelected = cartState.storeSelected;
@@ -48,5 +65,22 @@ export class CartTableComponent implements OnInit, OnDestroy {
 
   showOrderForm(): void {
     this.store.dispatch(new ShowCartForm({show: true}));
+  }
+
+  deleteCupon(coupon: string): void {
+    if (!coupon) {
+      this.store.dispatch(new RemoveCouponFailureAction({message: 'No se proporcionó código de cupón'}));
+      return;
+    }
+    this.store.dispatch(new RemoveCouponAction({coupon}));
+  }
+
+  applyCoupon(coupon: any): void {
+    if (coupon.trim().length < 5) {
+      this.store.dispatch(new ApplyCouponFailureAction({message: 'Código de cupón incorrecto'}));
+      return;
+    }
+
+    this.store.dispatch(new ApplyCouponAction({coupon}));
   }
 }

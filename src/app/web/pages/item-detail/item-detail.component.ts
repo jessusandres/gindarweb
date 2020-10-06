@@ -12,7 +12,6 @@ import {RemoveItemNameAction, SetItemNameAction} from '../../store/actions/ui.ac
 import {AddCartItemAction, AddLocalItemAction} from '../../store/actions/cart.actions';
 import {AuthState} from '../../store/reducers/auth.reducer';
 import {Meta} from '@angular/platform-browser';
-import {environment} from '../../../../environments/environment';
 
 declare function detailPluging(): any;
 

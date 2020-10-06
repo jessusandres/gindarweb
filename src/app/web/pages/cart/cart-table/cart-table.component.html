@@ -1,11 +1,14 @@
 <div class="container animated fadeInUp">
 
-  <h4 class="h4-responsive h4-responsive-xs py-3">
+  <h4 class="h4-responsive h4-responsive-xs py-3" *ngIf="cartAmount > 0">
     Tienes
     <span>
       <b> {{cartAmount}} </b>
     </span>
     {{text}} en tu carrito de compras</h4>
+
+  <h4 class="text-center h4-responsive h4-responsive-xs py-3" *ngIf="cartAmount === 0">
+    No tienes items en tu carrito de compras</h4>
 
   <div class="row pd-xss-pagar" *ngIf="cartAmount > 0">
 
@@ -36,15 +39,43 @@
     <div class="col-md-12 table-col-ms-pd" *ngIf="storeSelected">
       <div class="card my-3 table-vert-ms font-OpenSans-regular">
         <div class="card-body">
+
+          <app-info-container
+            class="col-12 text-center animated fadeIn"
+            *ngIf="couponMessage" [message]="couponMessage"></app-info-container>
+          <app-error-container
+            class="col-12 text-center animated fadeIn"
+            *ngIf="couponError" [errorMessage]="couponError"></app-error-container>
+
           <hr class="mt-3 mb-2">
           <div class="row">
-            <div class="col-6 col-md-6 text-left my-2">
+            <div class="col-6"
+                 *ngIf="coupons.length === 0">
+              <label for="cuponcode">Aplicar Cupón de descuento</label>
+              <input
+                #couponText
+                (keyup.enter)="applyCoupon(couponText.value)"
+                id="cuponcode"
+                type="text" class="form-control form-control-sm" placeholder="CUPONCODE">
+            </div>
+            <div class="col-6"
+                 *ngIf="coupons.length > 0">
+              <h5 class="h4-responsive-xs font-weight-bold mb-0">
+                Cupón Aplicado:
+              </h5>
+              <span class="m-1 badge badge-light" *ngFor="let coupon of coupons">
+                {{coupon}}
+                <i class="fa fa-trash text-danger" (click)="deleteCupon(coupon)"></i>
+              </span>
+            </div>
+
+            <div class="col-7 col-md-7 text-left my-2">
               <h5 class="h4-responsive-xs font-weight-bold">
                 TOTAL
                 EN : {{storeSelected.name.toUpperCase()}}
               </h5>
             </div>
-            <div class="col-6 col-md-6 text-right my-2">
+            <div class="col-5 col-md-5 text-right my-2">
               <h5 class="h4-responsive-xs text-dark font-weight-bold">
                 S/ {{ storeSelected.ruc | totalStore: [gindarCartItems, rogerCartItems, otherCartItems] }}
               </h5>
@@ -54,14 +85,14 @@
           <div class="row">
             <div class="col-md-12">
               <div class="md-form mb-0 mt-4">
-<!--                <form>-->
-                  <button
-                    (click)="showOrderForm()"
-                    type="button"
-                    class="waves-effect waves-light btn btn-gindar btn-block mt-0">
-                    Continuar con el pedido
-                  </button>
-<!--                </form>-->
+                <!--                <form>-->
+                <button
+                  (click)="showOrderForm()"
+                  type="button"
+                  class="waves-effect waves-light btn btn-gindar btn-block mt-0">
+                  Continuar con el pedido
+                </button>
+                <!--                </form>-->
               </div>
             </div>
           </div>

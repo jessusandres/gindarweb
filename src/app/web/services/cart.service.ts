@@ -9,7 +9,7 @@ import {ItemModel} from '../models/item.model';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store/app.reducer';
 import {UserModel} from '../models/user.model';
-import {SetStoreCartAction} from '../store/actions/cart.actions';
+import {LoadCartSuccessAction, RemoveCouponMessages, SetStoreCartAction} from '../store/actions/cart.actions';
 import {WebRuc} from '../types/types';
 
 @Injectable({
@@ -28,9 +28,9 @@ export class CartService {
   }
 
   getCart(): Observable<{
-    gcart: CartInterface[],
-    rcart: CartInterface[],
-    ocart: CartInterface[], total: number, amount: number
+    gCart: CartInterface[],
+    rCart: CartInterface[],
+    oCart: CartInterface[], total: number, amount: number, coupons: string[]
   }> {
 
     return this.httpClient.get(`${BASE_URL}/cart/${this.user.id}`, {
@@ -38,10 +38,16 @@ export class CartService {
     })
       .pipe(
         map((res: {
+          ok: boolean;
+          coupons: string[];
           gCart: CartInterface[],
           rCart: CartInterface[],
-          oCart: CartInterface[], total: number, amount: number
+          oCart: CartInterface[],
+          total: number,
+          amount: number
         }) => {
+
+          // this.store.dispatch(new SetCartCoupons({coupons: res.coupons}));
 
           if (res.gCart.length > 0) {
             this.store.dispatch(new SetStoreCartAction({ruc: res.gCart[0].storeRuc, name: res.gCart[0].storeName}));
@@ -51,13 +57,8 @@ export class CartService {
             this.store.dispatch(new SetStoreCartAction({ruc: '00000000000', name: 'Otros'}));
           }
 
-          return {
-            gcart: res.gCart,
-            rcart: res.rCart,
-            ocart: res.oCart,
-            total: res.total,
-            amount: res.amount,
-          };
+          delete res.ok;
+          return {...res};
         })
       );
   }
@@ -173,5 +174,39 @@ export class CartService {
       return new Observable<any>();
     }
 
+  }
+
+  applyCoupon(coupon: string): Observable<string> {
+    return this.httpClient.put(`${BASE_URL}/cart/applycoupon/${this.user.id}`, {coupon}, {
+      headers: this.dataService.headers()
+    })
+      .pipe(
+        map((response: any) => {
+
+          const {cart} = response;
+          this.store.dispatch(new LoadCartSuccessAction({...cart}));
+          setTimeout(() => {
+            this.store.dispatch(new RemoveCouponMessages());
+          }, 3000);
+          return response.message;
+        })
+      );
+  }
+
+  removeCoupon(coupon: string): Observable<string> {
+    return this.httpClient.delete(`${BASE_URL}/cart/removecoupon/${this.user.id}/${coupon}`, {
+      headers: this.dataService.headers()
+    })
+      .pipe(
+        map((response: any) => {
+
+          const {cart} = response;
+          this.store.dispatch(new LoadCartSuccessAction({...cart}));
+          setTimeout(() => {
+            this.store.dispatch(new RemoveCouponMessages());
+          }, 3000);
+          return response.message;
+        })
+      );
   }
 }

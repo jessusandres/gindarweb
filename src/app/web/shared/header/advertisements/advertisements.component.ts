@@ -20,7 +20,7 @@ export class AdvertisementsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.store.select('uiState').subscribe((uiState: UiState) => {
+    this.uiSubscription = this.store.select('uiState').subscribe((uiState: UiState) => {
       this.advertisements = uiState.advertisements;
     });
   }
