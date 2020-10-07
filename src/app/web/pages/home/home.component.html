@@ -4,7 +4,9 @@
 
     <div class="carousel-inner" role="listbox">
 
-      <div class="carousel-item animated fadeIn" *ngFor="let slider of sliders; index as ind" [ngClass]="{'active': ind===0}">
+      <div class="carousel-item animated fadeIn"
+           *ngFor="let slider of sliders; index as ind" [ngClass]="{'active': ind===0}"
+            (click)="redirectToText(slider)">
         <div class="view">
           <img class="d-block w-100 height-img-xs" src="{{slider.image | sliderImage}}"
                alt="First slide">

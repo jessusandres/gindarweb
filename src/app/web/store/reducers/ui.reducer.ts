@@ -22,7 +22,7 @@ const initialState: UiState = {
   isExpanded: false,
   lastPage: '',
   itemDetailName: null,
-  sliders: [{image: 'slider_1.jpg'}],
+  sliders: [],
   advertisements: [{title: 'Obteniendo Marquesinas'}],
   invictaMenuTags: [],
   genderMenu: null,

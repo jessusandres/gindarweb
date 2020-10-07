@@ -43,10 +43,7 @@ export class UiEffects {
     mergeMap(() => {
       return this.genericDataService.getSliders()
         .pipe(
-          map((sliders) => {
-            console.log(sliders);
-            return new LoadCarrouselSuccessAction({images: sliders});
-          })
+          map((sliders) => new LoadCarrouselSuccessAction({images: sliders}))
         );
     })
   );

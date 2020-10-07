@@ -3,7 +3,9 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {Subscription} from 'rxjs';
 import {UiState} from '../../store/reducers/ui.reducer';
-import {CoverSquareInterface} from "../../interfaces/cover-squares.interface";
+import {CoverSquareInterface} from '../../interfaces/cover-squares.interface';
+import {SliderItem} from '../../interfaces/ui.interfaces';
+import {Router} from '@angular/router';
 
 declare function WOW(): any;
 
@@ -14,7 +16,7 @@ declare function WOW(): any;
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  sliders: { image: string }[];
+  sliders: SliderItem[];
 
   featured: CoverSquareInterface[] = [];
 
@@ -28,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   uiSubscription: Subscription;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -42,6 +44,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
 
+  }
+
+  redirectToText(slider: SliderItem): void {
+    if (slider.target === 0) {
+      this.router.navigateByUrl(`/vitrina/buscar/${slider.text}`);
+    } else {
+      window.open(`/vitrina/buscar/${slider.text}`, '_blank');
+    }
   }
 
   ngOnDestroy(): void {
