@@ -1,5 +1,4 @@
-import {ItemInterface} from '../interfaces/item.interface';
-
+import {ItemInterface, ItemSizesInterface} from '../interfaces/item.interface';
 
 export class ItemModel implements ItemInterface {
   public code: string;
@@ -15,6 +14,7 @@ export class ItemModel implements ItemInterface {
   public unity: string;
   public webPrice: number;
   public image: string;
+  public sizes: ItemSizesInterface[];
 
   constructor(obj: ItemInterface) {
     this.code = obj.code;

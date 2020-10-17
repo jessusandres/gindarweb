@@ -4,7 +4,7 @@ import {ItemInterface} from '../../interfaces/item.interface';
 
 export interface ShowCaseState {
   filteredItems: ItemInterface[];
-  page: number,
+  page: number;
   totalFilter: number;
   showFilter: boolean;
   line: number;
@@ -23,7 +23,7 @@ const initState: ShowCaseState = {
   showFilter: false,
   line: 0,
   brandCode: 0,
-  order: AllowedOrders.NAME,
+  order: AllowedOrders.HIGHEST_PRICE,
   query: null,
   totalQueryPages: 0
 };
@@ -31,12 +31,10 @@ const initState: ShowCaseState = {
 export const ShowcaseReducer = (state: ShowCaseState = initState, action: ShowcaseActions): ShowCaseState => {
 
   const ITEM_ORDER = (a, b) => {
-    if (state.order === AllowedOrders.LOWEST_PRICE) {
-      return a.webPrice > b.webPrice ? 1 : -1;
-    } else if (state.order === AllowedOrders.HIGHEST_PRICE) {
+    if (state.order === AllowedOrders.HIGHEST_PRICE) {
       return a.webPrice > b.webPrice ? -1 : 1;
     } else {
-      return a.description < b.description ? -1 : 1;
+      return a.webPrice > b.webPrice ? 1 : -1;
     }
 
   };
@@ -100,7 +98,8 @@ export const ShowcaseReducer = (state: ShowCaseState = initState, action: Showca
     case FilterTypes.SET_FILTERED_ITEMS: {
       return {
         ...state,
-        filteredItems: action.payload.items
+        showFilter: true,
+        filteredItems: action.payload.items.map(item => item).sort(ITEM_ORDER),
       };
     }
     case FilterTypes.HIDE_FILTERED_ITEMS: {
@@ -108,7 +107,7 @@ export const ShowcaseReducer = (state: ShowCaseState = initState, action: Showca
         ...state,
         line: 0,
         brandCode: 0,
-        order: AllowedOrders.NAME,
+        order: AllowedOrders.HIGHEST_PRICE,
         showFilter: false,
         filteredItems: action.payload.items
       };
@@ -117,25 +116,25 @@ export const ShowcaseReducer = (state: ShowCaseState = initState, action: Showca
       return {
         ...state,
         totalFilter: action.payload.amount
-      }
+      };
     }
     case FilterTypes.UPDATE_PAGE_FILTER: {
       return {
         ...state,
         page: action.payload.page
-      }
+      };
     }
     case FilterTypes.UPDATE_QUERY_PAGE: {
       return {
         ...state,
         queryPage: action.payload.page
-      }
+      };
     }
     case FilterTypes.UPDATE_SET_TOTAL_QUERY_PAGE: {
       return {
         ...state,
         totalQueryPages: action.payload.amount
-      }
+      };
     }
     default: {
       return {...state};

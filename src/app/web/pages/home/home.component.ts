@@ -38,9 +38,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.uiSubscription = this.store.select('uiState').subscribe((uiState: UiState) => {
       this.sliders = uiState.sliders;
       this.featured = uiState.coverSquares;
-      setTimeout(() => {
-        WOW().init();
-      }, 0);
+      if (this.sliders.length > 0 && this.featured.length > 0) {
+        setTimeout(() => {
+          WOW().init();
+        }, 0);
+      }
     });
 
 

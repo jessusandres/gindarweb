@@ -85,9 +85,6 @@ export class FilterBoxComponent implements OnInit, OnDestroy {
   }
 
   changeBrand({target}): void {
-    // console.log(target.value);
-    // this.store.dispatch(new FilterChangeBrand({brandCode}))
-    // console.log(this.brandSelected);
     this.store.dispatch(new SetBrandAction({brandCode: target.value, items: this.items}));
   }
 }

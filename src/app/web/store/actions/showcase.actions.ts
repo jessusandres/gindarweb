@@ -1,6 +1,5 @@
 import {Action} from '@ngrx/store';
 import {ItemInterface} from '../../interfaces/item.interface';
-import {filter} from "rxjs/operators";
 
 export enum AllowedOrders {
   LOWEST_PRICE = 'LOWEST PRICE',

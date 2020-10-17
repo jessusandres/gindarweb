@@ -1,3 +1,9 @@
+export interface ItemSizesInterface {
+  itemCode: string;
+  sizeGroupCode: string;
+  size: string;
+}
+
 export interface ItemInterface {
   ruc: string;
   code: string;
@@ -12,4 +18,5 @@ export interface ItemInterface {
   appPrice: number;
   allowVoucher: boolean;
   shortDescription: string;
+  sizes: ItemSizesInterface[];
 }

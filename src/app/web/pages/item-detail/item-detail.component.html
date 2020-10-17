@@ -86,7 +86,21 @@
                     <label for="itemAmount" class="active">Cantidad</label>
                   </div>
                 </div>
-                <div class="col-6">
+
+                <div class="col-6 col-md-6" *ngIf="item.sizes.length > 0">
+                  <div class="md-form mt-2">
+                    <label for="itemSizes" class="active">Talla</label>
+                    <select name="itemSizes" id="itemSizes"
+                            (change)="changeItemCode($event)"
+                            class="form-control">
+                      <option *ngFor="let size of item.sizes"
+                              [selected]="item.code === size.itemCode"
+                              [value]=size.itemCode>{{size.size}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div [ngClass]="{'col-6': item.sizes.length === 0 , 'col-12': item.sizes.length > 0}">
                   <button type="button"
                           [disabled]="cartLoading"
                           (click)="addItemToCart()"

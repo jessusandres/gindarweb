@@ -1,6 +1,6 @@
 <div class="view overlay zoom" *ngIf="outstanding.type ==='P'">
   <a routerLink="{{outstanding.link | coverSquareLink : outstanding.type}}"
-     target="{{outstanding.target === 1 ? '_blank' : ''}}">
+     target="{{outstanding.target === 1 ? '_blank' : '_self'}}">
     <img src="{{outstanding.image | coverSquareImage}}"
          class="img-fluid "
          alt="smaple image">
@@ -8,7 +8,7 @@
 </div>
 
 <div class="view overlay zoom" *ngIf="outstanding.type === 'L'">
-  <a href="{{outstanding.link}}" target="{{outstanding.target === 1 ? '_blank' : ''}}">
+  <a href="{{outstanding.link}}" target="{{outstanding.target === 1 ? '_blank' : '_self'}}">
     <img src="{{outstanding.image | coverSquareImage}}"
          class="img-fluid "
          alt="smaple image">

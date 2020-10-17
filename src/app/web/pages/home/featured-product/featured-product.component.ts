@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CoverSquareInterface} from "../../../interfaces/cover-squares.interface";
+import {CoverSquareInterface} from '../../../interfaces/cover-squares.interface';
 
 @Component({
   selector: 'app-featured-product',

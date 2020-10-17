@@ -130,7 +130,6 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
   }
 
   addItemToCart(): void {
-    // console.log(this.amount);
     if (isNaN(this.amount) || this.amount <= 0) {
       this.cartErrorMessage = 'Cantidad incorrecta!';
       return;
@@ -144,5 +143,12 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     }
 
     this.store.dispatch(new AddCartItemAction({item: this.item, amount: this.amount}));
+  }
+
+  changeItemCode({target}): void {
+    this.item = {
+      ...this.item,
+      code: target.value
+    };
   }
 }
