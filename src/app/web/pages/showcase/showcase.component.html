@@ -38,8 +38,8 @@
                            class="col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss">
         </app-showcase-item>
 
-        <div class="container" *ngIf="filterCode">
-          <div class="row">
+        <div class="container" *ngIf="!loading && items.length > 0">
+          <div class="row" *ngIf="!loading && items.length > 0">
             <div class="col-6 text-left">
               <button class="btn btn-primary" (click)="updatePage(-1)" *ngIf="page > 0"><i
                 class="fa fa-step-backward"></i></button>
@@ -59,11 +59,25 @@
                            class="col-6 col-md-6 col-sm-6 col-lg-4 mb-3 d-flex pd-xss animated fadeIn">
         </app-showcase-item>
 
+        <div class="container" *ngIf="!loading && filteredItems.length > 0">
+          <div class="row" *ngIf="!loading && items.length > 0">
+            <div class="col-6 text-left">
+              <button class="btn btn-primary" (click)="updatePage(-1)" *ngIf="page > 0"><i
+                class="fa fa-step-backward"></i></button>
+            </div>
+            <div class="col-6 text-right">
+              <button class="btn btn-primary" (click)="updatePage(+1)" *ngIf="page < limit"><i
+                class="fa fa-step-forward"></i></button>
+            </div>
+          </div>
+        </div>
+
         <app-info-container
           *ngIf="filteredItems.length === 0"
           class="col-12 text-center animated fadeIn"
           [message]="'No se encontraron productos con los filtros especificados'">
         </app-info-container>
+
 
       </div>
 
