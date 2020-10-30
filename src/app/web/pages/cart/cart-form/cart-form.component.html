@@ -208,52 +208,18 @@
                 </div>
 
                 <div class="form-row animated fadeIn" *ngIf="onlinePayment && selectedRUC.ruc.slice(0,2) === '10'">
-                  <div class="col-md-4">
-                    <div class="md-form form-group">
-                      <input
-                        placeholder="41111 **** ***** ****"
-                        class="form-control"
-                        [ngClass]="{'invalid': (orderForm.controls.cardNumber.errors ||
-                             orderForm.errors?.cardNumberUndefined === true)
-                             && orderForm.controls.cardNumber.touched }"
-                        type="number"
-                        id="visa_card[number]"
-                        name="cardNumber"
-                        formControlName="cardNumber">
-                      <label for="visa_card[number]">Número de Tarjeta</label>
+                  <div class="col-md-4" style="height: 70px;">
+                    <div class="md-form form-group" id="visa_card_number">
                     </div>
                   </div>
 
-                  <div class="col-md-1">
-                    <div class="md-form form-group">
-                      <input class="form-control"
-                             [ngClass]="{'invalid': (orderForm.controls.cardCVV.errors ||
-                             orderForm.errors?.cardCVVUndefined === true)
-                             && orderForm.controls.cardCVV.touched }"
-                             type="text"
-                             id="visa_card[cvv]"
-                             placeholder="****"
-                             name="cardCVV"
-                             maxlength="4"
-                             formControlName="cardCVV">
-                      <label for="visa_card[cvv]">CVV</label>
+                  <div class="col-md-1" style="height: 70px;">
+                    <div class="md-form form-group" id="visa_card[cvv]">
                     </div>
                   </div>
 
-
-                  <div class="col-md-3">
-                    <div class="md-form form-group">
-                      <input class="form-control"
-                             [ngClass]="{'invalid': (orderForm.controls.cardFullDate.errors ||
-                             orderForm.errors?.cardFullDateInvalid === true)
-                             && orderForm.controls.cardFullDate.touched }"
-                             type="text"
-                             name="cardFullDate"
-                             placeholder="MM/AA"
-                             maxlength="5"
-                             formControlName="cardFullDate"
-                             id="visa_card[expiration]">
-                      <label for="visa_card[expiration]">Fecha de expiración (MM/AA)</label>
+                  <div class="col-md-3" style="height: 70px;">
+                    <div class="md-form form-group" id="visa_card[expiration]">
                     </div>
                   </div>
 
