@@ -113,7 +113,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
     return new FormGroup({
       phone: new FormControl(this.orderForm ? this.orderForm.get('phone').value : '934556536',
         [Validators.required, Validators.maxLength(9), Validators.minLength(9)]),
-      email: new FormControl(this.orderForm ? this.orderForm.get('email').value : 'jaccspanki@gmail.com',
+      email: new FormControl(this.orderForm ? this.orderForm.get('email').value : 'accept@cybersource.com',
         [Validators.required, Validators.pattern(EMAIL_REGEX)]),
       dof: new FormControl(this.orderForm ? this.orderForm.get('dof').value : '75747625',
         [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
@@ -131,8 +131,6 @@ export class CartFormComponent implements OnInit, OnDestroy {
         [Validators.maxLength(4), Validators.minLength(3), Validators.pattern(NUMBER_REGEX)]),
       cardMonth: new FormControl(this.orderForm ? this.orderForm.get('cardMonth').value : '',
         [Validators.maxLength(2), Validators.pattern(NUMBER_REGEX)]),
-      cardFullDate: new FormControl(this.orderForm ? this.orderForm.get('cardFullDate').value : '',
-        [Validators.maxLength(5)]),
       cardYear: new FormControl(this.orderForm ? this.orderForm.get('cardYear').value : '',
         [Validators.maxLength(4), Validators.pattern(NUMBER_REGEX)]),
 
@@ -210,12 +208,6 @@ export class CartFormComponent implements OnInit, OnDestroy {
               cardYearUndefined: true
             };
           }
-        } else {
-          if (!formGroup.get('cardFullDate').value || formGroup.get('cardFullDate').value.length !== 5) {
-            return {
-              cardFullDateInvalid: true
-            };
-          }
         }
 
 
@@ -274,7 +266,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
   }
 
   sendOrder(): void {
-    console.log(this.orderForm);
+
     if (this.orderForm.invalid) {
       this.formErrorMessage = 'Datos de pedido incorrectos';
       this.orderForm.markAllAsTouched();
@@ -288,8 +280,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
         cvv: this.orderForm.get('cardCVV').value,
         email: this.orderForm.get('email').value,
         expiration_month: this.orderForm.get('cardMonth').value,
-        expiration_year: this.orderForm.get('cardYear').value,
-        full_date_expiration: this.orderForm.get('cardFullDate').value
+        expiration_year: this.orderForm.get('cardYear').value
       },
       dof: this.orderForm.get('dof').value,
       email: this.orderForm.get('email').value,
@@ -305,7 +296,6 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
     if (this.selectedRUC.ruc === WebRuc.ROGER) {
       console.log('CALL TOKEN');
-
       const data = {
         name: this.user.name,
         lastName: this.user.lastname,
@@ -315,14 +305,15 @@ export class CartFormComponent implements OnInit, OnDestroy {
         alias: 'KS',
         installment: 0,
       };
+      // 4919148107859067
 
       // @ts-ignore
       window.payform.createToken(
-        [orderParams.cardData.card_number, orderParams.cardData.full_date_expiration, orderParams.cardData.cvv], data)
+        // @ts-ignore
+        [window.cardNumber, window.cardExpiry, window.cardCvv], data)
         .then((token) => {
           console.log('data create token: ', token);
         }).catch((error) => {
-        console.log('error: ', error);
         alert(error);
       });
     } else {
