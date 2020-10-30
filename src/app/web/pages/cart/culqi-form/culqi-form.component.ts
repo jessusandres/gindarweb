@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-culqi-form',
@@ -10,7 +10,8 @@ export class CulqiFormComponent implements OnInit {
 
   culqiFormGroup: FormGroup;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.culqiFormGroup = new FormGroup({
@@ -18,7 +19,7 @@ export class CulqiFormComponent implements OnInit {
       cardCVV: new FormControl('', []),
       cardMonth: new FormControl('', []),
       cardYear: new FormControl('', []),
-    })
+    });
   }
 
 }

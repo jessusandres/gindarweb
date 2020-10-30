@@ -14,5 +14,4 @@ export const SPLIT_REGEX: RegExp = /\W+/;
 
 export const NUMBER_REGEX: RegExp = new RegExp('^\\d+$');
 
-//CULQI
-export const CULQI_KEY = `pk_test_ff47db2ad7d7774f`;
+export const CULQI_KEY = `pk_live_61f98ad0a7652375`;

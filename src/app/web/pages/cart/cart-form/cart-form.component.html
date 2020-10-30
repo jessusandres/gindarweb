@@ -165,11 +165,11 @@
                              [ngClass]="{'invalid': (orderForm.controls.cardCVV.errors ||
                              orderForm.errors?.cardCVVUndefined === true)
                              && orderForm.controls.cardCVV.touched }"
-                             type="text" size="4"
-                             data-culqi="card[cvv]"
+                             type="text"
                              id="card[cvv]"
                              placeholder="****"
                              name="cardCVV"
+                             maxlength="4"
                              formControlName="cardCVV">
                       <label for="card[cvv]">CVV</label>
                     </div>
@@ -182,9 +182,9 @@
                              [ngClass]="{'invalid': (orderForm.controls.cardMonth.errors ||
                              orderForm.errors?.cardMonthUndefined === true)
                              && orderForm.controls.cardMonth.touched }"
-                             type="text" size="2"
-                             data-culqi="card[exp_month]"
+                             type="text"
                              name="cardMonth"
+                             placeholder="MM"
                              maxlength="2"
                              formControlName="cardMonth"
                              id="card[exp_month]">
@@ -196,16 +196,14 @@
                     <div class="md-form form-group">
                       <input class="form-control"
                              type="text"
-                             size="4"
                              maxlength="4"
-                             data-culqi="card[exp_year]"
                              name="cardYear"
                              formControlName="cardYear"
+                             placeholder="YYYY"
                              id="card[exp_year]">
                       <label for="card[exp_year]">Año de Expiración (YYYY)</label>
                     </div>
                   </div>
-
 
                 </div>
 

@@ -41,7 +41,7 @@ const initialState: CartState = {
   amount: 0.00,
   total: 0.00,
   showCartForm: false,
-  onlinePayment: false,
+  onlinePayment: true,
   voucher: false
 };
 
@@ -52,7 +52,6 @@ export const CartReducer = (state: CartState = initialState, action: CartActions
         ...state,
         loading: true,
         errorMessage: null,
-        onlinePayment: false,
         voucher: false,
         showCartForm: false,
         message: 'Cargando Carrito...'

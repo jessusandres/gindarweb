@@ -4,11 +4,11 @@ import {AppState} from '../../../store/app.reducer';
 import {ShowCartForm, ToggleOnlinePaymentAction, ToggleVoucherAction} from '../../../store/actions/cart.actions';
 import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {EMAIL_REGEX, NUMBER_REGEX} from '../../../../config/config';
-import {OrderParamsInterface} from "../../../interfaces/order.interface";
-import {SwitchOrderAction} from "../../../store/actions/order.actions";
-import {Subscription} from "rxjs";
-import {CartState} from "../../../store/reducers/cart.reducer";
-import {StoreSelected} from "../../../interfaces/ui.interfaces";
+import {OrderParamsInterface} from '../../../interfaces/order.interface';
+import {SwitchOrderAction} from '../../../store/actions/order.actions';
+import {Subscription} from 'rxjs';
+import {CartState} from '../../../store/reducers/cart.reducer';
+import {StoreSelected} from '../../../interfaces/ui.interfaces';
 
 declare function $(s: string): any;
 
@@ -48,13 +48,14 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.orderForm = this.setOrderForm();
 
     this.cartSubscription = this.store.select('cartState').subscribe((cartState: CartState) => {
       this.selectedRUC = cartState.storeSelected;
 
       this.voucher = cartState.voucher;
       this.onlinePayment = cartState.onlinePayment;
+
+      this.orderForm = this.setOrderForm();
 
       setTimeout(() => {
         mdbMinPlugin();
@@ -72,7 +73,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
         });
       }
 
-    })
+    });
 
     this.voucherDocLength = 8;
     this.voucherDocLText = 'DNI';
@@ -102,13 +103,13 @@ export class CartFormComponent implements OnInit, OnDestroy {
       voucherDocument: new FormControl('',
         [Validators.minLength(8), Validators.maxLength(11)]),
 
-      cardNumber: new FormControl('5111111111111118',
+      cardNumber: new FormControl('',
         [Validators.minLength(8)]),
-      cardCVV: new FormControl('039',
+      cardCVV: new FormControl('',
         [Validators.maxLength(4), Validators.minLength(3), Validators.pattern(NUMBER_REGEX)]),
-      cardMonth: new FormControl('06',
+      cardMonth: new FormControl('',
         [Validators.maxLength(2), Validators.pattern(NUMBER_REGEX)]),
-      cardYear: new FormControl('2025',
+      cardYear: new FormControl('',
         [Validators.maxLength(4), Validators.pattern(NUMBER_REGEX)]),
 
     }, {
@@ -127,29 +128,29 @@ export class CartFormComponent implements OnInit, OnDestroy {
         if (!formGroup.get('voucherType').value) {
           return {
             voucherTypeUndefined: true
-          }
+          };
         }
         if (!formGroup.get('voucherName').value || formGroup.get('voucherName').value.length < 5) {
           return {
             voucherNameUndefined: true
-          }
+          };
         }
         if (!formGroup.get('voucherDocument').value) {
           return {
             voucherDocumentUndefined: true
-          }
+          };
         } else {
           if (formGroup.get('voucherType').value === 'B') {
             if (formGroup.get('voucherDocument').value.length !== 8) {
               return {
                 voucherDocumentUndefined: true
-              }
+              };
             }
           } else {
             if (formGroup.get('voucherDocument').value.length !== 11) {
               return {
                 voucherDocumentUndefined: true
-              }
+              };
             }
           }
         }
@@ -157,7 +158,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
       }
 
       return null;
-    }
+    };
   }
 
   private onlinePaymentValidator(): ValidatorFn {
@@ -166,26 +167,26 @@ export class CartFormComponent implements OnInit, OnDestroy {
         if (!formGroup.get('cardNumber').value || formGroup.get('cardNumber').value.length < 8) {
           return {
             cardNumberUndefined: true
-          }
+          };
         }
         if (!formGroup.get('cardCVV').value || formGroup.get('cardCVV').value.length < 3) {
           return {
             cardCVVUndefined: true
-          }
+          };
         }
         if (!formGroup.get('cardMonth').value || formGroup.get('cardMonth').value.length !== 2) {
           return {
             cardMonthUndefined: true
-          }
+          };
         }
         if (!formGroup.get('cardYear').value || formGroup.get('cardYear').value.length !== 4) {
           return {
             cardYearUndefined: true
-          }
+          };
         }
       }
       return null;
-    }
+    };
   }
 
   private verifyVoucherType(): ValidatorFn {
@@ -197,12 +198,12 @@ export class CartFormComponent implements OnInit, OnDestroy {
           formGroup.get('voucherType').value === 'B')) {
           return {
             voucherType: false
-          }
+          };
         }
 
       }
       return null;
-    }
+    };
   }
 
   hideForm(): void {
@@ -231,7 +232,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  togglePayment() {
+  togglePayment(): void {
     this.onlinePayment = !this.onlinePayment;
     this.store.dispatch(new ToggleOnlinePaymentAction({status: this.onlinePayment}));
     setTimeout(() => mdbMinPlugin());
@@ -239,6 +240,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   sendOrder(): void {
 
+    console.log(this.orderForm);
     if (this.orderForm.invalid) {
       this.formErrorMessage = 'Datos de pedido incorrectos';
       this.orderForm.markAllAsTouched();
@@ -265,7 +267,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
       voucherName: this.orderForm.get('voucherName').value,
       voucherDocument: this.orderForm.get('voucherDocument').value
 
-    }
+    };
 
     this.store.dispatch(new SwitchOrderAction({
       orderParams
