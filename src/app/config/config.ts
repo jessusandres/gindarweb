@@ -20,10 +20,7 @@ export const VisaStyles = {
   base: {
     color: 'black',
     margin: '0',
-    // width: '100% !important',
-    // fontWeight: 700,
-    fontFamily: 'Montserrat, sans-serif',
-    // fontSize: '16px',
+    fontFamily: '\'Montserrat\', sans-serif',
     fontSmoothing: 'antialiased',
     placeholder: {
       color: '#999999'
