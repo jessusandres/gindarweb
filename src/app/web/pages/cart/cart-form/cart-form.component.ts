@@ -5,13 +5,14 @@ import {ShowCartForm, ToggleOnlinePaymentAction, ToggleVoucherAction} from '../.
 import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {EMAIL_REGEX, NUMBER_REGEX} from '../../../../config/config';
 import {OrderParamsInterface} from '../../../interfaces/order.interface';
-import {GenerateVisaSessionAction, SwitchOrderAction} from '../../../store/actions/order.actions';
+import {GenerateOrderAction, GenerateVisaSessionAction, SwitchOrderAction} from '../../../store/actions/order.actions';
 import {Subscription} from 'rxjs';
 import {CartState} from '../../../store/reducers/cart.reducer';
 import {StoreSelected} from '../../../interfaces/ui.interfaces';
 import {WebRuc} from '../../../types/types';
 import {AuthState} from '../../../store/reducers/auth.reducer';
 import {UserModel} from '../../../models/user.model';
+import {VisaSessionInterface} from '../../../interfaces/visa-session.interface';
 
 declare function $(s: string): any;
 
@@ -41,6 +42,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   orderError: boolean;
   orderErrorMessage: string;
+  orderButtonText = 'Ordenar';
 
   selectedRUC: StoreSelected;
   private cartSubscription: Subscription;
@@ -49,6 +51,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   private totalToPay: number;
   private user: UserModel;
+  private visaSessionParams: VisaSessionInterface;
   generateVisaSession: boolean;
 
   constructor(private store: Store<AppState>) {
@@ -78,6 +81,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
       this.orderErrorMessage = orderState.errorMessage;
 
       this.generateVisaSession = orderState.visaSessionLoading;
+      this.visaSessionParams = orderState.visaSessionParams;
 
       if (orderState.order) {
         this.orderForm.setValue({...orderState.order});
@@ -265,16 +269,8 @@ export class CartFormComponent implements OnInit, OnDestroy {
     setTimeout(() => mdbMinPlugin());
   }
 
-  sendOrder(): void {
-
-    if (this.orderForm.invalid) {
-      this.formErrorMessage = 'Datos de pedido incorrectos';
-      this.orderForm.markAllAsTouched();
-      return;
-    }
-    this.formErrorMessage = null;
-
-    const orderParams: OrderParamsInterface = {
+  getOrderParamsByForm(): OrderParamsInterface {
+    return {
       cardData: {
         card_number: this.orderForm.get('cardNumber').value,
         cvv: this.orderForm.get('cardCVV').value,
@@ -293,9 +289,23 @@ export class CartFormComponent implements OnInit, OnDestroy {
       voucherName: this.orderForm.get('voucherName').value,
       voucherDocument: this.orderForm.get('voucherDocument').value
     };
+  }
+
+  sendOrder(): void {
+
+    if (this.orderForm.invalid) {
+      this.formErrorMessage = 'Datos de pedido incorrectos';
+      this.orderForm.markAllAsTouched();
+      return;
+    }
+    this.formErrorMessage = null;
+
+    const orderParams: OrderParamsInterface = this.getOrderParamsByForm();
 
     if (this.selectedRUC.ruc === WebRuc.ROGER) {
-      console.log('CALL TOKEN');
+      this.generateVisaSession = true;
+      this.orderButtonText = 'Generando session...';
+      console.log('GENERATE TOKEN');
       const data = {
         name: this.user.name,
         lastName: this.user.lastname,
@@ -311,10 +321,21 @@ export class CartFormComponent implements OnInit, OnDestroy {
       window.payform.createToken(
         // @ts-ignore
         [window.cardNumber, window.cardExpiry, window.cardCvv], data)
-        .then((token) => {
-          console.log('data create token: ', token);
+        .then((visaObject) => {
+          console.log(visaObject);
+
+          this.generateVisaSession = false;
+          orderParams.paymentToken = visaObject.transactionToken;
+          orderParams.visaObject = {
+            ...visaObject,
+            total: this.totalToPay,
+            purchaseNumber: this.visaSessionParams.purchasenumber
+          };
+
+          this.store.dispatch(new GenerateOrderAction({orderParams, type: 2}));
+
         }).catch((error) => {
-        alert(error);
+        console.log(error);
       });
     } else {
       this.store.dispatch(new SwitchOrderAction({

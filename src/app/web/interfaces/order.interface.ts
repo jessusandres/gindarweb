@@ -71,7 +71,6 @@ export interface CardInterface {
   expiration_month: string;
   expiration_year: string;
   email: string;
-  full_date_expiration?: string;
 }
 
 export interface OrderParamsInterface {
@@ -86,4 +85,5 @@ export interface OrderParamsInterface {
   voucherDocument?: string;
   paymentToken?: string;
   cardData?: CardInterface;
+  visaObject?: any;
 }
