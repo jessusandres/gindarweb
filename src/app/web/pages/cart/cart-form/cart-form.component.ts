@@ -91,25 +91,27 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   private setOrderForm(): FormGroup {
     return new FormGroup({
-      phone: new FormControl('934556536',
+      phone: new FormControl(this.orderForm ? this.orderForm.get('phone').value : '',
         [Validators.required, Validators.maxLength(9), Validators.minLength(9)]),
-      email: new FormControl('jaccspanki@gmail.com',
+      email: new FormControl(this.orderForm ? this.orderForm.get('email').value : '',
         [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-      dof: new FormControl('75747625',
+      dof: new FormControl(this.orderForm ? this.orderForm.get('dof').value : '',
         [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
 
-      voucherType: new FormControl('B', []),
-      voucherName: new FormControl('', [Validators.minLength(5)]),
-      voucherDocument: new FormControl('',
+      voucherType: new FormControl(this.orderForm ? this.orderForm.get('voucherType').value : 'B', []),
+      voucherName: new FormControl(this.orderForm ? this.orderForm.get('voucherName').value : '',
+        [Validators.minLength(5)]),
+
+      voucherDocument: new FormControl(this.orderForm ? this.orderForm.get('voucherDocument').value : '',
         [Validators.minLength(8), Validators.maxLength(11)]),
 
-      cardNumber: new FormControl('',
+      cardNumber: new FormControl(this.orderForm ? this.orderForm.get('cardNumber').value : '',
         [Validators.minLength(8)]),
-      cardCVV: new FormControl('',
+      cardCVV: new FormControl(this.orderForm ? this.orderForm.get('cardCVV').value : '',
         [Validators.maxLength(4), Validators.minLength(3), Validators.pattern(NUMBER_REGEX)]),
-      cardMonth: new FormControl('',
+      cardMonth: new FormControl(this.orderForm ? this.orderForm.get('cardMonth').value : '',
         [Validators.maxLength(2), Validators.pattern(NUMBER_REGEX)]),
-      cardYear: new FormControl('',
+      cardYear: new FormControl(this.orderForm ? this.orderForm.get('cardYear').value : '',
         [Validators.maxLength(4), Validators.pattern(NUMBER_REGEX)]),
 
     }, {
@@ -240,7 +242,6 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   sendOrder(): void {
 
-    console.log(this.orderForm);
     if (this.orderForm.invalid) {
       this.formErrorMessage = 'Datos de pedido incorrectos';
       this.orderForm.markAllAsTouched();
