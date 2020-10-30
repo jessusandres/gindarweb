@@ -141,7 +141,7 @@
                   </div>
                 </div>
 
-                <div class="form-row animated fadeIn" *ngIf="onlinePayment">
+                <div class="form-row animated fadeIn" *ngIf="onlinePayment && selectedRUC.ruc.slice(0,2) === '20'">
                   <div class="col-md-4">
                     <div class="md-form form-group">
                       <input
@@ -207,6 +207,58 @@
 
                 </div>
 
+                <div class="form-row animated fadeIn" *ngIf="onlinePayment && selectedRUC.ruc.slice(0,2) === '10'">
+                  <div class="col-md-4">
+                    <div class="md-form form-group">
+                      <input
+                        placeholder="41111 **** ***** ****"
+                        class="form-control"
+                        [ngClass]="{'invalid': (orderForm.controls.cardNumber.errors ||
+                             orderForm.errors?.cardNumberUndefined === true)
+                             && orderForm.controls.cardNumber.touched }"
+                        type="number"
+                        id="visa_card[number]"
+                        name="cardNumber"
+                        formControlName="cardNumber">
+                      <label for="visa_card[number]">Número de Tarjeta</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-1">
+                    <div class="md-form form-group">
+                      <input class="form-control"
+                             [ngClass]="{'invalid': (orderForm.controls.cardCVV.errors ||
+                             orderForm.errors?.cardCVVUndefined === true)
+                             && orderForm.controls.cardCVV.touched }"
+                             type="text"
+                             id="visa_card[cvv]"
+                             placeholder="****"
+                             name="cardCVV"
+                             maxlength="4"
+                             formControlName="cardCVV">
+                      <label for="visa_card[cvv]">CVV</label>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-3">
+                    <div class="md-form form-group">
+                      <input class="form-control"
+                             [ngClass]="{'invalid': (orderForm.controls.cardFullDate.errors ||
+                             orderForm.errors?.cardFullDateInvalid === true)
+                             && orderForm.controls.cardFullDate.touched }"
+                             type="text"
+                             name="cardFullDate"
+                             placeholder="MM/AA"
+                             maxlength="5"
+                             formControlName="cardFullDate"
+                             id="visa_card[expiration]">
+                      <label for="visa_card[expiration]">Fecha de expiración (MM/AA)</label>
+                    </div>
+                  </div>
+
+                </div>
+
                 <div class="row mt-2">
                   <app-error-container class="col-12 animated fadeIn"
                                        *ngIf="tokenCardError " [errorMessage]="tokenCardErrorMessage">
@@ -237,6 +289,7 @@
                   <div class="col-6">
                     <div class="md-form mb-0 mt-4">
                       <button
+                        [disabled]="generateVisaSession"
                         type="submit"
                         class="waves-effect waves-light btn btn-gindar btn-block mt-0">
                         Ordenar

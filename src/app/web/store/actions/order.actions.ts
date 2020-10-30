@@ -1,5 +1,6 @@
-import {Action} from "@ngrx/store";
-import {OrderInterface, OrderParamsInterface} from "../../interfaces/order.interface";
+import {Action} from '@ngrx/store';
+import {OrderInterface, OrderParamsInterface} from '../../interfaces/order.interface';
+import {VisaSessionInterface} from '../../interfaces/visa-session.interface';
 
 export enum OrderTypes {
   GENERATE_TOKEN = '[ORDER] GENERATE TOKEN',
@@ -10,6 +11,9 @@ export enum OrderTypes {
   SEND_ORDER_SUCESS = '[ORDER] SEND ORDER SUCCESS',
   SEND_ORDER_FAILURE = '[ORDER] SEND ORDER FAILURE',
   RESET_ORDER = '[ORDER] RESET ORDER',
+  GENERATE_VISA_SESSION = '[ORDER] GENERATE VISA SESSION',
+  GENERATE_VISA_SESSION_SUCCESS = '[ORDER] GENERATE VISA SESSION SUCCESS',
+  GENERATE_VISA_SESSION_FAILURE = '[ORDER] GENERATE VISA SESSION FAILURE',
 }
 
 export class GenerateTokenAction implements Action {
@@ -62,6 +66,27 @@ export class ResetOrderAction implements Action {
   readonly type = OrderTypes.RESET_ORDER;
 }
 
+export class GenerateVisaSessionAction implements Action {
+  readonly type = OrderTypes.GENERATE_VISA_SESSION;
+
+  constructor(public payload: { total: number }) {
+  }
+
+}
+
+export class GenerateVisaSessionSuccessAction implements Action {
+  readonly type = OrderTypes.GENERATE_VISA_SESSION_SUCCESS;
+
+  constructor(public payload: { visaSession: VisaSessionInterface }) {
+  }
+}
+
+export class GenerateVisaSessionFailurection implements Action {
+  readonly type = OrderTypes.GENERATE_VISA_SESSION_FAILURE;
+
+  constructor(public payload: { message: string }) {
+  }
+}
 
 export type OrderActions = GenerateTokenAction |
   GenerateTokenSuccessAction |
@@ -70,4 +95,7 @@ export type OrderActions = GenerateTokenAction |
   GenerateOrderAction |
   GenerateOrderSuccessAction |
   GenerateOrderFailureAction |
-  ResetOrderAction;
+  ResetOrderAction |
+  GenerateVisaSessionAction |
+  GenerateVisaSessionSuccessAction |
+  GenerateVisaSessionFailurection;

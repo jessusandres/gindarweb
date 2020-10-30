@@ -15,3 +15,28 @@ export const SPLIT_REGEX: RegExp = /\W+/;
 export const NUMBER_REGEX: RegExp = new RegExp('^\\d+$');
 
 export const CULQI_KEY = `pk_live_61f98ad0a7652375`;
+
+export const VisaStyles = {
+  base: {
+    color: 'black',
+    margin: '0',
+    // width: '100% !important',
+    // fontWeight: 700,
+    fontFamily: 'Montserrat, sans-serif',
+    // fontSize: '16px',
+    fontSmoothing: 'antialiased',
+    placeholder: {
+      color: '#999999'
+    },
+    autofill: {
+      color: '#e39f48',
+    }
+  },
+  invalid: {
+    color: '#E25950',
+    '::placeholder': {
+      color: '#FFCCA5',
+    }
+  }
+};
+

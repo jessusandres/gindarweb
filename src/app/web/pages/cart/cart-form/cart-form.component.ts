@@ -5,10 +5,13 @@ import {ShowCartForm, ToggleOnlinePaymentAction, ToggleVoucherAction} from '../.
 import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {EMAIL_REGEX, NUMBER_REGEX} from '../../../../config/config';
 import {OrderParamsInterface} from '../../../interfaces/order.interface';
-import {SwitchOrderAction} from '../../../store/actions/order.actions';
+import {GenerateVisaSessionAction, SwitchOrderAction} from '../../../store/actions/order.actions';
 import {Subscription} from 'rxjs';
 import {CartState} from '../../../store/reducers/cart.reducer';
 import {StoreSelected} from '../../../interfaces/ui.interfaces';
+import {WebRuc} from '../../../types/types';
+import {AuthState} from '../../../store/reducers/auth.reducer';
+import {UserModel} from '../../../models/user.model';
 
 declare function $(s: string): any;
 
@@ -39,19 +42,27 @@ export class CartFormComponent implements OnInit, OnDestroy {
   orderError: boolean;
   orderErrorMessage: string;
 
-  private selectedRUC: StoreSelected;
+  selectedRUC: StoreSelected;
   private cartSubscription: Subscription;
   private orderSubscription: Subscription;
+  private userSubscription: Subscription;
+
+  private totalToPay: number;
+  private user: UserModel;
+  generateVisaSession: boolean;
 
   constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
 
+    this.userSubscription = this.store.select('authState').subscribe((authState: AuthState) => {
+      this.user = authState.user;
+    });
 
     this.cartSubscription = this.store.select('cartState').subscribe((cartState: CartState) => {
       this.selectedRUC = cartState.storeSelected;
-
+      this.totalToPay = cartState.total;
       this.voucher = cartState.voucher;
       this.onlinePayment = cartState.onlinePayment;
 
@@ -65,6 +76,8 @@ export class CartFormComponent implements OnInit, OnDestroy {
     this.orderSubscription = this.store.select('orderState').subscribe((orderState) => {
       this.orderError = orderState.error;
       this.orderErrorMessage = orderState.errorMessage;
+
+      this.generateVisaSession = orderState.visaSessionLoading;
 
       if (orderState.order) {
         this.orderForm.setValue({...orderState.order});
@@ -82,20 +95,27 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
     mdbMinPlugin();
 
+    if (this.selectedRUC.ruc === WebRuc.ROGER) {
+      // @ts-ignore
+      window.amount = this.totalToPay;
+      this.store.dispatch(new GenerateVisaSessionAction({total: this.totalToPay}));
+    }
+
   }
 
   ngOnDestroy(): void {
     this.cartSubscription.unsubscribe();
     this.orderSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
   private setOrderForm(): FormGroup {
     return new FormGroup({
-      phone: new FormControl(this.orderForm ? this.orderForm.get('phone').value : '',
+      phone: new FormControl(this.orderForm ? this.orderForm.get('phone').value : '934556536',
         [Validators.required, Validators.maxLength(9), Validators.minLength(9)]),
-      email: new FormControl(this.orderForm ? this.orderForm.get('email').value : '',
+      email: new FormControl(this.orderForm ? this.orderForm.get('email').value : 'jaccspanki@gmail.com',
         [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-      dof: new FormControl(this.orderForm ? this.orderForm.get('dof').value : '',
+      dof: new FormControl(this.orderForm ? this.orderForm.get('dof').value : '75747625',
         [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
 
       voucherType: new FormControl(this.orderForm ? this.orderForm.get('voucherType').value : 'B', []),
@@ -105,12 +125,14 @@ export class CartFormComponent implements OnInit, OnDestroy {
       voucherDocument: new FormControl(this.orderForm ? this.orderForm.get('voucherDocument').value : '',
         [Validators.minLength(8), Validators.maxLength(11)]),
 
-      cardNumber: new FormControl(this.orderForm ? this.orderForm.get('cardNumber').value : '',
+      cardNumber: new FormControl(this.orderForm ? this.orderForm.get('cardNumber').value : '4919148107859067',
         [Validators.minLength(8)]),
-      cardCVV: new FormControl(this.orderForm ? this.orderForm.get('cardCVV').value : '',
+      cardCVV: new FormControl(this.orderForm ? this.orderForm.get('cardCVV').value : '123',
         [Validators.maxLength(4), Validators.minLength(3), Validators.pattern(NUMBER_REGEX)]),
       cardMonth: new FormControl(this.orderForm ? this.orderForm.get('cardMonth').value : '',
         [Validators.maxLength(2), Validators.pattern(NUMBER_REGEX)]),
+      cardFullDate: new FormControl(this.orderForm ? this.orderForm.get('cardFullDate').value : '',
+        [Validators.maxLength(5)]),
       cardYear: new FormControl(this.orderForm ? this.orderForm.get('cardYear').value : '',
         [Validators.maxLength(4), Validators.pattern(NUMBER_REGEX)]),
 
@@ -176,16 +198,27 @@ export class CartFormComponent implements OnInit, OnDestroy {
             cardCVVUndefined: true
           };
         }
-        if (!formGroup.get('cardMonth').value || formGroup.get('cardMonth').value.length !== 2) {
-          return {
-            cardMonthUndefined: true
-          };
+
+        if (this.selectedRUC.ruc === WebRuc.GINDAR) {
+          if (!formGroup.get('cardMonth').value || formGroup.get('cardMonth').value.length !== 2) {
+            return {
+              cardMonthUndefined: true
+            };
+          }
+          if (!formGroup.get('cardYear').value || formGroup.get('cardYear').value.length !== 4) {
+            return {
+              cardYearUndefined: true
+            };
+          }
+        } else {
+          if (!formGroup.get('cardFullDate').value || formGroup.get('cardFullDate').value.length !== 5) {
+            return {
+              cardFullDateInvalid: true
+            };
+          }
         }
-        if (!formGroup.get('cardYear').value || formGroup.get('cardYear').value.length !== 4) {
-          return {
-            cardYearUndefined: true
-          };
-        }
+
+
       }
       return null;
     };
@@ -241,7 +274,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
   }
 
   sendOrder(): void {
-
+    console.log(this.orderForm);
     if (this.orderForm.invalid) {
       this.formErrorMessage = 'Datos de pedido incorrectos';
       this.orderForm.markAllAsTouched();
@@ -255,7 +288,8 @@ export class CartFormComponent implements OnInit, OnDestroy {
         cvv: this.orderForm.get('cardCVV').value,
         email: this.orderForm.get('email').value,
         expiration_month: this.orderForm.get('cardMonth').value,
-        expiration_year: this.orderForm.get('cardYear').value
+        expiration_year: this.orderForm.get('cardYear').value,
+        full_date_expiration: this.orderForm.get('cardFullDate').value
       },
       dof: this.orderForm.get('dof').value,
       email: this.orderForm.get('email').value,
@@ -267,12 +301,36 @@ export class CartFormComponent implements OnInit, OnDestroy {
       voucherType: this.orderForm.get('voucherType').value,
       voucherName: this.orderForm.get('voucherName').value,
       voucherDocument: this.orderForm.get('voucherDocument').value
-
     };
 
-    this.store.dispatch(new SwitchOrderAction({
-      orderParams
-    }));
+    if (this.selectedRUC.ruc === WebRuc.ROGER) {
+      console.log('CALL TOKEN');
+
+      const data = {
+        name: this.user.name,
+        lastName: this.user.lastname,
+        email: orderParams.email,
+        currencyConversion: 'PEN',
+        recurrence: false,
+        alias: 'KS',
+        installment: 0,
+      };
+
+      // @ts-ignore
+      window.payform.createToken(
+        [orderParams.cardData.card_number, orderParams.cardData.full_date_expiration, orderParams.cardData.cvv], data)
+        .then((token) => {
+          console.log('data create token: ', token);
+        }).catch((error) => {
+        console.log('error: ', error);
+        alert(error);
+      });
+    } else {
+      this.store.dispatch(new SwitchOrderAction({
+        orderParams
+      }));
+    }
+
 
   }
 

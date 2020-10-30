@@ -66,11 +66,12 @@ export enum VoucherTypes {
 }
 
 export interface CardInterface {
-  card_number: string,
-  cvv: string,
-  expiration_month: string,
-  expiration_year: string,
-  email: string
+  card_number: string;
+  cvv: string;
+  expiration_month: string;
+  expiration_year: string;
+  email: string;
+  full_date_expiration?: string;
 }
 
 export interface OrderParamsInterface {
