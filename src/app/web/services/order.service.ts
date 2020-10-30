@@ -78,14 +78,32 @@ export class OrderService {
       {amount}, {headers: this.dataService.headers()})
       .pipe(
         map((res: any) => {
+          console.log(res);
+          const visa: VisaSessionInterface = res.visa;
+          const min = 1;
+          const max = 999999999999;
+          const random = Math.floor(Math.random() * (+max + 1 - +min)) + +min;
+          visa.purchasenumber = random.toString();
+          // @ts-ignore
+          window.amount = visa.amount;
+          // @ts-ignore
+          window.configuration = {
+            sessionkey: visa.sessionkey,
+            channel: 'web',
+            merchantid: visa.merchantid,
+            purchasenumber: visa.purchasenumber,
+            amount,
+            callbackurl: '',
+            language: 'es',
+            font: 'https://fonts.googleapis.com/css?family=Montserrat:400&display=swap',
+          };
 
           // @ts-ignore
-          window.configuration = res.visa;
+          console.log('Window configuration: ', window.configuration);
           // @ts-ignore
-          window.purchase = res.visa.purchaseNumber;
+          window.purchase = visa.purchasenumber;
           // @ts-ignore
           window.dcc = false;
-
           // @ts-ignore
           window.payform.setConfiguration(window.configuration);
 
@@ -95,11 +113,30 @@ export class OrderService {
               style: VisaStyles,
               placeholder: 'Número de Tarjeta'
             },
-            'visa_card[number]'
+            'visa_card_number'
           );
 
           // @ts-ignore
           window.cardNumber.then(element => {
+
+            element.on('bin', (data) => {
+              console.log('BIN: ', data);
+            });
+
+            element.on('dcc', (data) => {
+              console.log('DCC', data);
+              if (data != null) {
+                // @ts-ignore
+                const mres = confirm('Usted tiene la opción de pagar su factura en: PEN ' + window.amount + ' o ' + data.currencyCodeAlpha + ' ' + data.amount + '. Una vez haya hecho su elección, la transacción continuará con la moneda seleccionada. Tasa de cambio PEN a ' + data.currencyCodeAlpha + ': ' + data.exchangeRate + ' \n \n' + data.currencyCodeAlpha + ' ' + data.amount + '\nPEN = ' + data.currencyCodeAlpha + ' ' + data.exchangeRate + '\nMARGEN FX: ' + data.markup);
+                if (mres === true) {
+                  // @ts-ignore
+                  window.dcc = true;
+                } else {
+                  // @ts-ignore
+                  window.dcc = false;
+                }
+              }
+            });
             element.on('change', (data) => {
               console.log('CHANGE: ', data);
               if (data.length !== 0) {
@@ -117,7 +154,6 @@ export class OrderService {
           });
 
           // @ts-ignore
-          // Cvv2
           window.cardCvv = payform.createElement(
             'card-cvc', {
               style: VisaStyles,
