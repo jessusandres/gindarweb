@@ -17,53 +17,35 @@
 
                   <div class="col-md-4">
                     <div class="md-form form-group">
-                      <input type="text"
-                             placeholder="Ejemplo: 12345678"
-                             class="form-control"
-                             [ngClass]="{'invalid': orderForm.controls.dof.errors && orderForm.controls.dof.touched }"
-                             id="dni"
-                             formControlName="dof"
-                             name="dof"
-                             required maxlength="8">
+                      <input type="text" placeholder="Ejemplo: 12345678" class="form-control"
+                        [ngClass]="{'invalid': orderForm.controls.dof.errors && orderForm.controls.dof.touched }"
+                        id="dni" formControlName="dof" name="dof" required maxlength="8">
                       <label for="dni">DNI</label>
                     </div>
                   </div>
 
                   <div class="col-md-4">
                     <div class="md-form form-group">
-                      <input type="email"
-                             placeholder="Ejemplo: gindar@gindar.com"
-                             class="form-control"
-                             [ngClass]="{'invalid': orderForm.controls.email.errors && orderForm.controls.email.touched }"
-                             id="email"
-                             formControlName="email"
-                             name="dof"
-                             required>
+                      <input type="email" placeholder="Ejemplo: gindar@gindar.com" class="form-control"
+                        [ngClass]="{'invalid': orderForm.controls.email.errors && orderForm.controls.email.touched }"
+                        id="email" formControlName="email" name="dof" required>
                       <label for="email">Correo: </label>
                     </div>
                   </div>
 
                   <div class="col-md-4">
                     <div class="md-form form-group">
-                      <input type="text"
-                             placeholder="Ejemplo: 987654321"
-                             class="form-control"
-                             [ngClass]="{'invalid': orderForm.controls.phone.errors && orderForm.controls.phone.touched }"
-                             id="phone"
-                             formControlName="phone"
-                             name="phone"
-                             required [maxlength]="9">
+                      <input type="text" placeholder="Ejemplo: 987654321" class="form-control"
+                        [ngClass]="{'invalid': orderForm.controls.phone.errors && orderForm.controls.phone.touched }"
+                        id="phone" formControlName="phone" name="phone" required [maxlength]="9">
                       <label for="phone">Teléfono: </label>
                     </div>
                   </div>
 
                   <div class="col-12 text-left">
                     <div class="form-check">
-                      <input class="form-check-input"
-                             type="checkbox"
-                             value=""
-                             (change)="toggleVoucher()"
-                             [checked]="voucher" id="voucher">
+                      <input class="form-check-input" type="checkbox" value="" (change)="toggleVoucher()"
+                        [checked]="voucher" id="voucher">
                       <label class="form-check-label" for="voucher">
                         Solicitar Comprobante
                       </label>
@@ -72,18 +54,12 @@
 
                 </div>
 
-                <div class="form-row animated "
-                     [ngClass]="{'fadeOut': !voucher,'fadeIn': voucher}"
-                     *ngIf="voucher">
+                <div class="form-row animated " [ngClass]="{'fadeOut': !voucher,'fadeIn': voucher}" *ngIf="voucher">
 
                   <div class="col-md-4">
                     <div class="md-form form-group">
-                      <select name="voucherType"
-                              class="form-control"
-                              (change)="changeVoucherType()"
-                              formControlName="voucherType"
-                              [value]="orderForm.controls.voucherType"
-                              id="voucherType">
+                      <select name="voucherType" class="form-control" (change)="changeVoucherType()"
+                        formControlName="voucherType" [value]="orderForm.controls.voucherType" id="voucherType">
                         <option value="B">Boleta</option>
                         <option value="F">Factura</option>
                       </select>
@@ -93,31 +69,20 @@
 
                   <div class="col-md-4">
                     <div class="md-form form-group">
-                      <input type="text"
-                             placeholder="Nombre en la {{docTypeLText}}"
-                             class="form-control"
-                             [ngClass]="{'invalid': (orderForm.controls.voucherName.errors ||
+                      <input type="text" placeholder="Nombre en la {{docTypeLText}}" class="form-control" [ngClass]="{'invalid': (orderForm.controls.voucherName.errors ||
                              orderForm.errors?.voucherNameUndefined === true)
-                             && orderForm.controls.voucherName.touched }"
-                             id="voucherName"
-                             formControlName="voucherName"
-                             name="voucherName">
+                             && orderForm.controls.voucherName.touched }" id="voucherName"
+                        formControlName="voucherName" name="voucherName">
                       <label for="voucherName">{{voucherNameLText}} </label>
                     </div>
                   </div>
 
                   <div class="col-md-4">
                     <div class="md-form form-group">
-                      <input type="text"
-                             placeholder="Ejemplo: 12345678"
-                             class="form-control"
-                             [ngClass]="{'invalid': (orderForm.controls.voucherDocument.errors ||
+                      <input type="text" placeholder="Ejemplo: 12345678" class="form-control" [ngClass]="{'invalid': (orderForm.controls.voucherDocument.errors ||
                              orderForm.errors?.voucherDocumentUndefined === true)
-                             && orderForm.controls.voucherDocument.touched }"
-                             id="voucherDocument"
-                             formControlName="voucherDocument"
-                             name="voucherDocument"
-                             [maxlength]="voucherDocLength">
+                             && orderForm.controls.voucherDocument.touched }" id="voucherDocument"
+                        formControlName="voucherDocument" name="voucherDocument" [maxlength]="voucherDocLength">
                       <label for="voucherDocument"> {{ voucherDocLText }} </label>
                     </div>
                   </div>
@@ -128,12 +93,8 @@
                 <div class="form-row">
                   <div class="col-12 text-left">
                     <div class="form-check">
-                      <input class="form-check-input"
-                             type="checkbox"
-                             value=""
-                             id="typepayment"
-                             [checked]="onlinePayment"
-                             (change)="togglePayment()">
+                      <input class="form-check-input" type="checkbox" value="" id="typepayment"
+                        [checked]="onlinePayment" (change)="togglePayment()">
                       <label class="form-check-label" for="typepayment">
                         Pago Electrónico
                       </label>
@@ -144,33 +105,20 @@
                 <div class="form-row animated fadeIn" *ngIf="onlinePayment && selectedRUC.ruc.slice(0,2) === '20'">
                   <div class="col-md-4">
                     <div class="md-form form-group">
-                      <input
-                        placeholder="41111 **** ***** ****"
-                        class="form-control"
-                        [ngClass]="{'invalid': (orderForm.controls.cardNumber.errors ||
+                      <input placeholder="41111 **** ***** ****" class="form-control" [ngClass]="{'invalid': (orderForm.controls.cardNumber.errors ||
                              orderForm.errors?.cardNumberUndefined === true)
-                             && orderForm.controls.cardNumber.touched }"
-                        type="number" size="20"
-                        data-culqi="card[number]"
-                        id="card[number]"
-                        name="cardNumber"
-                        formControlName="cardNumber">
+                             && orderForm.controls.cardNumber.touched }" type="number" size="20"
+                        data-culqi="card[number]" id="card[number]" name="cardNumber" formControlName="cardNumber">
                       <label for="card[number]">Número de Tarjeta</label>
                     </div>
                   </div>
 
                   <div class="col-md-1">
                     <div class="md-form form-group">
-                      <input class="form-control"
-                             [ngClass]="{'invalid': (orderForm.controls.cardCVV.errors ||
+                      <input class="form-control" [ngClass]="{'invalid': (orderForm.controls.cardCVV.errors ||
                              orderForm.errors?.cardCVVUndefined === true)
-                             && orderForm.controls.cardCVV.touched }"
-                             type="text"
-                             id="card[cvv]"
-                             placeholder="****"
-                             name="cardCVV"
-                             maxlength="4"
-                             formControlName="cardCVV">
+                             && orderForm.controls.cardCVV.touched }" type="text" id="card[cvv]" placeholder="****"
+                        name="cardCVV" maxlength="4" formControlName="cardCVV">
                       <label for="card[cvv]">CVV</label>
                     </div>
                   </div>
@@ -178,29 +126,18 @@
 
                   <div class="col-md-3">
                     <div class="md-form form-group">
-                      <input class="form-control"
-                             [ngClass]="{'invalid': (orderForm.controls.cardMonth.errors ||
+                      <input class="form-control" [ngClass]="{'invalid': (orderForm.controls.cardMonth.errors ||
                              orderForm.errors?.cardMonthUndefined === true)
-                             && orderForm.controls.cardMonth.touched }"
-                             type="text"
-                             name="cardMonth"
-                             placeholder="MM"
-                             maxlength="2"
-                             formControlName="cardMonth"
-                             id="card[exp_month]">
+                             && orderForm.controls.cardMonth.touched }" type="text" name="cardMonth" placeholder="MM"
+                        maxlength="2" formControlName="cardMonth" id="card[exp_month]">
                       <label for="card[exp_month]">Mes de expiración (MM)</label>
                     </div>
                   </div>
 
                   <div class="col-md-3">
                     <div class="md-form form-group">
-                      <input class="form-control"
-                             type="text"
-                             maxlength="4"
-                             name="cardYear"
-                             formControlName="cardYear"
-                             placeholder="YYYY"
-                             id="card[exp_year]">
+                      <input class="form-control" type="text" maxlength="4" name="cardYear" formControlName="cardYear"
+                        placeholder="YYYY" id="card[exp_year]">
                       <label for="card[exp_year]">Año de Expiración (YYYY)</label>
                     </div>
                   </div>
@@ -226,16 +163,20 @@
                 </div>
 
                 <div class="row mt-2">
-                  <app-error-container class="col-12 animated fadeIn"
-                                       *ngIf="tokenCardError " [errorMessage]="tokenCardErrorMessage">
+                  <app-error-container class="col-12 animated fadeIn" *ngIf="tokenCardError "
+                    [errorMessage]="tokenCardErrorMessage">
                   </app-error-container>
 
-                  <app-error-container class="col-12 animated fadeIn"
-                                       *ngIf="orderError " [errorMessage]="orderErrorMessage">
+                  <app-error-container class="col-12 animated fadeIn" *ngIf="orderError "
+                    [errorMessage]="orderErrorMessage">
                   </app-error-container>
 
-                  <app-error-container class="col-12 animated fadeIn"
-                                       *ngIf="formErrorMessage" [errorMessage]="formErrorMessage">
+                  <swal #errorSwal title="Error al generar pago" text=orderErrorMessage icon="error" [showCancelButton]="false"
+                    [focusCancel]="true">
+                  </swal>
+
+                  <app-error-container class="col-12 animated fadeIn" *ngIf="formErrorMessage"
+                    [errorMessage]="formErrorMessage">
                   </app-error-container>
                 </div>
 
@@ -243,9 +184,7 @@
 
                   <div class="col-6">
                     <div class="md-form mb-0 mt-4">
-                      <button
-                        (click)="hideForm()"
-                        type="button"
+                      <button (click)="hideForm()" type="button"
                         class="waves-effect waves-light btn btn-gindar btn-block mt-0">
                         Regresar
                       </button>
@@ -254,9 +193,7 @@
 
                   <div class="col-6">
                     <div class="md-form mb-0 mt-4">
-                      <button
-                        [disabled]="generateVisaSession"
-                        type="submit"
+                      <button [disabled]="generateVisaSession" type="submit"
                         class="waves-effect waves-light btn btn-gindar btn-block mt-0">
                         {{orderButtonText}}
                       </button>
