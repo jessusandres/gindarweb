@@ -162,16 +162,16 @@
                 </div>
 
                 <div class="row mt-2">
-                  <app-error-container class="col-12 animated fadeIn" *ngIf="tokenCardError"
+                  <app-error-container class="col-12 text-center animated fadeIn" *ngIf="tokenCardError"
                                        [errorMessage]="tokenCardErrorMessage">
                   </app-error-container>
 
-                  <app-error-container class="col-12 animated fadeIn"
-                                       *ngIf="orderError && selectedRUC.ruc.slice(0,2) === '10'"
+                  <app-error-container class="col-12 text-center animated fadeIn"
+                                       *ngIf="orderError && selectedRUC.ruc.slice(0,2) !== '10'"
                                        [errorMessage]="orderErrorMessage">
                   </app-error-container>
 
-                  <app-error-container class="col-12 animated fadeIn" *ngIf="formErrorMessage"
+                  <app-error-container class="col-12 text-center animated fadeIn" *ngIf="formErrorMessage"
                                        [errorMessage]="formErrorMessage">
                   </app-error-container>
                 </div>

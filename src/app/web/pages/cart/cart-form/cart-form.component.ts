@@ -313,7 +313,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
     if (this.selectedRUC.ruc === WebRuc.ROGER) {
       this.generateVisaSession = true;
-      this.orderButtonText = 'Generando session...';
+      this.orderButtonText = 'Inciando proceso de pago...';
       console.log('GENERATE TOKEN');
       const data = {
         name: this.user.name,
