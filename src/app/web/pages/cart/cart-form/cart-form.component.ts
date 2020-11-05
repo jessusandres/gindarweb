@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../store/app.reducer';
-import { ShowCartForm, ToggleOnlinePaymentAction, ToggleVoucherAction } from '../../../store/actions/cart.actions';
-import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { EMAIL_REGEX, NUMBER_REGEX } from '../../../../config/config';
-import { OrderParamsInterface } from '../../../interfaces/order.interface';
-import { GenerateOrderAction, GenerateVisaSessionAction, SwitchOrderAction } from '../../../store/actions/order.actions';
-import { Subscription } from 'rxjs';
-import { CartState } from '../../../store/reducers/cart.reducer';
-import { StoreSelected } from '../../../interfaces/ui.interfaces';
-import { WebRuc } from '../../../types/types';
-import { AuthState } from '../../../store/reducers/auth.reducer';
-import { UserModel } from '../../../models/user.model';
-import { VisaSessionInterface } from '../../../interfaces/visa-session.interface';
-import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../store/app.reducer';
+import {ShowCartForm, ToggleOnlinePaymentAction, ToggleVoucherAction} from '../../../store/actions/cart.actions';
+import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {EMAIL_REGEX, NUMBER_REGEX} from '../../../../config/config';
+import {OrderParamsInterface} from '../../../interfaces/order.interface';
+import {GenerateOrderAction, GenerateVisaSessionAction, SwitchOrderAction} from '../../../store/actions/order.actions';
+import {Subscription} from 'rxjs';
+import {CartState} from '../../../store/reducers/cart.reducer';
+import {StoreSelected} from '../../../interfaces/ui.interfaces';
+import {WebRuc} from '../../../types/types';
+import {AuthState} from '../../../store/reducers/auth.reducer';
+import {UserModel} from '../../../models/user.model';
+import {VisaSessionInterface} from '../../../interfaces/visa-session.interface';
+import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
 
 declare function $(s: string): any;
 
@@ -26,7 +26,7 @@ declare function mdbMinPlugin(): any;
 })
 export class CartFormComponent implements OnInit, OnDestroy {
 
-  @ViewChild('errorSwal') private errorSwal: SwalComponent;
+  @Input() private errorSwal: SwalComponent;
   orderForm: FormGroup;
 
   voucher: boolean;
@@ -65,28 +65,6 @@ export class CartFormComponent implements OnInit, OnDestroy {
       this.user = authState.user;
     });
 
-    this.orderSubscription = this.store.select('orderState').subscribe((orderState) => {
-      this.orderError = orderState.error;
-      this.orderErrorMessage = orderState.errorMessage;
-
-      if (orderState.loading === false && orderState.error === true) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 4500);
-      }
-
-      this.generateVisaSession = orderState.visaSessionLoading;
-      this.visaSessionParams = orderState.visaSessionParams;
-
-      if (orderState.order) {
-        this.orderForm.setValue({ ...orderState.order });
-        setTimeout(() => {
-          mdbMinPlugin();
-        });
-      }
-
-    });
-
     this.cartSubscription = this.store.select('cartState').subscribe((cartState: CartState) => {
       this.selectedRUC = cartState.storeSelected;
       this.totalToPay = cartState.total;
@@ -100,6 +78,29 @@ export class CartFormComponent implements OnInit, OnDestroy {
       });
     });
 
+    this.orderSubscription = this.store.select('orderState').subscribe((orderState) => {
+      this.orderError = orderState.error;
+      this.orderErrorMessage = orderState.errorMessage;
+
+      if (orderState.loading === false && orderState.error === true && this.selectedRUC.ruc.slice(0, 2) === '10') {
+        this.errorSwal?.fire()
+          .then(() => {
+            window.location.reload();
+          });
+      }
+
+      this.generateVisaSession = orderState.visaSessionLoading;
+      this.visaSessionParams = orderState.visaSessionParams;
+
+      if (orderState.order) {
+        this.orderForm.setValue({...orderState.order});
+        setTimeout(() => {
+          mdbMinPlugin();
+        });
+      }
+
+    });
+
     this.voucherDocLength = 8;
     this.voucherDocLText = 'DNI';
     this.voucherNameLText = 'Nombres';
@@ -110,7 +111,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
     if (this.selectedRUC.ruc === WebRuc.ROGER && this.orderError === false) {
       // @ts-ignore
       window.amount = this.totalToPay;
-      this.store.dispatch(new GenerateVisaSessionAction({ total: this.totalToPay }));
+      this.store.dispatch(new GenerateVisaSessionAction({total: this.totalToPay}));
     }
 
   }
@@ -246,12 +247,12 @@ export class CartFormComponent implements OnInit, OnDestroy {
   }
 
   hideForm(): void {
-    this.store.dispatch(new ShowCartForm({ show: false }));
+    this.store.dispatch(new ShowCartForm({show: false}));
   }
 
   toggleVoucher(): void {
     this.voucher = !this.voucher;
-    this.store.dispatch(new ToggleVoucherAction({ status: this.voucher }));
+    this.store.dispatch(new ToggleVoucherAction({status: this.voucher}));
     setTimeout(() => mdbMinPlugin());
   }
 
@@ -273,7 +274,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   togglePayment(): void {
     this.onlinePayment = !this.onlinePayment;
-    this.store.dispatch(new ToggleOnlinePaymentAction({ status: this.onlinePayment }));
+    this.store.dispatch(new ToggleOnlinePaymentAction({status: this.onlinePayment}));
     setTimeout(() => mdbMinPlugin());
   }
 
@@ -340,11 +341,11 @@ export class CartFormComponent implements OnInit, OnDestroy {
             purchaseNumber: this.visaSessionParams.purchasenumber
           };
 
-          this.store.dispatch(new GenerateOrderAction({ orderParams, type: 2 }));
+          this.store.dispatch(new GenerateOrderAction({orderParams, type: 2}));
 
         }).catch((error) => {
-          console.log(error);
-        });
+        console.log(error);
+      });
     } else {
       this.store.dispatch(new SwitchOrderAction({
         orderParams

@@ -22,6 +22,7 @@ export class CartComponent implements OnInit, OnDestroy {
   orderSubscription: Subscription;
   orderLoading: boolean;
   orderMessage: string;
+  orderErrorMessage: string;
 
   order: OrderInterface;
 
@@ -40,7 +41,8 @@ export class CartComponent implements OnInit, OnDestroy {
       this.orderLoading = orderState.loading;
       this.orderMessage = orderState.infoMessage;
       this.order = orderState.order;
-    })
+      this.orderErrorMessage = orderState.errorMessage;
+    });
   }
 
 

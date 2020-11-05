@@ -1,4 +1,14 @@
 <app-breadcrumbs></app-breadcrumbs>
+
+<swal
+  #errorSwal
+  title="Error al generar pago"
+  [text]=orderErrorMessage
+  icon="error"
+  [showCancelButton]="false"
+  [focusCancel]="true">
+</swal>
+
 <div class="container" *ngIf="loading">
 
   <div class="row">
@@ -23,8 +33,10 @@
   class="row animated">
 </app-cart-table>
 
-<app-cart-form *ngIf="!loading && !actionLoading && showOrderForm && !orderLoading"
-               class="row animated">
+<app-cart-form
+  *ngIf="!loading && !actionLoading && showOrderForm && !orderLoading"
+  [errorSwal]="errorSwal"
+  class="row animated">
 </app-cart-form>
 
 <div class="container"
