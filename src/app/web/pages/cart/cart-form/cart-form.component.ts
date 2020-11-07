@@ -1,19 +1,19 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../store/app.reducer';
-import {ShowCartForm, ToggleOnlinePaymentAction, ToggleVoucherAction} from '../../../store/actions/cart.actions';
-import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {EMAIL_REGEX, NUMBER_REGEX} from '../../../../config/config';
-import {OrderParamsInterface} from '../../../interfaces/order.interface';
-import {GenerateOrderAction, GenerateVisaSessionAction, SwitchOrderAction} from '../../../store/actions/order.actions';
-import {Subscription} from 'rxjs';
-import {CartState} from '../../../store/reducers/cart.reducer';
-import {StoreSelected} from '../../../interfaces/ui.interfaces';
-import {WebRuc} from '../../../types/types';
-import {AuthState} from '../../../store/reducers/auth.reducer';
-import {UserModel} from '../../../models/user.model';
-import {VisaSessionInterface} from '../../../interfaces/visa-session.interface';
-import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/app.reducer';
+import { ShowCartForm, ToggleOnlinePaymentAction, ToggleVoucherAction } from '../../../store/actions/cart.actions';
+import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { EMAIL_REGEX, NUMBER_REGEX } from '../../../../config/config';
+import { OrderParamsInterface } from '../../../interfaces/order.interface';
+import { GenerateOrderAction, GenerateOrderFailureAction, GenerateVisaSessionAction, SwitchOrderAction } from '../../../store/actions/order.actions';
+import { Subscription } from 'rxjs';
+import { CartState } from '../../../store/reducers/cart.reducer';
+import { StoreSelected } from '../../../interfaces/ui.interfaces';
+import { WebRuc } from '../../../types/types';
+import { AuthState } from '../../../store/reducers/auth.reducer';
+import { UserModel } from '../../../models/user.model';
+import { VisaSessionInterface } from '../../../interfaces/visa-session.interface';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 declare function $(s: string): any;
 
@@ -93,7 +93,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
       this.visaSessionParams = orderState.visaSessionParams;
 
       if (orderState.order) {
-        this.orderForm.setValue({...orderState.order});
+        this.orderForm.setValue({ ...orderState.order });
         setTimeout(() => {
           mdbMinPlugin();
         });
@@ -111,7 +111,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
     if (this.selectedRUC.ruc === WebRuc.ROGER && this.orderError === false) {
       // @ts-ignore
       window.amount = this.totalToPay;
-      this.store.dispatch(new GenerateVisaSessionAction({total: this.totalToPay}));
+      this.store.dispatch(new GenerateVisaSessionAction({ total: this.totalToPay }));
     }
 
   }
@@ -247,12 +247,12 @@ export class CartFormComponent implements OnInit, OnDestroy {
   }
 
   hideForm(): void {
-    this.store.dispatch(new ShowCartForm({show: false}));
+    this.store.dispatch(new ShowCartForm({ show: false }));
   }
 
   toggleVoucher(): void {
     this.voucher = !this.voucher;
-    this.store.dispatch(new ToggleVoucherAction({status: this.voucher}));
+    this.store.dispatch(new ToggleVoucherAction({ status: this.voucher }));
     setTimeout(() => mdbMinPlugin());
   }
 
@@ -274,7 +274,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   togglePayment(): void {
     this.onlinePayment = !this.onlinePayment;
-    this.store.dispatch(new ToggleOnlinePaymentAction({status: this.onlinePayment}));
+    this.store.dispatch(new ToggleOnlinePaymentAction({ status: this.onlinePayment }));
     setTimeout(() => mdbMinPlugin());
   }
 
@@ -332,20 +332,22 @@ export class CartFormComponent implements OnInit, OnDestroy {
         [window.cardNumber, window.cardExpiry, window.cardCvv], data)
         .then((visaObject) => {
           console.log(visaObject);
-
-          this.generateVisaSession = false;
-          orderParams.paymentToken = visaObject.transactionToken;
-          orderParams.visaObject = {
-            ...visaObject,
-            total: this.totalToPay,
-            purchaseNumber: this.visaSessionParams.purchasenumber
-          };
-
-          this.store.dispatch(new GenerateOrderAction({orderParams, type: 2}));
+          if (visaObject) {
+            this.generateVisaSession = false;
+            orderParams.paymentToken = visaObject.transactionToken;
+            orderParams.visaObject = {
+              ...visaObject,
+              total: this.totalToPay,
+              purchaseNumber: this.visaSessionParams.purchasenumber
+            };
+            this.store.dispatch(new GenerateOrderAction({ orderParams, type: 2 }));
+          } else {
+            this.store.dispatch(new GenerateOrderFailureAction({ message: 'No se generó el token.' }));
+          }
 
         }).catch((error) => {
-        console.log(error);
-      });
+          console.log(error);
+        });
     } else {
       this.store.dispatch(new SwitchOrderAction({
         orderParams
