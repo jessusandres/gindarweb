@@ -124,11 +124,11 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   private setOrderForm(): FormGroup {
     return new FormGroup({
-      phone: new FormControl(this.orderForm ? this.orderForm.get('phone').value : '934556536',
+      phone: new FormControl(this.orderForm ? this.orderForm.get('phone').value : '',
         [Validators.required, Validators.maxLength(9), Validators.minLength(9)]),
-      email: new FormControl(this.orderForm ? this.orderForm.get('email').value : 'accept@cybersource.com',
+      email: new FormControl(this.orderForm ? this.orderForm.get('email').value : '',
         [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-      dof: new FormControl(this.orderForm ? this.orderForm.get('dof').value : '75747625',
+      dof: new FormControl(this.orderForm ? this.orderForm.get('dof').value : '',
         [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
 
       voucherType: new FormControl(this.orderForm ? this.orderForm.get('voucherType').value : 'B', []),
@@ -138,9 +138,9 @@ export class CartFormComponent implements OnInit, OnDestroy {
       voucherDocument: new FormControl(this.orderForm ? this.orderForm.get('voucherDocument').value : '',
         [Validators.minLength(8), Validators.maxLength(11)]),
 
-      cardNumber: new FormControl(this.orderForm ? this.orderForm.get('cardNumber').value : '4919148107859067',
+      cardNumber: new FormControl(this.orderForm ? this.orderForm.get('cardNumber').value : '',
         [Validators.minLength(8)]),
-      cardCVV: new FormControl(this.orderForm ? this.orderForm.get('cardCVV').value : '123',
+      cardCVV: new FormControl(this.orderForm ? this.orderForm.get('cardCVV').value : '',
         [Validators.maxLength(4), Validators.minLength(3), Validators.pattern(NUMBER_REGEX)]),
       cardMonth: new FormControl(this.orderForm ? this.orderForm.get('cardMonth').value : '',
         [Validators.maxLength(2), Validators.pattern(NUMBER_REGEX)]),
@@ -198,7 +198,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
 
   private onlinePaymentValidator(): ValidatorFn {
     return (formGroup: FormGroup) => {
-      if (this.onlinePayment) {
+      if (this.onlinePayment && this.selectedRUC.ruc.slice(0, 2) === '20') {
         if (!formGroup.get('cardNumber').value || formGroup.get('cardNumber').value.length < 8) {
           return {
             cardNumberUndefined: true
@@ -303,6 +303,7 @@ export class CartFormComponent implements OnInit, OnDestroy {
   sendOrder(): void {
 
     if (this.orderForm.invalid) {
+      console.log(this.orderForm);
       this.formErrorMessage = 'Datos de pedido incorrectos';
       this.orderForm.markAllAsTouched();
       return;
