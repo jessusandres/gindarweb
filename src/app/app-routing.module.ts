@@ -13,7 +13,7 @@ const AppRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(AppRoutes, {scrollPositionRestoration: 'enabled'}),
+    RouterModule.forRoot(AppRoutes, { scrollPositionRestoration: 'enabled', relativeLinkResolution: 'legacy' }),
     WebRoutingModule,
     AdminRoutingModule
   ],
