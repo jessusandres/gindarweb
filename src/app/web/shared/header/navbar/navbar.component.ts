@@ -4,8 +4,8 @@ import {AppState} from '../../../store/app.reducer';
 import {Subscription} from 'rxjs';
 import {UiState} from '../../../store/reducers/ui.reducer';
 import {InvictaItem} from '../../../interfaces/ui.interfaces';
-import {GenderItemInterface, GenderMenuInterface} from "../../../interfaces/gender-menu.interface";
-import {GindarInfoInterface} from "../../../../admin/interfaces/gindar-info.interface";
+import {GenderItemInterface, GenderMenuInterface} from '../../../interfaces/gender-menu.interface';
+import {GindarInfoInterface} from '../../../../admin/interfaces/gindar-info.interface';
 
 declare function mdbMinPlugin(): any;
 

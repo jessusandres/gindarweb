@@ -48,10 +48,10 @@
                data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">HOMBRES</a>
             <div class="dropdown-menu mega-menu mega-hover mega-menu-coleccion v-1 z-depth-1 white py-5 px-3"
-                 aria-labelledby="navbarMegaMenuColeccion">
+                 aria-labelledby="navbarMegaMenuColeccion" [ngStyle]="{width: (genderMenu?.manMenu.length * 21.1) || '21.1%'}">
               <div class="row">
 
-                <div class="col-md-4 col-lg-4 col-xl-4 sub-menu mb-md-0 mb-xl-0 mb-4"
+                <div class="col-md-{{12 / genderMenu.manMenu.length }} col-lg-{{12 / genderMenu?.manMenu.length }} col-xl-{{12 / genderMenu?.manMenu.length }} sub-menu mb-md-0 mb-xl-0 mb-4"
                      *ngFor="let item of genderMenu?.manMenu">
                   <ul class="list-unstyled">
                     <li *ngFor="let tag of item">
@@ -72,10 +72,9 @@
                data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">MUJERES</a>
             <div class="dropdown-menu mega-menu mega-hover mega-menu-coleccion v-1 z-depth-1 white py-5 px-3"
-                 aria-labelledby="navbarMegaMenuColeccion">
+                aria-labelledby="navbarMegaMenuColeccion" [ngStyle]="{width: (genderMenu?.womanMenu.length * 21.1) || '21.1%'}">
               <div class="row">
-
-                <div class="col-md-4 col-lg-4 col-xl-4 sub-menu mb-md-0 mb-xl-0 mb-4"
+                <div class="col-md-{{12 / genderMenu.womanMenu.length }} col-lg-{{12 / genderMenu?.womanMenu.length }} col-xl-{{12 / genderMenu?.womanMenu.length }} sub-menu mb-md-0 mb-xl-0 mb-4"
                      *ngFor="let item of genderMenu?.womanMenu">
                   <ul class="list-unstyled">
                     <li *ngFor="let tag of item">
