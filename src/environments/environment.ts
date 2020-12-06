@@ -11,7 +11,8 @@ export const environment = {
   ],
   baseUrl: `http://localhost:3000`,
   // baseUrl: `https://tuquepides.com/apigindar`,
-  publicPath: 'https://gindarperu.com/assets/img'
+  publicPath: 'https://gindarperu.com/assets/img',
+  culqiKey: 'pk_test_55e885618c6261bb'
 };
 
 /*

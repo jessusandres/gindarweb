@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {OrderInterface, OrderParamsInterface} from '../interfaces/order.interface';
-import {BASE_URL, CULQI_KEY, VisaStyles} from '../../config/config';
+import {BASE_URL, VisaStyles} from '../../config/config';
 import {map} from 'rxjs/operators';
 import {WebDataService} from './web-data.service';
 import {Observable} from 'rxjs';
@@ -10,6 +10,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../store/app.reducer';
 import {AuthState} from '../store/reducers/auth.reducer';
 import {VisaSessionInterface} from '../interfaces/visa-session.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class OrderService {
       ...params.cardData
     };
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${CULQI_KEY}`
+      Authorization: `Bearer ${environment.culqiKey}`
     });
 
     return this.httpClient.post('https://secure.culqi.com/v2/tokens', body, {headers})
