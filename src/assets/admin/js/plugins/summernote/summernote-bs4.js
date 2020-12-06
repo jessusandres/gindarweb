@@ -3613,7 +3613,7 @@ var Table = /** @class */ (function () {
                     continue;
                 case TableResultAction.resultAction.RemoveCell:
                     // Do not need remove cell because row will be deleted.
-                    continue;
+
             }
         }
         row.remove();
@@ -3659,7 +3659,7 @@ var Table = /** @class */ (function () {
                     continue;
                 case TableResultAction.resultAction.RemoveCell:
                     dom.remove(actions[actionIndex].baseCell, true);
-                    continue;
+
             }
         }
     };
@@ -3764,7 +3764,7 @@ var Editor = /** @class */ (function () {
             })(idx);
             this.context.memo('help.formatH' + idx, this.lang.help['formatH' + idx]);
         }
-        
+
         this.insertParagraph = this.wrapCommand(function () {
             _this.typing.insertParagraph(_this.editable);
         });
